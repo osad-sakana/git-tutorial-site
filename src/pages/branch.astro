@@ -1,0 +1,198 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="ブランチ" description="Gitのブランチの作成・切り替え・マージを学ぼう">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <nav class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/basics" class="hover:text-white transition-colors">Git の基本</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-300">ブランチ</span>
+    </nav>
+
+    <h1 class="text-4xl font-extrabold text-white mb-4">ブランチ</h1>
+    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+      ブランチとは「作業の分岐点」です。本番コードを壊さずに新機能の開発やバグ修正を
+      別の流れで進め、完成したらメインに取り込めます。
+    </p>
+
+    <!-- ブランチの概念図 -->
+    <section class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-12">
+      <h2 class="text-xl font-bold text-white mb-6">ブランチのイメージ</h2>
+      <div class="overflow-x-auto">
+        <div class="min-w-[500px] font-mono text-sm">
+          <!-- main ライン -->
+          <div class="flex items-center gap-0 mb-2">
+            <span class="text-gray-500 w-24 text-xs">main</span>
+            <div class="flex items-center gap-0">
+              <div class="w-4 h-4 bg-orange-500 rounded-full border-2 border-orange-400"></div>
+              <div class="w-12 h-0.5 bg-orange-500"></div>
+              <div class="w-4 h-4 bg-orange-500 rounded-full border-2 border-orange-400"></div>
+              <div class="w-12 h-0.5 bg-orange-500"></div>
+              <div class="w-4 h-4 bg-orange-400 rounded-full border-2 border-orange-300 ring-2 ring-orange-400/30"></div>
+              <div class="w-12 h-0.5 bg-orange-500 border-dashed"></div>
+              <div class="w-12 h-0.5 bg-orange-500"></div>
+              <div class="w-4 h-4 bg-orange-500 rounded-full border-2 border-orange-400"></div>
+              <span class="ml-3 text-orange-400 text-xs">← マージで合流</span>
+            </div>
+          </div>
+          <!-- 分岐線 -->
+          <div class="flex items-center gap-0 mb-1 ml-24">
+            <div class="w-20 h-0 border-0"></div>
+            <div class="w-12 h-5 border-l-2 border-b-2 border-green-500 rounded-bl-lg -mb-5"></div>
+          </div>
+          <!-- feature ライン -->
+          <div class="flex items-center gap-0 mb-2">
+            <span class="text-gray-500 w-24 text-xs">feature</span>
+            <div class="w-16 h-0.5 bg-transparent"></div>
+            <div class="flex items-center gap-0">
+              <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-green-400"></div>
+              <div class="w-12 h-0.5 bg-green-500"></div>
+              <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-green-400"></div>
+              <div class="w-12 h-0.5 bg-green-500"></div>
+              <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-green-400"></div>
+            </div>
+          </div>
+          <div class="mt-4 flex gap-8 text-xs text-gray-500">
+            <span><span class="text-orange-400">●</span> main のコミット</span>
+            <span><span class="text-green-400">●</span> feature のコミット</span>
+            <span><span class="text-orange-300 ring-2 ring-orange-400/30 rounded-full px-1">●</span> ブランチ作成点</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ブランチの基本操作 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-8">ブランチの基本操作</h2>
+
+      <!-- 作成 -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-green-400 mb-4">ブランチを作成する</h3>
+        <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
+          <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+            <span class="ml-2">ターミナル</span>
+          </div>
+          <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># ブランチを作成して切り替え（これが一番よく使う）</span>
+<span class="text-green-400">$</span> <span class="text-white">git switch -c feature/login</span>
+<span class="text-gray-400">Switched to a new branch 'feature/login'</span>
+
+<span class="text-gray-500"># 現在のブランチを確認</span>
+<span class="text-green-400">$</span> <span class="text-white">git branch</span>
+<span class="text-gray-400">  main</span>
+<span class="text-green-400">* feature/login</span>   <span class="text-gray-500">← * が現在のブランチ</span></pre>
+        </div>
+      </div>
+
+      <!-- 切り替え -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4">ブランチを切り替える</h3>
+        <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
+          <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+            <span class="ml-2">ターミナル</span>
+          </div>
+          <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># main ブランチに切り替え</span>
+<span class="text-green-400">$</span> <span class="text-white">git switch main</span>
+<span class="text-gray-400">Switched to branch 'main'</span>
+
+<span class="text-gray-500"># feature/login に切り替え</span>
+<span class="text-green-400">$</span> <span class="text-white">git switch feature/login</span>
+<span class="text-gray-400">Switched to branch 'feature/login'</span></pre>
+        </div>
+      </div>
+
+      <!-- マージ -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">ブランチをマージする</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          feature ブランチの作業が完了したら、main にマージ（合流）します。
+        </p>
+        <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden">
+          <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+            <span class="ml-2">ターミナル</span>
+          </div>
+          <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># まず main に切り替える</span>
+<span class="text-green-400">$</span> <span class="text-white">git switch main</span>
+
+<span class="text-gray-500"># feature/login を main にマージ</span>
+<span class="text-green-400">$</span> <span class="text-white">git merge feature/login</span>
+<span class="text-gray-400">Updating a1b2c3d..e4f5g6h</span>
+<span class="text-gray-400">Fast-forward</span>
+<span class="text-gray-400"> login.html | 30 +++++++++</span>
+
+<span class="text-gray-500"># マージ後、不要になったブランチを削除</span>
+<span class="text-green-400">$</span> <span class="text-white">git branch -d feature/login</span>
+<span class="text-gray-400">Deleted branch feature/login</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- コンフリクト -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-4">コンフリクト（競合）が起きたら</h2>
+      <p class="text-gray-300 mb-6 leading-relaxed">
+        同じファイルの同じ箇所を別々のブランチで編集するとコンフリクトが発生します。
+        Git が自動で解決できないため、手動で解消する必要があります。
+      </p>
+      <div class="bg-gray-950 rounded-xl border border-red-500/30 overflow-hidden mb-6">
+        <div class="bg-red-950/30 px-4 py-2 border-b border-red-500/20 text-xs text-red-400 font-mono">
+          コンフリクトが発生したファイルの中身
+        </div>
+        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-400">こんにちは</span>
+<span class="text-red-400">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+<span class="text-blue-400">main ブランチの変更内容</span>
+<span class="text-yellow-400">=======</span>
+<span class="text-green-400">feature ブランチの変更内容</span>
+<span class="text-red-400">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</span>
+<span class="text-gray-400">さようなら</span></pre>
+      </div>
+      <div class="bg-green-950/30 border border-green-500/30 rounded-xl p-6">
+        <h3 class="text-green-300 font-semibold mb-3">解消手順</h3>
+        <ol class="space-y-2 text-sm text-gray-300">
+          <li class="flex gap-3"><span class="text-green-400 font-bold">1.</span> エディタでコンフリクトマーカー（&lt;&lt;&lt;&lt;、=====、&gt;&gt;&gt;&gt;）を手動で削除し、正しい内容に直す</li>
+          <li class="flex gap-3"><span class="text-green-400 font-bold">2.</span> <code class="text-orange-400 bg-gray-800 px-1 rounded text-xs">git add ファイル名</code> でステージング</li>
+          <li class="flex gap-3"><span class="text-green-400 font-bold">3.</span> <code class="text-orange-400 bg-gray-800 px-1 rounded text-xs">git commit</code> でコンフリクト解消をコミット</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ブランチ名のルール -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">ブランチ名の命名規則</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {[
+          { prefix: 'feature/', desc: '新機能の追加', example: 'feature/user-login' },
+          { prefix: 'fix/', desc: 'バグの修正', example: 'fix/typo-in-header' },
+          { prefix: 'hotfix/', desc: '緊急の本番バグ修正', example: 'hotfix/payment-error' },
+          { prefix: 'refactor/', desc: 'コードの整理・改善', example: 'refactor/auth-module' },
+        ].map(({ prefix, desc, example }) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+            <code class="text-orange-400 font-mono text-sm">{prefix}</code>
+            <p class="text-gray-400 text-xs mt-1 mb-2">{desc}</p>
+            <code class="text-gray-500 font-mono text-xs">{example}</code>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ナビゲーション -->
+    <div class="flex justify-between pt-8 border-t border-gray-800">
+      <a href="/basics" class="text-gray-400 hover:text-white transition-colors">← Git の基本</a>
+      <a href="/github" class="bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-2 rounded-xl transition-colors">
+        次：GitHub の基本 →
+      </a>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="プルリクエスト" description="GitHubのプルリクエストの作成・レビュー・マージの流れを学ぼう">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <nav class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/github" class="hover:text-white transition-colors">GitHub の基本</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-300">プルリクエスト</span>
+    </nav>
+
+    <h1 class="text-4xl font-extrabold text-white mb-4">プルリクエスト（PR）</h1>
+    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+      プルリクエスト（PR）は「この変更を取り込んでほしい」という提案の仕組みです。
+      コードレビューを通じて品質を高め、安全に main ブランチへマージします。
+    </p>
+
+    <!-- PR のフロー -->
+    <section class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-12">
+      <h2 class="text-xl font-bold text-white mb-8">プルリクエストの流れ</h2>
+      <div class="relative">
+        <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-700"></div>
+        <div class="space-y-8">
+          {[
+            { icon: '🌿', title: 'feature ブランチを作成', desc: 'main から新しいブランチを切って作業開始。ブランチ名は機能の内容がわかるように命名する。', color: 'bg-green-500' },
+            { icon: '💻', title: '変更を加えてコミット', desc: '機能を実装し、git add → git commit で変更を記録。こまめにコミットするのが良い習慣。', color: 'bg-blue-500' },
+            { icon: '📤', title: 'GitHub に push', desc: 'git push -u origin feature/xxx でブランチを GitHub に送る。', color: 'bg-purple-500' },
+            { icon: '🔀', title: 'プルリクエストを作成', desc: 'GitHub の画面で PR を作成。タイトル・説明・レビュアーを設定する。', color: 'bg-orange-500' },
+            { icon: '👀', title: 'コードレビュー', desc: 'レビュアーがコードを確認してコメントを付ける。修正依頼があれば対応してさらにコミット・push。', color: 'bg-yellow-500' },
+            { icon: '✅', title: 'マージ', desc: 'レビューが通ったら「Merge pull request」をクリック。feature ブランチが main に取り込まれる。', color: 'bg-green-500' },
+          ].map(({ icon, title, desc, color }, i) => (
+            <div class="flex gap-6 relative">
+              <div class={`w-8 h-8 ${color} rounded-full flex items-center justify-center text-sm shrink-0 relative z-10`}>
+                {icon}
+              </div>
+              <div class="pb-2">
+                <h3 class="font-semibold text-white mb-1">{title}</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PR の作成手順 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">PR を作成する（コマンド例）</h2>
+      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-6">
+        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+          <span class="ml-2">ターミナル</span>
+        </div>
+        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># 1. feature ブランチを作成して移動</span>
+<span class="text-green-400">$</span> <span class="text-white">git switch -c feature/add-login</span>
+
+<span class="text-gray-500"># 2. 変更を加えてコミット</span>
+<span class="text-green-400">$</span> <span class="text-white">git add .</span>
+<span class="text-green-400">$</span> <span class="text-white">git commit -m "feat: ログイン画面を追加"</span>
+
+<span class="text-gray-500"># 3. GitHub に push</span>
+<span class="text-green-400">$</span> <span class="text-white">git push -u origin feature/add-login</span>
+
+<span class="text-gray-500"># GitHub の画面で PR を作成するか、gh コマンドを使う場合：</span>
+<span class="text-green-400">$</span> <span class="text-white">gh pr create --title "ログイン機能を追加" --body "## 変更内容\n..."</span></pre>
+      </div>
+    </section>
+
+    <!-- 良いPRの書き方 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">良い PR の書き方</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-red-950/30 border border-red-500/30 rounded-xl p-6">
+          <h3 class="text-red-400 font-semibold mb-4">✗ 悪い PR</h3>
+          <div class="space-y-2 text-sm">
+            <div class="bg-gray-900 rounded-lg p-3">
+              <p class="text-gray-500 text-xs mb-1">タイトル</p>
+              <p class="text-gray-300">"修正"</p>
+            </div>
+            <div class="bg-gray-900 rounded-lg p-3">
+              <p class="text-gray-500 text-xs mb-1">説明</p>
+              <p class="text-gray-400 text-xs">（空欄）</p>
+            </div>
+            <p class="text-red-400 text-xs mt-2">何をなぜ変えたかがわからない</p>
+          </div>
+        </div>
+        <div class="bg-green-950/30 border border-green-500/30 rounded-xl p-6">
+          <h3 class="text-green-400 font-semibold mb-4">✓ 良い PR</h3>
+          <div class="space-y-2 text-sm">
+            <div class="bg-gray-900 rounded-lg p-3">
+              <p class="text-gray-500 text-xs mb-1">タイトル</p>
+              <p class="text-gray-300">feat: メールアドレスでのログイン機能を追加</p>
+            </div>
+            <div class="bg-gray-900 rounded-lg p-3">
+              <p class="text-gray-500 text-xs mb-1">説明</p>
+              <p class="text-gray-300 text-xs leading-relaxed">
+                ## 変更内容<br />
+                - ログインフォームを追加<br />
+                - バリデーション処理を実装<br />
+                ## テスト方法<br />
+                1. /login にアクセス<br />
+                2. メール・パスワードを入力
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- コードレビューのコメント -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">コードレビューでよく使うコメント</h2>
+      <div class="space-y-4">
+        {[
+          { prefix: 'LGTM', full: 'Looks Good To Me', color: 'text-green-400 bg-green-500/10 border-green-500/30', desc: '問題なし、マージして OK という意味' },
+          { prefix: 'nit:', full: 'nitpick', color: 'text-blue-400 bg-blue-500/10 border-blue-500/30', desc: '細かい指摘。直しても直さなくても良い軽微な改善提案' },
+          { prefix: 'MUST:', full: 'must fix', color: 'text-red-400 bg-red-500/10 border-red-500/30', desc: '必ず修正してほしい重要な問題' },
+          { prefix: 'Q:', full: 'question', color: 'text-yellow-400 bg-yellow-500/10 border-yellow-500/30', desc: '質問。修正を求めているわけではなく、理解のために聞いている' },
+        ].map(({ prefix, full, color, desc }) => (
+          <div class={`border rounded-xl p-4 flex gap-4 items-start ${color}`}>
+            <code class="font-mono font-bold text-sm whitespace-nowrap">{prefix}</code>
+            <div>
+              <p class="text-gray-300 text-sm font-medium">{full}</p>
+              <p class="text-gray-400 text-xs mt-0.5">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- PR レビュー後の対応 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">レビューコメントへの対応</h2>
+      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden">
+        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+          <span class="ml-2">ターミナル</span>
+        </div>
+        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># レビューで修正を求められた場合</span>
+<span class="text-gray-500"># 同じ feature ブランチで修正してコミット</span>
+<span class="text-green-400">$</span> <span class="text-white">git add .</span>
+<span class="text-green-400">$</span> <span class="text-white">git commit -m "fix: レビュー指摘のバリデーション修正"</span>
+
+<span class="text-gray-500"># push すると自動的に PR が更新される</span>
+<span class="text-green-400">$</span> <span class="text-white">git push</span>
+<span class="text-gray-400">To https://github.com/ユーザー名/リポジトリ名.git</span>
+<span class="text-gray-400">   a1b2c3d..e4f5g6h  feature/add-login -> feature/add-login</span></pre>
+      </div>
+    </section>
+
+    <!-- ナビゲーション -->
+    <div class="flex justify-between pt-8 border-t border-gray-800">
+      <a href="/github" class="text-gray-400 hover:text-white transition-colors">← GitHub の基本</a>
+      <a href="/workflow" class="bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-2 rounded-xl transition-colors">
+        次：実践ワークフロー →
+      </a>
+    </div>
+  </div>
+</Layout>

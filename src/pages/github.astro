@@ -1,0 +1,219 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="GitHub の基本" description="GitHubのリモートリポジトリ、push・pull・cloneの使い方を学ぼう">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <nav class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/branch" class="hover:text-white transition-colors">ブランチ</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-300">GitHub の基本</span>
+    </nav>
+
+    <h1 class="text-4xl font-extrabold text-white mb-4">GitHub の基本</h1>
+    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+      GitHub はコードをクラウドで共有するサービスです。
+      <code class="text-orange-400 text-sm bg-gray-800 px-2 py-0.5 rounded">push</code>・
+      <code class="text-orange-400 text-sm bg-gray-800 px-2 py-0.5 rounded">pull</code>・
+      <code class="text-orange-400 text-sm bg-gray-800 px-2 py-0.5 rounded">clone</code>
+      を使ってチームで安全にコードを共有します。
+    </p>
+
+    <!-- ローカル vs リモート -->
+    <section class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-12">
+      <h2 class="text-xl font-bold text-white mb-6">ローカルリポジトリ vs リモートリポジトリ</h2>
+      <div class="flex flex-col md:flex-row gap-6 items-center">
+        <div class="flex-1 bg-gray-800 rounded-xl p-6 border border-gray-700">
+          <div class="text-3xl mb-3">💻</div>
+          <h3 class="font-bold text-white mb-2">ローカルリポジトリ</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            自分の PC にある Git リポジトリ。<br />
+            <code class="text-orange-400 text-xs">git init</code> で作った場所。
+          </p>
+        </div>
+        <div class="flex flex-col items-center gap-2 text-sm text-gray-500">
+          <div class="flex items-center gap-1 text-green-400">
+            <span>push</span>
+            <span class="text-xl">↑</span>
+          </div>
+          <div class="text-xl">⟷</div>
+          <div class="flex items-center gap-1 text-blue-400">
+            <span class="text-xl">↓</span>
+            <span>pull</span>
+          </div>
+        </div>
+        <div class="flex-1 bg-gray-800 rounded-xl p-6 border border-purple-500/40">
+          <div class="text-3xl mb-3">🐙</div>
+          <h3 class="font-bold text-white mb-2">リモートリポジトリ（GitHub）</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            インターネット上の Git リポジトリ。<br />
+            チーム全員がアクセスできる共有の場所。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GitHub リポジトリ作成 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">GitHub にリポジトリを作成する</h2>
+      <div class="space-y-4">
+        {[
+          { step: 1, title: 'GitHub にログイン', desc: 'github.com にアクセスしてアカウントにログインします。' },
+          { step: 2, title: '「New repository」をクリック', desc: '右上の「+」ボタンから「New repository」を選択します。' },
+          { step: 3, title: 'リポジトリ名を入力', desc: 'わかりやすい名前を入力。Public（公開）か Private（非公開）かを選択します。' },
+          { step: 4, title: '「Create repository」をクリック', desc: 'リポジトリが作成されると、接続用のコマンドが表示されます。' },
+        ].map(({ step, title, desc }) => (
+          <div class="flex gap-4 bg-gray-900 border border-gray-800 rounded-xl p-5">
+            <span class="bg-purple-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">
+              {step}
+            </span>
+            <div>
+              <h3 class="font-semibold text-white mb-1">{title}</h3>
+              <p class="text-gray-400 text-sm">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- リモートリポジトリを接続 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">リモートリポジトリと接続する</h2>
+      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-6">
+        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+          <span class="ml-2">ターミナル</span>
+        </div>
+        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># リモートリポジトリを「origin」という名前で登録</span>
+<span class="text-green-400">$</span> <span class="text-white">git remote add origin https://github.com/ユーザー名/リポジトリ名.git</span>
+
+<span class="text-gray-500"># 接続確認</span>
+<span class="text-green-400">$</span> <span class="text-white">git remote -v</span>
+<span class="text-gray-400">origin  https://github.com/ユーザー名/リポジトリ名.git (fetch)</span>
+<span class="text-gray-400">origin  https://github.com/ユーザー名/リポジトリ名.git (push)</span></pre>
+      </div>
+    </section>
+
+    <!-- push -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-500/30">コマンド</span>
+        <h2 class="text-2xl font-bold text-white">git push — GitHub に送る</h2>
+      </div>
+      <p class="text-gray-300 mb-6 leading-relaxed">
+        ローカルのコミットを GitHub に送ります。チームメンバーがあなたの変更を見られるようになります。
+      </p>
+      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
+        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+          <span class="ml-2">ターミナル</span>
+        </div>
+        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># 初回：-u で追跡ブランチを設定（次回から git push だけで OK）</span>
+<span class="text-green-400">$</span> <span class="text-white">git push -u origin main</span>
+<span class="text-gray-400">Enumerating objects: 3, done.</span>
+<span class="text-gray-400">To https://github.com/ユーザー名/リポジトリ名.git</span>
+<span class="text-gray-400"> * [new branch]  main -> main</span>
+<span class="text-gray-400">branch 'main' set up to track 'origin/main'.</span>
+
+<span class="text-gray-500"># 2回目以降</span>
+<span class="text-green-400">$</span> <span class="text-white">git push</span>
+
+<span class="text-gray-500"># feature ブランチを push する場合</span>
+<span class="text-green-400">$</span> <span class="text-white">git push -u origin feature/login</span></pre>
+      </div>
+    </section>
+
+    <!-- pull -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-blue-500/30">コマンド</span>
+        <h2 class="text-2xl font-bold text-white">git pull — 最新の変更を取得する</h2>
+      </div>
+      <p class="text-gray-300 mb-6 leading-relaxed">
+        GitHub にある最新の変更をローカルに取り込みます。チームメンバーが push した内容を受け取るときに使います。
+      </p>
+      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
+        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+          <span class="ml-2">ターミナル</span>
+        </div>
+        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># GitHub から最新を取得してローカルにマージ</span>
+<span class="text-green-400">$</span> <span class="text-white">git pull</span>
+<span class="text-gray-400">remote: Enumerating objects: 5, done.</span>
+<span class="text-gray-400">Updating a1b2c3d..e4f5g6h</span>
+<span class="text-gray-400">Fast-forward</span>
+<span class="text-gray-400"> README.md | 2 ++</span>
+
+<span class="text-gray-500"># pull = fetch（取得）+ merge（マージ）を一度に行う</span></pre>
+      </div>
+    </section>
+
+    <!-- clone -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-orange-500/20 text-orange-400 text-xs font-bold px-3 py-1 rounded-full border border-orange-500/30">コマンド</span>
+        <h2 class="text-2xl font-bold text-white">git clone — リポジトリを複製する</h2>
+      </div>
+      <p class="text-gray-300 mb-6 leading-relaxed">
+        GitHub 上のリポジトリを自分の PC にダウンロードします。既存プロジェクトに参加するときや
+        オープンソースのコードを手元で試したいときに使います。
+      </p>
+      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
+        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+          <span class="ml-2">ターミナル</span>
+        </div>
+        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># リポジトリをクローン（フォルダが自動作成される）</span>
+<span class="text-green-400">$</span> <span class="text-white">git clone https://github.com/ユーザー名/リポジトリ名.git</span>
+<span class="text-gray-400">Cloning into 'リポジトリ名'...</span>
+<span class="text-gray-400">remote: Enumerating objects: 10, done.</span>
+
+<span class="text-gray-500"># クローン後は自動で origin が設定されている</span>
+<span class="text-green-400">$</span> <span class="text-white">cd リポジトリ名</span>
+<span class="text-green-400">$</span> <span class="text-white">git remote -v</span>
+<span class="text-gray-400">origin  https://github.com/ユーザー名/リポジトリ名.git (fetch)</span>
+<span class="text-gray-400">origin  https://github.com/ユーザー名/リポジトリ名.git (push)</span></pre>
+      </div>
+    </section>
+
+    <!-- よくあるエラー -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">よくあるエラーと対処法</h2>
+      <div class="space-y-4">
+        <div class="bg-red-950/30 border border-red-500/30 rounded-xl p-5">
+          <code class="text-red-400 text-sm font-mono block mb-2">! [rejected] main -> main (non-fast-forward)</code>
+          <p class="text-gray-300 text-sm">
+            <strong>原因：</strong>リモートに自分にないコミットがある。<br />
+            <strong>対処：</strong>先に <code class="text-orange-400 text-xs bg-gray-800 px-1 rounded">git pull</code> してからもう一度 <code class="text-orange-400 text-xs bg-gray-800 px-1 rounded">git push</code>
+          </p>
+        </div>
+        <div class="bg-red-950/30 border border-red-500/30 rounded-xl p-5">
+          <code class="text-red-400 text-sm font-mono block mb-2">Authentication failed</code>
+          <p class="text-gray-300 text-sm">
+            <strong>原因：</strong>GitHub の認証情報が間違っているか、Personal Access Token が必要。<br />
+            <strong>対処：</strong>GitHub Settings → Developer Settings → Personal access tokens でトークンを生成してパスワード代わりに使う
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ナビゲーション -->
+    <div class="flex justify-between pt-8 border-t border-gray-800">
+      <a href="/branch" class="text-gray-400 hover:text-white transition-colors">← ブランチ</a>
+      <a href="/pullrequest" class="bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-2 rounded-xl transition-colors">
+        次：プルリクエスト →
+      </a>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,222 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="実践ワークフロー" description="実際の開発現場で使われるGitのワークフローを学ぼう">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <nav class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/pullrequest" class="hover:text-white transition-colors">プルリクエスト</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-300">実践ワークフロー</span>
+    </nav>
+
+    <h1 class="text-4xl font-extrabold text-white mb-4">実践ワークフロー</h1>
+    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+      学んだすべてを組み合わせた、実際の開発現場で使われる一連の流れを確認しましょう。
+      「GitHub Flow」は初心者にも理解しやすいシンプルで効果的なワークフローです。
+    </p>
+
+    <!-- GitHub Flow -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-8">GitHub Flow</h2>
+      <div class="space-y-4">
+        {[
+          {
+            step: 1, icon: '🌿', color: 'bg-green-500', borderColor: 'border-green-500/30',
+            title: 'main から feature ブランチを作成',
+            cmds: ['git switch main', 'git pull', 'git switch -c feature/新機能名'],
+            note: '作業前に必ず git pull して最新状態にすること！',
+          },
+          {
+            step: 2, icon: '💻', color: 'bg-blue-500', borderColor: 'border-blue-500/30',
+            title: 'コードを書いてコミット',
+            cmds: ['# ...コードを編集...', 'git add .', 'git commit -m "feat: 〇〇を実装"'],
+            note: '1つの機能単位でコミットを分けると履歴が読みやすい',
+          },
+          {
+            step: 3, icon: '📤', color: 'bg-purple-500', borderColor: 'border-purple-500/30',
+            title: 'GitHub に push',
+            cmds: ['git push -u origin feature/新機能名'],
+            note: '-u は初回のみ。2回目以降は git push だけで OK',
+          },
+          {
+            step: 4, icon: '🔀', color: 'bg-orange-500', borderColor: 'border-orange-500/30',
+            title: 'プルリクエストを作成',
+            cmds: ['# GitHub の画面で PR を作成', '# または:', 'gh pr create --title "タイトル"'],
+            note: '何をなぜ変えたかを丁寧に説明する',
+          },
+          {
+            step: 5, icon: '👀', color: 'bg-yellow-500', borderColor: 'border-yellow-500/30',
+            title: 'コードレビュー・修正',
+            cmds: ['# レビューコメントへの対応', 'git add .', 'git commit -m "fix: レビュー対応"', 'git push'],
+            note: 'push すると PR が自動更新される',
+          },
+          {
+            step: 6, icon: '✅', color: 'bg-green-500', borderColor: 'border-green-500/30',
+            title: 'main にマージ・ブランチ削除',
+            cmds: ['# GitHub の「Merge pull request」をクリック', '# ローカルの後片付け', 'git switch main', 'git pull', 'git branch -d feature/新機能名'],
+            note: 'main を最新にして次の作業準備完了！',
+          },
+        ].map(({ step, icon, color, borderColor, title, cmds, note }) => (
+          <div class={`bg-gray-900 border ${borderColor} rounded-xl overflow-hidden`}>
+            <div class="flex items-center gap-4 p-5 border-b border-gray-800">
+              <div class={`w-8 h-8 ${color} rounded-full flex items-center justify-center text-sm text-white font-bold shrink-0`}>
+                {step}
+              </div>
+              <div class="text-xl">{icon}</div>
+              <h3 class="font-semibold text-white">{title}</h3>
+            </div>
+            <div class="bg-gray-950 p-4">
+              <pre class="text-sm font-mono leading-relaxed overflow-x-auto">{cmds.map((c) => (
+                <div>
+                  {c.startsWith('#')
+                    ? <span class="text-gray-500">{c}</span>
+                    : <span><span class="text-green-400">$</span> <span class="text-white">{c}</span></span>
+                  }
+                </div>
+              ))}</pre>
+            </div>
+            <div class="px-5 py-3 bg-gray-900/50 border-t border-gray-800">
+              <p class="text-gray-500 text-xs">💡 {note}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- チートシート -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">Git コマンド チートシート</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        {[
+          {
+            title: '基本操作',
+            icon: '📦',
+            items: [
+              ['git init', 'リポジトリを初期化'],
+              ['git status', '状態を確認'],
+              ['git add .', '全変更をステージング'],
+              ['git commit -m "msg"', 'コミット'],
+              ['git log --oneline', '履歴を簡潔に表示'],
+              ['git diff', '差分を確認'],
+            ],
+          },
+          {
+            title: 'ブランチ操作',
+            icon: '🌿',
+            items: [
+              ['git branch', 'ブランチ一覧'],
+              ['git switch -c ブランチ名', 'ブランチを作成して移動'],
+              ['git switch ブランチ名', 'ブランチを切り替え'],
+              ['git merge ブランチ名', 'マージ'],
+              ['git branch -d ブランチ名', 'ブランチを削除'],
+              ['git rebase main', 'リベース（上級）'],
+            ],
+          },
+          {
+            title: 'リモート操作',
+            icon: '🐙',
+            items: [
+              ['git clone URL', 'クローン'],
+              ['git remote add origin URL', 'リモートを追加'],
+              ['git push -u origin main', '初回 push'],
+              ['git push', 'push'],
+              ['git pull', 'pull（fetch + merge）'],
+              ['git fetch', 'リモートの変更を取得（マージしない）'],
+            ],
+          },
+          {
+            title: '取り消し操作',
+            icon: '↩️',
+            items: [
+              ['git restore ファイル名', '変更を取り消し（危険）'],
+              ['git restore --staged ファイル名', 'ステージングを取り消し'],
+              ['git reset HEAD~1', '直前のコミットを取り消し'],
+              ['git revert コミットID', 'コミットを打ち消すコミット作成'],
+              ['git stash', '変更を一時保存'],
+              ['git stash pop', '一時保存を復元'],
+            ],
+          },
+        ].map(({ title, icon, items }) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+            <div class="bg-gray-800 px-4 py-3 border-b border-gray-700 flex items-center gap-2">
+              <span>{icon}</span>
+              <h3 class="font-semibold text-white text-sm">{title}</h3>
+            </div>
+            <div class="p-4 space-y-2">
+              {items.map(([cmd, desc]) => (
+                <div class="flex gap-3 text-xs">
+                  <code class="text-orange-400 font-mono whitespace-nowrap">{cmd}</code>
+                  <span class="text-gray-500">{desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- .gitignore -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-4">.gitignore — 管理しないファイルを除外する</h2>
+      <p class="text-gray-300 mb-6 leading-relaxed">
+        <code class="text-orange-400 bg-gray-800 px-2 py-0.5 rounded text-sm">.gitignore</code> ファイルにパターンを書くと、
+        そのファイルは Git に追跡されません。パスワードや設定ファイル、自動生成されるファイルは必ず除外しましょう。
+      </p>
+      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden">
+        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono">.gitignore</div>
+        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># 環境変数ファイル（絶対に commit しない！）</span>
+<span class="text-red-400">.env</span>
+<span class="text-red-400">.env.local</span>
+
+<span class="text-gray-500"># node.js の依存関係</span>
+<span class="text-yellow-400">node_modules/</span>
+
+<span class="text-gray-500"># ビルド成果物</span>
+<span class="text-yellow-400">dist/</span>
+<span class="text-yellow-400">build/</span>
+
+<span class="text-gray-500"># OS が自動生成するファイル</span>
+<span class="text-gray-400">.DS_Store</span>
+<span class="text-gray-400">Thumbs.db</span>
+
+<span class="text-gray-500"># IDE の設定ファイル</span>
+<span class="text-gray-400">.vscode/</span>
+<span class="text-gray-400">.idea/</span></pre>
+      </div>
+    </section>
+
+    <!-- 学習まとめ -->
+    <section class="bg-gradient-to-br from-orange-500/10 to-pink-500/10 border border-orange-500/20 rounded-2xl p-8 mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">学習のまとめ</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {[
+          { href: '/basics', icon: '📦', title: 'Git の基本', desc: 'init / add / commit' },
+          { href: '/branch', icon: '🌿', title: 'ブランチ', desc: 'switch / merge / conflict' },
+          { href: '/github', icon: '🐙', title: 'GitHub', desc: 'push / pull / clone' },
+          { href: '/pullrequest', icon: '🔀', title: 'プルリクエスト', desc: 'PR / review / merge' },
+        ].map(({ href, icon, title, desc }) => (
+          <a href={href} class="flex items-center gap-4 bg-gray-900/60 rounded-xl p-4 hover:bg-gray-900 transition-colors border border-gray-800">
+            <span class="text-2xl">{icon}</span>
+            <div>
+              <p class="font-semibold text-white text-sm">{title}</p>
+              <p class="text-gray-400 text-xs">{desc}</p>
+            </div>
+            <span class="ml-auto text-gray-600">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- ナビゲーション -->
+    <div class="flex justify-between pt-8 border-t border-gray-800">
+      <a href="/pullrequest" class="text-gray-400 hover:text-white transition-colors">← プルリクエスト</a>
+      <a href="/" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-2 rounded-xl border border-gray-700 transition-colors">
+        ホームへ戻る
+      </a>
+    </div>
+  </div>
+</Layout>

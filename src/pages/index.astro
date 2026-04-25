@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+const topics = [
+  {
+    href: '/basics',
+    icon: '📦',
+    title: 'Git の基本',
+    description: 'init・add・commit の使い方。ファイルの変更履歴を記録する第一歩を学ぼう。',
+    color: 'from-orange-500/20 to-orange-600/10',
+    border: 'border-orange-500/30',
+  },
+  {
+    href: '/branch',
+    icon: '🌿',
+    title: 'ブランチ',
+    description: '並行開発を可能にするブランチの作成・切り替え・マージを学ぼう。',
+    color: 'from-green-500/20 to-green-600/10',
+    border: 'border-green-500/30',
+  },
+  {
+    href: '/github',
+    icon: '🐙',
+    title: 'GitHub の基本',
+    description: 'リモートリポジトリへの push・pull・clone を使ってチームで共有しよう。',
+    color: 'from-purple-500/20 to-purple-600/10',
+    border: 'border-purple-500/30',
+  },
+  {
+    href: '/pullrequest',
+    icon: '🔀',
+    title: 'プルリクエスト',
+    description: 'コードレビューの仕組み。変更をチームに提案してマージしてもらおう。',
+    color: 'from-blue-500/20 to-blue-600/10',
+    border: 'border-blue-500/30',
+  },
+  {
+    href: '/workflow',
+    icon: '🔄',
+    title: '実践ワークフロー',
+    description: '実際の開発現場で使われる Git Flow を通して全体の流れをつかもう。',
+    color: 'from-pink-500/20 to-pink-600/10',
+    border: 'border-pink-500/30',
+  },
+]
+
+const commands = [
+  { cmd: 'git init', desc: 'リポジトリを作成' },
+  { cmd: 'git add .', desc: '変更をステージング' },
+  { cmd: 'git commit -m "msg"', desc: '変更を記録' },
+  { cmd: 'git push origin main', desc: 'GitHubに送る' },
+  { cmd: 'git pull', desc: '最新を取得' },
+  { cmd: 'git branch', desc: 'ブランチ一覧' },
+]
+---
+
+<Layout title="ホーム">
+  <!-- ヒーロー -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 py-24 px-4">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(249,115,22,0.15),_transparent_60%)]"></div>
+    <div class="max-w-4xl mx-auto text-center relative">
+      <div class="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/30 rounded-full px-4 py-2 text-orange-400 text-sm font-medium mb-8">
+        <span>🚀</span>
+        <span>初心者向け Git & GitHub 完全ガイド</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+        Git と GitHub を<br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500">
+          ゼロから学ぼう
+        </span>
+      </h1>
+      <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+        バージョン管理の基礎から、チームでの実践的なワークフローまで。<br />
+        豊富なコマンド例と図解でわかりやすく解説します。
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/basics"
+           class="bg-orange-500 hover:bg-orange-400 text-white font-semibold px-8 py-3 rounded-xl transition-colors">
+          学習を始める →
+        </a>
+        <a href="/workflow"
+           class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-8 py-3 rounded-xl border border-gray-700 transition-colors">
+          ワークフローを見る
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- よく使うコマンド一覧 -->
+  <section class="max-w-6xl mx-auto px-4 py-16">
+    <h2 class="text-center text-sm font-semibold text-gray-500 uppercase tracking-widest mb-8">
+      よく使う Git コマンド
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      {commands.map(({ cmd, desc }) => (
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 text-center hover:border-gray-700 transition-colors">
+          <code class="block text-orange-400 text-xs font-mono mb-2 break-all">{cmd}</code>
+          <p class="text-gray-500 text-xs">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- トピック一覧 -->
+  <section class="max-w-6xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-bold text-white mb-3">学習コンテンツ</h2>
+    <p class="text-gray-400 mb-10">順番に読み進めることで、Git と GitHub の全体像が身に付きます。</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {topics.map(({ href, icon, title, description, color, border }) => (
+        <a href={href}
+           class={`group block bg-gradient-to-br ${color} border ${border} rounded-2xl p-6 hover:scale-[1.02] transition-transform`}>
+          <div class="text-3xl mb-4">{icon}</div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-orange-300 transition-colors">
+            {title}
+          </h3>
+          <p class="text-gray-400 text-sm leading-relaxed">{description}</p>
+          <div class="mt-4 text-orange-400 text-sm font-medium">
+            読む →
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Gitとは？ -->
+  <section class="bg-gray-900/50 border-y border-gray-800 py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-white mb-6">そもそも Git とは？</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <p class="text-gray-300 leading-relaxed mb-4">
+            <strong class="text-white">Git（ギット）</strong>はファイルの変更履歴を管理するツールです。
+            「どのファイルを・いつ・どのように変えたか」を記録し、過去のバージョンに戻したり、
+            複数人で同じコードを安全に編集できます。
+          </p>
+          <p class="text-gray-300 leading-relaxed">
+            <strong class="text-white">GitHub</strong>はその履歴をインターネット上で共有できるサービスです。
+            チームメンバーと同じプロジェクトで作業したり、オープンソースのコードを公開・貢献できます。
+          </p>
+        </div>
+        <div class="bg-gray-950 rounded-xl p-6 border border-gray-800">
+          <h3 class="text-sm font-semibold text-gray-400 mb-4">Git なしの開発 vs Git あり</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-start gap-3">
+              <span class="text-red-400 mt-0.5">✗</span>
+              <span class="text-gray-400">report_final.docx, report_final2.docx, report_最終版.docx...</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-red-400 mt-0.5">✗</span>
+              <span class="text-gray-400">「誰かが上書きした！」「どのバージョンが最新？」</span>
+            </div>
+            <div class="border-t border-gray-800 pt-3"></div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-400 mt-0.5">✓</span>
+              <span class="text-gray-300">すべての変更に日時・作者・理由が記録される</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-400 mt-0.5">✓</span>
+              <span class="text-gray-300">いつでも以前の状態に戻せる</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-400 mt-0.5">✓</span>
+              <span class="text-gray-300">複数人が同時に別々の機能を開発できる</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
