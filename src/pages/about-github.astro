@@ -1,0 +1,236 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+const badge = {
+  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
+  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-500/10 text-orange-400 border-orange-500/30',
+  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30',
+}
+
+const features = [
+  {
+    icon: '🗂️',
+    title: 'リポジトリのホスティング',
+    desc: 'ローカルの Git リポジトリをインターネット上で公開・共有できる。Public（誰でも閲覧可）と Private（招待者のみ）を選べる。',
+    type: 'term',
+  },
+  {
+    icon: '📋',
+    title: 'Issues（イシュー）',
+    desc: 'バグ報告・機能要望・タスク管理をチームで行う仕組み。コメント・ラベル・担当者を設定できる。',
+    type: 'term',
+  },
+  {
+    icon: '🔀',
+    title: 'Pull Request（プルリクエスト）',
+    desc: 'コードの変更をレビューしてもらってからマージする仕組み。チームのコード品質を保つ中心的な機能。',
+    type: 'term',
+  },
+  {
+    icon: '⚙️',
+    title: 'GitHub Actions',
+    desc: 'テスト・ビルド・デプロイなどを自動化できる CI/CD パイプライン。コードを push するたびに自動実行できる。',
+    type: 'term',
+  },
+  {
+    icon: '🌐',
+    title: 'GitHub Pages',
+    desc: 'リポジトリから静的サイトを無料でホスティングできるサービス。ポートフォリオや学習用サイトに最適。',
+    type: 'term',
+  },
+  {
+    icon: '🔍',
+    title: 'コードの検索・閲覧',
+    desc: '世界中のオープンソースコードを検索・閲覧できる。参考にしたいコードや有名ライブラリのソースをすぐ確認できる。',
+    type: 'concept',
+  },
+]
+---
+
+<Layout title="GitHub とは" description="GitHubとは何か、Gitとの違い、できることを初心者向けに解説">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-300">GitHub とは</span>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+      <h1 class="text-4xl font-extrabold text-white">GitHub とは？</h1>
+      <span class={badge.concept}>概念</span>
+    </div>
+    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+      GitHub（ギットハブ）は、Git リポジトリをインターネット上で管理・共有できるプラットフォームです。
+      コードの保存場所としてだけでなく、チームでの開発・レビュー・自動化まで、
+      現代のソフトウェア開発に欠かせないツールです。
+    </p>
+
+    <!-- Git と GitHub の違い -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-6">
+        <h2 class="text-2xl font-bold text-white">Git と GitHub の違い</h2>
+        <span class={badge.concept}>概念</span>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-gray-900 border border-orange-500/30 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center text-xl">🛠️</div>
+            <div>
+              <h3 class="font-bold text-white text-lg">Git</h3>
+              <span class={badge.term}>用語</span>
+            </div>
+          </div>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li class="flex gap-2"><span class="text-orange-400 shrink-0">•</span>自分の PC 上で動くソフトウェア</li>
+            <li class="flex gap-2"><span class="text-orange-400 shrink-0">•</span>ファイルの変更履歴をローカルで管理</li>
+            <li class="flex gap-2"><span class="text-orange-400 shrink-0">•</span>インターネット不要で使える</li>
+            <li class="flex gap-2"><span class="text-orange-400 shrink-0">•</span>コマンドラインツール</li>
+          </ul>
+          <div class="mt-4 bg-gray-800 rounded-lg px-3 py-2 text-xs text-gray-500 font-mono">
+            $ git init, git commit, git branch...
+          </div>
+        </div>
+        <div class="bg-gray-900 border border-purple-500/30 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center text-xl">🐙</div>
+            <div>
+              <h3 class="font-bold text-white text-lg">GitHub</h3>
+              <span class={badge.term}>用語</span>
+            </div>
+          </div>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li class="flex gap-2"><span class="text-purple-400 shrink-0">•</span>クラウド上のサービス（Web サイト）</li>
+            <li class="flex gap-2"><span class="text-purple-400 shrink-0">•</span>Git リポジトリをオンラインで共有</li>
+            <li class="flex gap-2"><span class="text-purple-400 shrink-0">•</span>チームでのコラボレーション機能</li>
+            <li class="flex gap-2"><span class="text-purple-400 shrink-0">•</span>ブラウザから操作できる</li>
+          </ul>
+          <div class="mt-4 bg-gray-800 rounded-lg px-3 py-2 text-xs text-gray-500">
+            Issues, Pull Request, Actions...
+          </div>
+        </div>
+      </div>
+      <!-- 関係図 -->
+      <div class="mt-6 bg-gray-900 border border-gray-800 rounded-xl p-5 text-center text-sm">
+        <p class="text-gray-500 mb-3 text-xs">関係イメージ</p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <div class="bg-gray-800 rounded-lg px-4 py-2 text-white font-mono text-sm">PC（Git）</div>
+          <div class="flex flex-col items-center text-xs text-gray-500 gap-0.5">
+            <span class="text-green-400">git push →</span>
+            <span class="text-blue-400">← git pull</span>
+          </div>
+          <div class="bg-gray-800 rounded-lg px-4 py-2 text-white font-mono text-sm">GitHub（クラウド）</div>
+          <div class="text-gray-600">⟷</div>
+          <div class="bg-gray-800 rounded-lg px-4 py-2 text-white font-mono text-sm">チームメンバーの PC</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GitHub でできること -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-6">
+        <h2 class="text-2xl font-bold text-white">GitHub でできること</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {features.map(({ icon, title, desc, type }) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl shrink-0">{icon}</span>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  <h3 class="font-semibold text-white text-sm">{title}</h3>
+                  <span class={type === 'term' ? badge.term : badge.concept}>
+                    {type === 'term' ? '用語' : '概念'}
+                  </span>
+                </div>
+                <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- アカウント作成 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-6">
+        <h2 class="text-2xl font-bold text-white">アカウントを作成する</h2>
+      </div>
+      <div class="space-y-3">
+        {[
+          { step: 1, title: 'github.com にアクセス', desc: 'ブラウザで github.com を開く。' },
+          { step: 2, title: '「Sign up」をクリック', desc: 'トップページ右上の「Sign up」ボタンをクリックする。' },
+          { step: 3, title: 'メールアドレス・パスワードを入力', desc: '登録に使うメールアドレスと、8文字以上のパスワードを設定する。' },
+          { step: 4, title: 'ユーザー名を決める', desc: 'GitHub 上で表示される名前。URLの一部にもなる（例: github.com/ユーザー名）。英数字と - が使える。' },
+          { step: 5, title: 'メール認証', desc: '登録したメールアドレスに認証コードが届くので入力して確認する。' },
+          { step: 6, title: '完了', desc: 'ダッシュボードが表示されれば登録完了。まず「New repository」で最初のリポジトリを作ってみよう。' },
+        ].map(({ step, title, desc }) => (
+          <div class="flex gap-4 bg-gray-900 border border-gray-800 rounded-xl p-4 items-start">
+            <span class="bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+              {step}
+            </span>
+            <div>
+              <p class="text-white text-sm font-semibold mb-0.5">{title}</p>
+              <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- GitHub の画面の見方 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-2 mb-6">
+        <h2 class="text-2xl font-bold text-white">GitHub の主要な画面・用語</h2>
+        <span class={badge.term}>用語</span>
+      </div>
+      <div class="space-y-3">
+        {[
+          { term: 'リポジトリ（Repository）', desc: 'プロジェクトの保存場所。コード・履歴・Issues・PRなどすべてが1つのリポジトリに集まる。' },
+          { term: 'Star（スター）', desc: '気に入ったリポジトリに付けるブックマーク。スター数が多いほど人気のプロジェクト。' },
+          { term: 'Fork（フォーク）', desc: '他人のリポジトリを自分のアカウントにコピーすること。オープンソースへの貢献はForkから始まる。' },
+          { term: 'README.md', desc: 'リポジトリのトップに表示される説明ファイル。プロジェクトの概要・セットアップ方法などを書く。' },
+          { term: 'Commit history', desc: 'コミットの一覧ページ。誰がいつどんな変更をしたか一目でわかる。' },
+          { term: 'Insights', desc: 'リポジトリへの貢献者・コミット数・トラフィックなどの統計を見られるページ。' },
+        ].map(({ term, desc }) => (
+          <div class="flex gap-3 bg-gray-900 border border-gray-800 rounded-xl p-4 items-start">
+            <span class={badge.term + ' shrink-0 mt-0.5'}>用語</span>
+            <div>
+              <p class="text-white text-sm font-semibold mb-0.5">{term}</p>
+              <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- GitHub と似たサービス -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">GitHub と似たサービス</h2>
+      <div class="grid sm:grid-cols-3 gap-4">
+        {[
+          { name: 'GitLab', desc: '自社サーバーへのセルフホストが可能。CI/CD 機能が充実。企業での採用が多い。', color: 'border-orange-500/20' },
+          { name: 'Bitbucket', desc: 'Atlassian 製。Jira・Confluence との連携が強力。小規模チームは無料で使える。', color: 'border-blue-500/20' },
+          { name: 'Gitea', desc: '軽量なセルフホスト型。自分のサーバーで GitHub ライクな環境を構築できる。', color: 'border-green-500/20' },
+        ].map(({ name, desc, color }) => (
+          <div class={`bg-gray-900 border ${color} rounded-xl p-4`}>
+            <h3 class="font-bold text-white text-sm mb-2">{name}</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-gray-500 text-sm mt-4">
+        ※ このサイトでは最も普及している GitHub を使って解説しています。
+      </p>
+    </section>
+
+    <!-- ナビゲーション -->
+    <div class="flex flex-wrap justify-between gap-3 pt-8 border-t border-gray-800">
+      <a href="/branch" class="text-gray-400 hover:text-white transition-colors">← ブランチ</a>
+      <a href="/github" class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
+        次：GitHub 基本操作 →
+      </a>
+    </div>
+  </div>
+</Layout>
