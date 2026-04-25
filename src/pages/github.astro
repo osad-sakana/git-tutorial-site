@@ -2,65 +2,65 @@
 import Layout from '../layouts/Layout.astro'
 
 const badge = {
-  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
-  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-500/10 text-orange-400 border-orange-500/30',
-  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30',
+  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-50 text-cyan-700 border-cyan-300',
+  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-50 text-orange-700 border-orange-300',
+  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-50 text-purple-700 border-purple-300',
 }
 ---
 
 <Layout title="GitHub の基本" description="GitHubのリモートリポジトリ、push・pull・cloneの使い方を学ぼう">
   <div class="max-w-4xl mx-auto px-4 py-12">
 
-    <nav class="text-sm text-gray-500 mb-8">
-      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+    <nav class="text-sm text-gray-400 mb-8">
+      <a href="/" class="hover:text-gray-900 transition-colors">ホーム</a>
       <span class="mx-2">/</span>
-      <a href="/about-github" class="hover:text-white transition-colors">GitHub とは</a>
+      <a href="/about-github" class="hover:text-gray-900 transition-colors">GitHub とは</a>
       <span class="mx-2">/</span>
-      <span class="text-gray-300">GitHub 基本操作</span>
+      <span class="text-gray-700">GitHub 基本操作</span>
     </nav>
 
-    <h1 class="text-4xl font-extrabold text-white mb-4">GitHub の基本</h1>
-    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+    <h1 class="text-4xl font-extrabold text-gray-900 mb-4">GitHub の基本</h1>
+    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
       GitHub はコードをクラウドで共有するサービスです。
-      <code class="text-orange-400 text-sm bg-gray-800 px-2 py-0.5 rounded">push</code>・
-      <code class="text-orange-400 text-sm bg-gray-800 px-2 py-0.5 rounded">pull</code>・
-      <code class="text-orange-400 text-sm bg-gray-800 px-2 py-0.5 rounded">clone</code>
+      <code class="text-orange-600 text-sm bg-orange-50 px-2 py-0.5 rounded border border-orange-200">push</code>・
+      <code class="text-orange-600 text-sm bg-orange-50 px-2 py-0.5 rounded border border-orange-200">pull</code>・
+      <code class="text-orange-600 text-sm bg-orange-50 px-2 py-0.5 rounded border border-orange-200">clone</code>
       を使ってチームで安全にコードを共有します。
     </p>
 
     <!-- ローカル vs リモート -->
-    <section class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-12">
-      <h2 class="text-xl font-bold text-white mb-6">ローカルリポジトリ vs リモートリポジトリ</h2>
+    <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-12 shadow-sm">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">ローカルリポジトリ vs リモートリポジトリ</h2>
       <div class="flex flex-col md:flex-row gap-6 items-center">
-        <div class="flex-1 bg-gray-800 rounded-xl p-6 border border-gray-700">
+        <div class="flex-1 bg-slate-50 rounded-xl p-6 border border-gray-200">
           <div class="text-3xl mb-3">💻</div>
           <div class="flex items-center gap-2 mb-2">
-            <h3 class="font-bold text-white">ローカルリポジトリ</h3>
+            <h3 class="font-bold text-gray-900">ローカルリポジトリ</h3>
             <span class={badge.term}>用語</span>
           </div>
-          <p class="text-gray-400 text-sm leading-relaxed">
+          <p class="text-gray-600 text-sm leading-relaxed">
             自分の PC にある Git リポジトリ。<br />
-            <code class="text-orange-400 text-xs">git init</code> で作った場所。
+            <code class="text-orange-600 text-xs bg-orange-50 px-1 rounded border border-orange-200">git init</code> で作った場所。
           </p>
         </div>
         <div class="flex flex-col items-center gap-2 text-sm text-gray-500">
-          <div class="flex items-center gap-1 text-green-400">
+          <div class="flex items-center gap-1 text-green-600">
             <span>push</span>
             <span class="text-xl">↑</span>
           </div>
           <div class="text-xl">⟷</div>
-          <div class="flex items-center gap-1 text-blue-400">
+          <div class="flex items-center gap-1 text-blue-600">
             <span class="text-xl">↓</span>
             <span>pull</span>
           </div>
         </div>
-        <div class="flex-1 bg-gray-800 rounded-xl p-6 border border-purple-500/40">
+        <div class="flex-1 bg-slate-50 rounded-xl p-6 border border-purple-200">
           <div class="text-3xl mb-3">🐙</div>
           <div class="flex items-center gap-2 mb-2">
-            <h3 class="font-bold text-white">リモートリポジトリ（GitHub）</h3>
+            <h3 class="font-bold text-gray-900">リモートリポジトリ（GitHub）</h3>
             <span class={badge.term}>用語</span>
           </div>
-          <p class="text-gray-400 text-sm leading-relaxed">
+          <p class="text-gray-600 text-sm leading-relaxed">
             インターネット上の Git リポジトリ。<br />
             チーム全員がアクセスできる共有の場所。
           </p>
@@ -70,7 +70,7 @@ const badge = {
 
     <!-- GitHub リポジトリ作成 -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-white mb-6">GitHub にリポジトリを作成する</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">GitHub にリポジトリを作成する</h2>
       <div class="space-y-4">
         {[
           { step: 1, title: 'GitHub にログイン', desc: 'github.com にアクセスしてアカウントにログインします。' },
@@ -78,13 +78,13 @@ const badge = {
           { step: 3, title: 'リポジトリ名を入力', desc: 'わかりやすい名前を入力。Public（公開）か Private（非公開）かを選択します。' },
           { step: 4, title: '「Create repository」をクリック', desc: 'リポジトリが作成されると、接続用のコマンドが表示されます。' },
         ].map(({ step, title, desc }) => (
-          <div class="flex gap-4 bg-gray-900 border border-gray-800 rounded-xl p-5">
+          <div class="flex gap-4 bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
             <span class="bg-purple-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0">
               {step}
             </span>
             <div>
-              <h3 class="font-semibold text-white mb-1">{title}</h3>
-              <p class="text-gray-400 text-sm">{desc}</p>
+              <h3 class="font-semibold text-gray-900 mb-1">{title}</h3>
+              <p class="text-gray-600 text-sm">{desc}</p>
             </div>
           </div>
         ))}
@@ -93,9 +93,9 @@ const badge = {
 
     <!-- リモートリポジトリを接続 -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-white mb-6">リモートリポジトリと接続する</h2>
-      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-6">
-        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">リモートリポジトリと接続する</h2>
+      <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden mb-6">
+        <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
           <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
           <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
@@ -115,13 +115,13 @@ const badge = {
     <section class="mb-12">
       <div class="flex items-center gap-3 mb-6">
         <span class={badge.cmd}>コマンド</span>
-        <h2 class="text-2xl font-bold text-white">git push — GitHub に送る</h2>
+        <h2 class="text-2xl font-bold text-gray-900">git push — GitHub に送る</h2>
       </div>
-      <p class="text-gray-300 mb-6 leading-relaxed">
+      <p class="text-gray-700 mb-6 leading-relaxed">
         ローカルのコミットを GitHub に送ります。チームメンバーがあなたの変更を見られるようになります。
       </p>
-      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
-        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+      <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden mb-4">
+        <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
           <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
           <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
@@ -146,13 +146,13 @@ const badge = {
     <section class="mb-12">
       <div class="flex items-center gap-3 mb-6">
         <span class={badge.cmd}>コマンド</span>
-        <h2 class="text-2xl font-bold text-white">git pull — 最新の変更を取得する</h2>
+        <h2 class="text-2xl font-bold text-gray-900">git pull — 最新の変更を取得する</h2>
       </div>
-      <p class="text-gray-300 mb-6 leading-relaxed">
+      <p class="text-gray-700 mb-6 leading-relaxed">
         GitHub にある最新の変更をローカルに取り込みます。チームメンバーが push した内容を受け取るときに使います。
       </p>
-      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
-        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+      <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden mb-4">
+        <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
           <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
           <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
@@ -173,14 +173,14 @@ const badge = {
     <section class="mb-12">
       <div class="flex items-center gap-3 mb-6">
         <span class={badge.cmd}>コマンド</span>
-        <h2 class="text-2xl font-bold text-white">git clone — リポジトリを複製する</h2>
+        <h2 class="text-2xl font-bold text-gray-900">git clone — リポジトリを複製する</h2>
       </div>
-      <p class="text-gray-300 mb-6 leading-relaxed">
+      <p class="text-gray-700 mb-6 leading-relaxed">
         GitHub 上のリポジトリを自分の PC にダウンロードします。既存プロジェクトに参加するときや
         オープンソースのコードを手元で試したいときに使います。
       </p>
-      <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
-        <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+      <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden mb-4">
+        <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
           <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
           <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
@@ -201,18 +201,18 @@ const badge = {
 
     <!-- よくあるエラー -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-white mb-6">よくあるエラーと対処法</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">よくあるエラーと対処法</h2>
       <div class="space-y-4">
-        <div class="bg-red-950/30 border border-red-500/30 rounded-xl p-5">
-          <code class="text-red-400 text-sm font-mono block mb-2">! [rejected] main -> main (non-fast-forward)</code>
-          <p class="text-gray-300 text-sm">
+        <div class="bg-red-50 border border-red-200 rounded-xl p-5">
+          <code class="text-red-600 text-sm font-mono block mb-2">! [rejected] main -> main (non-fast-forward)</code>
+          <p class="text-gray-700 text-sm">
             <strong>原因：</strong>リモートに自分にないコミットがある。<br />
-            <strong>対処：</strong>先に <code class="text-orange-400 text-xs bg-gray-800 px-1 rounded">git pull</code> してからもう一度 <code class="text-orange-400 text-xs bg-gray-800 px-1 rounded">git push</code>
+            <strong>対処：</strong>先に <code class="text-orange-600 text-xs bg-orange-50 px-1 rounded border border-orange-200">git pull</code> してからもう一度 <code class="text-orange-600 text-xs bg-orange-50 px-1 rounded border border-orange-200">git push</code>
           </p>
         </div>
-        <div class="bg-red-950/30 border border-red-500/30 rounded-xl p-5">
-          <code class="text-red-400 text-sm font-mono block mb-2">Authentication failed</code>
-          <p class="text-gray-300 text-sm">
+        <div class="bg-red-50 border border-red-200 rounded-xl p-5">
+          <code class="text-red-600 text-sm font-mono block mb-2">Authentication failed</code>
+          <p class="text-gray-700 text-sm">
             <strong>原因：</strong>GitHub の認証情報が間違っているか、Personal Access Token が必要。<br />
             <strong>対処：</strong>GitHub Settings → Developer Settings → Personal access tokens でトークンを生成してパスワード代わりに使う
           </p>
@@ -221,8 +221,8 @@ const badge = {
     </section>
 
     <!-- ナビゲーション -->
-    <div class="flex justify-between pt-8 border-t border-gray-800">
-      <a href="/about-github" class="text-gray-400 hover:text-white transition-colors">← GitHub とは</a>
+    <div class="flex justify-between pt-8 border-t border-gray-200">
+      <a href="/about-github" class="text-gray-500 hover:text-gray-900 transition-colors">← GitHub とは</a>
       <a href="/pullrequest" class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
         次：プルリクエスト →
       </a>

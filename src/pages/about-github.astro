@@ -2,9 +2,9 @@
 import Layout from '../layouts/Layout.astro'
 
 const badge = {
-  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
-  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-500/10 text-orange-400 border-orange-500/30',
-  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30',
+  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-50 text-cyan-700 border-cyan-300',
+  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-50 text-orange-700 border-orange-300',
+  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-50 text-purple-700 border-purple-300',
 }
 
 const features = [
@@ -51,17 +51,17 @@ const features = [
   <div class="max-w-4xl mx-auto px-4 py-12">
 
     <!-- パンくず -->
-    <nav class="text-sm text-gray-500 mb-8">
-      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+    <nav class="text-sm text-gray-400 mb-8">
+      <a href="/" class="hover:text-gray-900 transition-colors">ホーム</a>
       <span class="mx-2">/</span>
-      <span class="text-gray-300">GitHub とは</span>
+      <span class="text-gray-700">GitHub とは</span>
     </nav>
 
     <div class="flex flex-wrap items-center gap-3 mb-4">
-      <h1 class="text-4xl font-extrabold text-white">GitHub とは？</h1>
+      <h1 class="text-4xl font-extrabold text-gray-900">GitHub とは？</h1>
       <span class={badge.concept}>概念</span>
     </div>
-    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
       GitHub（ギットハブ）は、Git リポジトリをインターネット上で管理・共有できるプラットフォームです。
       コードの保存場所としてだけでなく、チームでの開発・レビュー・自動化まで、
       現代のソフトウェア開発に欠かせないツールです。
@@ -70,59 +70,59 @@ const features = [
     <!-- Git と GitHub の違い -->
     <section class="mb-12">
       <div class="flex items-center gap-2 mb-6">
-        <h2 class="text-2xl font-bold text-white">Git と GitHub の違い</h2>
+        <h2 class="text-2xl font-bold text-gray-900">Git と GitHub の違い</h2>
         <span class={badge.concept}>概念</span>
       </div>
       <div class="grid sm:grid-cols-2 gap-6">
-        <div class="bg-gray-900 border border-orange-500/30 rounded-2xl p-6">
+        <div class="bg-white border border-orange-200 rounded-2xl p-6 shadow-sm">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center text-xl">🛠️</div>
+            <div class="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center text-xl">🛠️</div>
             <div>
-              <h3 class="font-bold text-white text-lg">Git</h3>
+              <h3 class="font-bold text-gray-900 text-lg">Git</h3>
               <span class={badge.term}>用語</span>
             </div>
           </div>
-          <ul class="space-y-2 text-sm text-gray-300">
-            <li class="flex gap-2"><span class="text-orange-400 shrink-0">•</span>自分の PC 上で動くソフトウェア</li>
-            <li class="flex gap-2"><span class="text-orange-400 shrink-0">•</span>ファイルの変更履歴をローカルで管理</li>
-            <li class="flex gap-2"><span class="text-orange-400 shrink-0">•</span>インターネット不要で使える</li>
-            <li class="flex gap-2"><span class="text-orange-400 shrink-0">•</span>コマンドラインツール</li>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex gap-2"><span class="text-orange-500 shrink-0">•</span>自分の PC 上で動くソフトウェア</li>
+            <li class="flex gap-2"><span class="text-orange-500 shrink-0">•</span>ファイルの変更履歴をローカルで管理</li>
+            <li class="flex gap-2"><span class="text-orange-500 shrink-0">•</span>インターネット不要で使える</li>
+            <li class="flex gap-2"><span class="text-orange-500 shrink-0">•</span>コマンドラインツール</li>
           </ul>
-          <div class="mt-4 bg-gray-800 rounded-lg px-3 py-2 text-xs text-gray-500 font-mono">
+          <div class="mt-4 bg-gray-100 rounded-lg px-3 py-2 text-xs text-gray-500 font-mono">
             $ git init, git commit, git branch...
           </div>
         </div>
-        <div class="bg-gray-900 border border-purple-500/30 rounded-2xl p-6">
+        <div class="bg-white border border-purple-200 rounded-2xl p-6 shadow-sm">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center text-xl">🐙</div>
+            <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-xl">🐙</div>
             <div>
-              <h3 class="font-bold text-white text-lg">GitHub</h3>
+              <h3 class="font-bold text-gray-900 text-lg">GitHub</h3>
               <span class={badge.term}>用語</span>
             </div>
           </div>
-          <ul class="space-y-2 text-sm text-gray-300">
-            <li class="flex gap-2"><span class="text-purple-400 shrink-0">•</span>クラウド上のサービス（Web サイト）</li>
-            <li class="flex gap-2"><span class="text-purple-400 shrink-0">•</span>Git リポジトリをオンラインで共有</li>
-            <li class="flex gap-2"><span class="text-purple-400 shrink-0">•</span>チームでのコラボレーション機能</li>
-            <li class="flex gap-2"><span class="text-purple-400 shrink-0">•</span>ブラウザから操作できる</li>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex gap-2"><span class="text-purple-600 shrink-0">•</span>クラウド上のサービス（Web サイト）</li>
+            <li class="flex gap-2"><span class="text-purple-600 shrink-0">•</span>Git リポジトリをオンラインで共有</li>
+            <li class="flex gap-2"><span class="text-purple-600 shrink-0">•</span>チームでのコラボレーション機能</li>
+            <li class="flex gap-2"><span class="text-purple-600 shrink-0">•</span>ブラウザから操作できる</li>
           </ul>
-          <div class="mt-4 bg-gray-800 rounded-lg px-3 py-2 text-xs text-gray-500">
+          <div class="mt-4 bg-gray-100 rounded-lg px-3 py-2 text-xs text-gray-500">
             Issues, Pull Request, Actions...
           </div>
         </div>
       </div>
       <!-- 関係図 -->
-      <div class="mt-6 bg-gray-900 border border-gray-800 rounded-xl p-5 text-center text-sm">
+      <div class="mt-6 bg-gray-50 border border-gray-200 rounded-xl p-5 text-center text-sm">
         <p class="text-gray-500 mb-3 text-xs">関係イメージ</p>
         <div class="flex flex-wrap items-center justify-center gap-3">
-          <div class="bg-gray-800 rounded-lg px-4 py-2 text-white font-mono text-sm">PC（Git）</div>
+          <div class="bg-white border border-gray-200 rounded-lg px-4 py-2 text-gray-900 font-mono text-sm shadow-sm">PC（Git）</div>
           <div class="flex flex-col items-center text-xs text-gray-500 gap-0.5">
-            <span class="text-green-400">git push →</span>
-            <span class="text-blue-400">← git pull</span>
+            <span class="text-green-600">git push →</span>
+            <span class="text-blue-600">← git pull</span>
           </div>
-          <div class="bg-gray-800 rounded-lg px-4 py-2 text-white font-mono text-sm">GitHub（クラウド）</div>
-          <div class="text-gray-600">⟷</div>
-          <div class="bg-gray-800 rounded-lg px-4 py-2 text-white font-mono text-sm">チームメンバーの PC</div>
+          <div class="bg-white border border-gray-200 rounded-lg px-4 py-2 text-gray-900 font-mono text-sm shadow-sm">GitHub（クラウド）</div>
+          <div class="text-gray-400">⟷</div>
+          <div class="bg-white border border-gray-200 rounded-lg px-4 py-2 text-gray-900 font-mono text-sm shadow-sm">チームメンバーの PC</div>
         </div>
       </div>
     </section>
@@ -130,21 +130,21 @@ const features = [
     <!-- GitHub でできること -->
     <section class="mb-12">
       <div class="flex items-center gap-2 mb-6">
-        <h2 class="text-2xl font-bold text-white">GitHub でできること</h2>
+        <h2 class="text-2xl font-bold text-gray-900">GitHub でできること</h2>
       </div>
       <div class="grid sm:grid-cols-2 gap-4">
         {features.map(({ icon, title, desc, type }) => (
-          <div class="bg-gray-900 border border-gray-800 rounded-xl p-5">
+          <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
             <div class="flex items-start gap-3">
               <span class="text-2xl shrink-0">{icon}</span>
               <div class="flex-1 min-w-0">
                 <div class="flex flex-wrap items-center gap-2 mb-2">
-                  <h3 class="font-semibold text-white text-sm">{title}</h3>
+                  <h3 class="font-semibold text-gray-900 text-sm">{title}</h3>
                   <span class={type === 'term' ? badge.term : badge.concept}>
                     {type === 'term' ? '用語' : '概念'}
                   </span>
                 </div>
-                <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+                <p class="text-gray-600 text-xs leading-relaxed">{desc}</p>
               </div>
             </div>
           </div>
@@ -155,7 +155,7 @@ const features = [
     <!-- アカウント作成 -->
     <section class="mb-12">
       <div class="flex items-center gap-2 mb-6">
-        <h2 class="text-2xl font-bold text-white">アカウントを作成する</h2>
+        <h2 class="text-2xl font-bold text-gray-900">アカウントを作成する</h2>
       </div>
       <div class="space-y-3">
         {[
@@ -166,13 +166,13 @@ const features = [
           { step: 5, title: 'メール認証', desc: '登録したメールアドレスに認証コードが届くので入力して確認する。' },
           { step: 6, title: '完了', desc: 'ダッシュボードが表示されれば登録完了。まず「New repository」で最初のリポジトリを作ってみよう。' },
         ].map(({ step, title, desc }) => (
-          <div class="flex gap-4 bg-gray-900 border border-gray-800 rounded-xl p-4 items-start">
-            <span class="bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+          <div class="flex gap-4 bg-white border border-gray-200 rounded-xl p-4 items-start shadow-sm">
+            <span class="bg-purple-50 text-purple-700 border border-purple-200 text-xs font-bold w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5">
               {step}
             </span>
             <div>
-              <p class="text-white text-sm font-semibold mb-0.5">{title}</p>
-              <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+              <p class="text-gray-900 text-sm font-semibold mb-0.5">{title}</p>
+              <p class="text-gray-600 text-xs leading-relaxed">{desc}</p>
             </div>
           </div>
         ))}
@@ -182,7 +182,7 @@ const features = [
     <!-- GitHub の画面の見方 -->
     <section class="mb-12">
       <div class="flex items-center gap-2 mb-6">
-        <h2 class="text-2xl font-bold text-white">GitHub の主要な画面・用語</h2>
+        <h2 class="text-2xl font-bold text-gray-900">GitHub の主要な画面・用語</h2>
         <span class={badge.term}>用語</span>
       </div>
       <div class="space-y-3">
@@ -194,11 +194,11 @@ const features = [
           { term: 'Commit history', desc: 'コミットの一覧ページ。誰がいつどんな変更をしたか一目でわかる。' },
           { term: 'Insights', desc: 'リポジトリへの貢献者・コミット数・トラフィックなどの統計を見られるページ。' },
         ].map(({ term, desc }) => (
-          <div class="flex gap-3 bg-gray-900 border border-gray-800 rounded-xl p-4 items-start">
+          <div class="flex gap-3 bg-white border border-gray-200 rounded-xl p-4 items-start shadow-sm">
             <span class={badge.term + ' shrink-0 mt-0.5'}>用語</span>
             <div>
-              <p class="text-white text-sm font-semibold mb-0.5">{term}</p>
-              <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+              <p class="text-gray-900 text-sm font-semibold mb-0.5">{term}</p>
+              <p class="text-gray-600 text-xs leading-relaxed">{desc}</p>
             </div>
           </div>
         ))}
@@ -207,16 +207,16 @@ const features = [
 
     <!-- GitHub と似たサービス -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-white mb-6">GitHub と似たサービス</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">GitHub と似たサービス</h2>
       <div class="grid sm:grid-cols-3 gap-4">
         {[
-          { name: 'GitLab', desc: '自社サーバーへのセルフホストが可能。CI/CD 機能が充実。企業での採用が多い。', color: 'border-orange-500/20' },
-          { name: 'Bitbucket', desc: 'Atlassian 製。Jira・Confluence との連携が強力。小規模チームは無料で使える。', color: 'border-blue-500/20' },
-          { name: 'Gitea', desc: '軽量なセルフホスト型。自分のサーバーで GitHub ライクな環境を構築できる。', color: 'border-green-500/20' },
+          { name: 'GitLab', desc: '自社サーバーへのセルフホストが可能。CI/CD 機能が充実。企業での採用が多い。', color: 'border-orange-200' },
+          { name: 'Bitbucket', desc: 'Atlassian 製。Jira・Confluence との連携が強力。小規模チームは無料で使える。', color: 'border-blue-200' },
+          { name: 'Gitea', desc: '軽量なセルフホスト型。自分のサーバーで GitHub ライクな環境を構築できる。', color: 'border-green-200' },
         ].map(({ name, desc, color }) => (
-          <div class={`bg-gray-900 border ${color} rounded-xl p-4`}>
-            <h3 class="font-bold text-white text-sm mb-2">{name}</h3>
-            <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+          <div class={`bg-white border ${color} rounded-xl p-4 shadow-sm`}>
+            <h3 class="font-bold text-gray-900 text-sm mb-2">{name}</h3>
+            <p class="text-gray-600 text-xs leading-relaxed">{desc}</p>
           </div>
         ))}
       </div>
@@ -226,8 +226,8 @@ const features = [
     </section>
 
     <!-- ナビゲーション -->
-    <div class="flex flex-wrap justify-between gap-3 pt-8 border-t border-gray-800">
-      <a href="/branch" class="text-gray-400 hover:text-white transition-colors">← ブランチ</a>
+    <div class="flex flex-wrap justify-between gap-3 pt-8 border-t border-gray-200">
+      <a href="/branch" class="text-gray-500 hover:text-gray-900 transition-colors">← ブランチ</a>
       <a href="/github" class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
         次：GitHub 基本操作 →
       </a>

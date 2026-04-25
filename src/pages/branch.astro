@@ -2,39 +2,39 @@
 import Layout from '../layouts/Layout.astro'
 
 const badge = {
-  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
-  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-500/10 text-orange-400 border-orange-500/30',
-  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30',
+  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-50 text-cyan-700 border-cyan-300',
+  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-50 text-orange-700 border-orange-300',
+  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-50 text-purple-700 border-purple-300',
 }
 ---
 
 <Layout title="ブランチ" description="Gitのブランチの作成・切り替え・マージを学ぼう">
   <div class="max-w-4xl mx-auto px-4 py-12">
 
-    <nav class="text-sm text-gray-500 mb-8">
-      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+    <nav class="text-sm text-gray-400 mb-8">
+      <a href="/" class="hover:text-gray-900 transition-colors">ホーム</a>
       <span class="mx-2">/</span>
-      <a href="/basics" class="hover:text-white transition-colors">Git の基本</a>
+      <a href="/basics" class="hover:text-gray-900 transition-colors">Git の基本</a>
       <span class="mx-2">/</span>
-      <span class="text-gray-300">ブランチ</span>
+      <span class="text-gray-700">ブランチ</span>
     </nav>
 
     <div class="flex items-center gap-3 mb-4">
-      <h1 class="text-4xl font-extrabold text-white">ブランチ</h1>
+      <h1 class="text-4xl font-extrabold text-gray-900">ブランチ</h1>
       <span class={badge.concept}>概念</span>
     </div>
-    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
       ブランチとは「作業の分岐点」です。本番コードを壊さずに新機能の開発やバグ修正を
       別の流れで進め、完成したらメインに取り込めます。
     </p>
 
     <!-- ブランチの概念図 -->
-    <section class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-12">
+    <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-12 shadow-sm">
       <div class="flex items-center gap-2 mb-6">
-        <h2 class="text-xl font-bold text-white">ブランチのイメージ</h2>
+        <h2 class="text-xl font-bold text-gray-900">ブランチのイメージ</h2>
         <span class={badge.concept}>概念</span>
       </div>
-      <div class="overflow-x-auto rounded-xl bg-gray-950 border border-gray-800 p-4">
+      <div class="overflow-x-auto rounded-xl bg-white border border-gray-200 p-4">
         <pre class="mermaid">gitGraph
    commit id: "初期コミット"
    commit id: "README 追加"
@@ -53,31 +53,23 @@ const badge = {
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'
       mermaid.initialize({
         startOnLoad: true,
-        theme: 'dark',
+        theme: 'neutral',
         gitGraph: { mainBranchName: 'main', showCommitLabel: true },
-        themeVariables: {
-          git0: '#f97316',
-          git1: '#22c55e',
-          gitBranchLabel0: '#f97316',
-          gitBranchLabel1: '#22c55e',
-          commitLabelBackground: '#1f2937',
-          commitLabelColor: '#e5e7eb',
-        },
       })
     </script>
 
     <!-- ブランチの基本操作 -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-white mb-8">ブランチの基本操作</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">ブランチの基本操作</h2>
 
       <!-- 作成 -->
       <div class="mb-8">
         <div class="flex items-center gap-2 mb-4">
-          <h3 class="text-lg font-semibold text-green-400">ブランチを作成する</h3>
+          <h3 class="text-lg font-semibold text-green-700">ブランチを作成する</h3>
           <span class={badge.cmd}>コマンド</span>
         </div>
-        <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
-          <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+        <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden mb-4">
+          <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
             <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
@@ -97,11 +89,11 @@ const badge = {
       <!-- 切り替え -->
       <div class="mb-8">
         <div class="flex items-center gap-2 mb-4">
-          <h3 class="text-lg font-semibold text-blue-400">ブランチを切り替える</h3>
+          <h3 class="text-lg font-semibold text-blue-700">ブランチを切り替える</h3>
           <span class={badge.cmd}>コマンド</span>
         </div>
-        <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
-          <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+        <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden mb-4">
+          <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
             <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
@@ -120,14 +112,14 @@ const badge = {
       <!-- マージ -->
       <div class="mb-8">
         <div class="flex items-center gap-2 mb-4">
-          <h3 class="text-lg font-semibold text-purple-400">ブランチをマージする</h3>
+          <h3 class="text-lg font-semibold text-purple-700">ブランチをマージする</h3>
           <span class={badge.cmd}>コマンド</span>
         </div>
-        <p class="text-gray-400 text-sm mb-4">
+        <p class="text-gray-600 text-sm mb-4">
           feature ブランチの作業が完了したら、main にマージ（合流）します。
         </p>
-        <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden">
-          <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
+        <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden">
+          <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
             <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
             <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
@@ -152,15 +144,15 @@ const badge = {
     <!-- コンフリクト -->
     <section class="mb-12">
       <div class="flex items-center gap-2 mb-4">
-        <h2 class="text-2xl font-bold text-white">コンフリクト（競合）が起きたら</h2>
+        <h2 class="text-2xl font-bold text-gray-900">コンフリクト（競合）が起きたら</h2>
         <span class={badge.term}>用語</span>
       </div>
-      <p class="text-gray-300 mb-6 leading-relaxed">
+      <p class="text-gray-700 mb-6 leading-relaxed">
         同じファイルの同じ箇所を別々のブランチで編集するとコンフリクトが発生します。
         Git が自動で解決できないため、手動で解消する必要があります。
       </p>
-      <div class="bg-gray-950 rounded-xl border border-red-500/30 overflow-hidden mb-6">
-        <div class="bg-red-950/30 px-4 py-2 border-b border-red-500/20 text-xs text-red-400 font-mono">
+      <div class="bg-gray-900 rounded-xl border border-red-500/40 overflow-hidden mb-6">
+        <div class="bg-red-900/40 px-4 py-2 border-b border-red-500/30 text-xs text-red-300 font-mono">
           コンフリクトが発生したファイルの中身
         </div>
         <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-400">こんにちは</span>
@@ -171,12 +163,12 @@ const badge = {
 <span class="text-red-400">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</span>
 <span class="text-gray-400">さようなら</span></pre>
       </div>
-      <div class="bg-green-950/30 border border-green-500/30 rounded-xl p-6">
-        <h3 class="text-green-300 font-semibold mb-3">解消手順</h3>
-        <ol class="space-y-2 text-sm text-gray-300">
-          <li class="flex gap-3"><span class="text-green-400 font-bold">1.</span> エディタでコンフリクトマーカー（&lt;&lt;&lt;&lt;、=====、&gt;&gt;&gt;&gt;）を手動で削除し、正しい内容に直す</li>
-          <li class="flex gap-3"><span class="text-green-400 font-bold">2.</span> <code class="text-orange-400 bg-gray-800 px-1 rounded text-xs">git add ファイル名</code> でステージング</li>
-          <li class="flex gap-3"><span class="text-green-400 font-bold">3.</span> <code class="text-orange-400 bg-gray-800 px-1 rounded text-xs">git commit</code> でコンフリクト解消をコミット</li>
+      <div class="bg-green-50 border border-green-200 rounded-xl p-6">
+        <h3 class="text-green-700 font-semibold mb-3">解消手順</h3>
+        <ol class="space-y-2 text-sm text-gray-700">
+          <li class="flex gap-3"><span class="text-green-600 font-bold">1.</span> エディタでコンフリクトマーカー（&lt;&lt;&lt;&lt;、=====、&gt;&gt;&gt;&gt;）を手動で削除し、正しい内容に直す</li>
+          <li class="flex gap-3"><span class="text-green-600 font-bold">2.</span> <code class="text-orange-600 bg-orange-50 px-1 rounded border border-orange-200 text-xs">git add ファイル名</code> でステージング</li>
+          <li class="flex gap-3"><span class="text-green-600 font-bold">3.</span> <code class="text-orange-600 bg-orange-50 px-1 rounded border border-orange-200 text-xs">git commit</code> でコンフリクト解消をコミット</li>
         </ol>
       </div>
     </section>
@@ -184,7 +176,7 @@ const badge = {
     <!-- ブランチ名のルール -->
     <section class="mb-12">
       <div class="flex items-center gap-2 mb-6">
-        <h2 class="text-2xl font-bold text-white">ブランチ名の命名規則</h2>
+        <h2 class="text-2xl font-bold text-gray-900">ブランチ名の命名規則</h2>
         <span class={badge.term}>用語</span>
       </div>
       <div class="grid md:grid-cols-2 gap-4">
@@ -194,21 +186,21 @@ const badge = {
           { prefix: 'hotfix/', desc: '緊急の本番バグ修正', example: 'hotfix/payment-error' },
           { prefix: 'refactor/', desc: 'コードの整理・改善', example: 'refactor/auth-module' },
         ].map(({ prefix, desc, example }) => (
-          <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+          <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
             <div class="flex items-center gap-2 mb-1">
-              <code class="text-orange-400 font-mono text-sm">{prefix}</code>
+              <code class="text-orange-600 font-mono text-sm">{prefix}</code>
               <span class={badge.term}>用語</span>
             </div>
-            <p class="text-gray-400 text-xs mb-2">{desc}</p>
-            <code class="text-gray-500 font-mono text-xs">{example}</code>
+            <p class="text-gray-500 text-xs mb-2">{desc}</p>
+            <code class="text-gray-400 font-mono text-xs">{example}</code>
           </div>
         ))}
       </div>
     </section>
 
     <!-- ナビゲーション -->
-    <div class="flex justify-between pt-8 border-t border-gray-800">
-      <a href="/basics" class="text-gray-400 hover:text-white transition-colors">← Git の基本</a>
+    <div class="flex justify-between pt-8 border-t border-gray-200">
+      <a href="/basics" class="text-gray-500 hover:text-gray-900 transition-colors">← Git の基本</a>
       <a href="/about-github" class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
         次：GitHub とは →
       </a>
