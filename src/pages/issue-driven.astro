@@ -142,7 +142,10 @@ const colorMap: Record<string, Record<string, string>> = {
       <span class="text-gray-300">Issue 駆動開発</span>
     </nav>
 
-    <h1 class="text-4xl font-extrabold text-white mb-4">Issue 駆動開発</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <h1 class="text-4xl font-extrabold text-white">Issue 駆動開発</h1>
+      <span class="text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30">概念</span>
+    </div>
     <p class="text-gray-400 text-lg mb-12 leading-relaxed">
       Issue 駆動開発とは、<strong class="text-white">すべての作業を GitHub Issue から始める</strong>開発スタイルです。
       「なぜこの変更をするのか」を Issue に記録してからブランチを切ることで、
@@ -255,17 +258,23 @@ Closes <span class="text-green-400">#42</span>   <span class="text-gray-500">←
       <h2 class="text-xl font-bold text-white mb-6">Issue を上手に使うコツ</h2>
       <div class="grid md:grid-cols-2 gap-4">
         {[
-          { icon: '🔢', title: 'ブランチ名に Issue 番号を入れる', desc: 'fix/42-login-button のように番号を含めると、ブランチと Issue の対応が一目でわかる。' },
-          { icon: '🏷️', title: 'ラベルで分類する', desc: 'bug / enhancement / documentation / good first issue などのラベルで Issue を整理すると検索・優先度付けが楽になる。' },
-          { icon: '👤', title: 'Assignee を設定する', desc: '誰が担当するかを Assignee に設定することで、作業の重複や放置を防ぐ。' },
-          { icon: '📌', title: '小さく分割する', desc: '「ユーザー管理機能を作る」より「ユーザー登録フォームを作る」のように 1 Issue = 1 タスクにする方が進捗が見えやすい。' },
-          { icon: '💬', title: 'Issue でコミュニケーションする', desc: '実装方針の議論や進捗報告は Issue のコメントに残すと、あとから経緯を追いやすい。' },
-          { icon: 'Closes', title: 'Closes キーワードを使う', desc: 'PR 本文に Closes #番号 と書くとマージ時に Issue が自動クローズされる。Fix / Resolve でも同様。' },
-        ].map(({ icon, title, desc }) => (
+          { icon: '🔢', type: 'concept', label: '概念', title: 'ブランチ名に Issue 番号を入れる', desc: 'fix/42-login-button のように番号を含めると、ブランチと Issue の対応が一目でわかる。' },
+          { icon: '🏷️', type: 'term',    label: '用語', title: 'ラベルで分類する', desc: 'bug / enhancement / documentation / good first issue などのラベルで Issue を整理すると検索・優先度付けが楽になる。' },
+          { icon: '👤', type: 'term',    label: '用語', title: 'Assignee を設定する', desc: '誰が担当するかを Assignee に設定することで、作業の重複や放置を防ぐ。' },
+          { icon: '📌', type: 'concept', label: '概念', title: '小さく分割する', desc: '「ユーザー管理機能を作る」より「ユーザー登録フォームを作る」のように 1 Issue = 1 タスクにする方が進捗が見えやすい。' },
+          { icon: '💬', type: 'concept', label: '概念', title: 'Issue でコミュニケーションする', desc: '実装方針の議論や進捗報告は Issue のコメントに残すと、あとから経緯を追いやすい。' },
+          { icon: '🔑', type: 'term',    label: '用語', title: 'Closes キーワードを使う', desc: 'PR 本文に Closes #番号 と書くとマージ時に Issue が自動クローズされる。Fix / Resolve でも同様。' },
+        ].map(({ icon, type, label, title, desc }) => (
           <div class="flex gap-3 bg-gray-800/50 rounded-xl p-4 border border-gray-700/50">
             <span class="text-xl shrink-0">{icon}</span>
-            <div>
-              <p class="text-white text-sm font-semibold mb-1">{title}</p>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <p class="text-white text-sm font-semibold">{title}</p>
+                <span class={type === 'term'
+                  ? 'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-500/10 text-cyan-400 border-cyan-500/30 shrink-0'
+                  : 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30 shrink-0'
+                }>{label}</span>
+              </div>
               <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
             </div>
           </div>

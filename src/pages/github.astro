@@ -1,5 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro'
+
+const badge = {
+  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
+  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-500/10 text-orange-400 border-orange-500/30',
+  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30',
+}
 ---
 
 <Layout title="GitHub の基本" description="GitHubのリモートリポジトリ、push・pull・cloneの使い方を学ぼう">
@@ -28,7 +34,10 @@ import Layout from '../layouts/Layout.astro'
       <div class="flex flex-col md:flex-row gap-6 items-center">
         <div class="flex-1 bg-gray-800 rounded-xl p-6 border border-gray-700">
           <div class="text-3xl mb-3">💻</div>
-          <h3 class="font-bold text-white mb-2">ローカルリポジトリ</h3>
+          <div class="flex items-center gap-2 mb-2">
+            <h3 class="font-bold text-white">ローカルリポジトリ</h3>
+            <span class={badge.term}>用語</span>
+          </div>
           <p class="text-gray-400 text-sm leading-relaxed">
             自分の PC にある Git リポジトリ。<br />
             <code class="text-orange-400 text-xs">git init</code> で作った場所。
@@ -47,7 +56,10 @@ import Layout from '../layouts/Layout.astro'
         </div>
         <div class="flex-1 bg-gray-800 rounded-xl p-6 border border-purple-500/40">
           <div class="text-3xl mb-3">🐙</div>
-          <h3 class="font-bold text-white mb-2">リモートリポジトリ（GitHub）</h3>
+          <div class="flex items-center gap-2 mb-2">
+            <h3 class="font-bold text-white">リモートリポジトリ（GitHub）</h3>
+            <span class={badge.term}>用語</span>
+          </div>
           <p class="text-gray-400 text-sm leading-relaxed">
             インターネット上の Git リポジトリ。<br />
             チーム全員がアクセスできる共有の場所。
@@ -102,7 +114,7 @@ import Layout from '../layouts/Layout.astro'
     <!-- push -->
     <section class="mb-12">
       <div class="flex items-center gap-3 mb-6">
-        <span class="bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-500/30">コマンド</span>
+        <span class={badge.cmd}>コマンド</span>
         <h2 class="text-2xl font-bold text-white">git push — GitHub に送る</h2>
       </div>
       <p class="text-gray-300 mb-6 leading-relaxed">
@@ -133,7 +145,7 @@ import Layout from '../layouts/Layout.astro'
     <!-- pull -->
     <section class="mb-12">
       <div class="flex items-center gap-3 mb-6">
-        <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-blue-500/30">コマンド</span>
+        <span class={badge.cmd}>コマンド</span>
         <h2 class="text-2xl font-bold text-white">git pull — 最新の変更を取得する</h2>
       </div>
       <p class="text-gray-300 mb-6 leading-relaxed">
@@ -160,7 +172,7 @@ import Layout from '../layouts/Layout.astro'
     <!-- clone -->
     <section class="mb-12">
       <div class="flex items-center gap-3 mb-6">
-        <span class="bg-orange-500/20 text-orange-400 text-xs font-bold px-3 py-1 rounded-full border border-orange-500/30">コマンド</span>
+        <span class={badge.cmd}>コマンド</span>
         <h2 class="text-2xl font-bold text-white">git clone — リポジトリを複製する</h2>
       </div>
       <p class="text-gray-300 mb-6 leading-relaxed">

@@ -1,5 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro'
+
+const badge = {
+  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
+  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-500/10 text-orange-400 border-orange-500/30',
+  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30',
+}
 ---
 
 <Layout title="ブランチ" description="Gitのブランチの作成・切り替え・マージを学ぼう">
@@ -13,7 +19,10 @@ import Layout from '../layouts/Layout.astro'
       <span class="text-gray-300">ブランチ</span>
     </nav>
 
-    <h1 class="text-4xl font-extrabold text-white mb-4">ブランチ</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <h1 class="text-4xl font-extrabold text-white">ブランチ</h1>
+      <span class={badge.concept}>概念</span>
+    </div>
     <p class="text-gray-400 text-lg mb-12 leading-relaxed">
       ブランチとは「作業の分岐点」です。本番コードを壊さずに新機能の開発やバグ修正を
       別の流れで進め、完成したらメインに取り込めます。
@@ -21,7 +30,10 @@ import Layout from '../layouts/Layout.astro'
 
     <!-- ブランチの概念図 -->
     <section class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-12">
-      <h2 class="text-xl font-bold text-white mb-6">ブランチのイメージ</h2>
+      <div class="flex items-center gap-2 mb-6">
+        <h2 class="text-xl font-bold text-white">ブランチのイメージ</h2>
+        <span class={badge.concept}>概念</span>
+      </div>
       <div class="overflow-x-auto">
         <div class="min-w-[500px] font-mono text-sm">
           <!-- main ライン -->
@@ -71,7 +83,10 @@ import Layout from '../layouts/Layout.astro'
 
       <!-- 作成 -->
       <div class="mb-8">
-        <h3 class="text-lg font-semibold text-green-400 mb-4">ブランチを作成する</h3>
+        <div class="flex items-center gap-2 mb-4">
+          <h3 class="text-lg font-semibold text-green-400">ブランチを作成する</h3>
+          <span class={badge.cmd}>コマンド</span>
+        </div>
         <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
           <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
@@ -92,7 +107,10 @@ import Layout from '../layouts/Layout.astro'
 
       <!-- 切り替え -->
       <div class="mb-8">
-        <h3 class="text-lg font-semibold text-blue-400 mb-4">ブランチを切り替える</h3>
+        <div class="flex items-center gap-2 mb-4">
+          <h3 class="text-lg font-semibold text-blue-400">ブランチを切り替える</h3>
+          <span class={badge.cmd}>コマンド</span>
+        </div>
         <div class="bg-gray-950 rounded-xl border border-gray-800 overflow-hidden mb-4">
           <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 font-mono flex items-center gap-2">
             <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
@@ -112,7 +130,10 @@ import Layout from '../layouts/Layout.astro'
 
       <!-- マージ -->
       <div class="mb-8">
-        <h3 class="text-lg font-semibold text-purple-400 mb-4">ブランチをマージする</h3>
+        <div class="flex items-center gap-2 mb-4">
+          <h3 class="text-lg font-semibold text-purple-400">ブランチをマージする</h3>
+          <span class={badge.cmd}>コマンド</span>
+        </div>
         <p class="text-gray-400 text-sm mb-4">
           feature ブランチの作業が完了したら、main にマージ（合流）します。
         </p>
@@ -141,7 +162,10 @@ import Layout from '../layouts/Layout.astro'
 
     <!-- コンフリクト -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-white mb-4">コンフリクト（競合）が起きたら</h2>
+      <div class="flex items-center gap-2 mb-4">
+        <h2 class="text-2xl font-bold text-white">コンフリクト（競合）が起きたら</h2>
+        <span class={badge.term}>用語</span>
+      </div>
       <p class="text-gray-300 mb-6 leading-relaxed">
         同じファイルの同じ箇所を別々のブランチで編集するとコンフリクトが発生します。
         Git が自動で解決できないため、手動で解消する必要があります。
@@ -170,7 +194,10 @@ import Layout from '../layouts/Layout.astro'
 
     <!-- ブランチ名のルール -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-white mb-6">ブランチ名の命名規則</h2>
+      <div class="flex items-center gap-2 mb-6">
+        <h2 class="text-2xl font-bold text-white">ブランチ名の命名規則</h2>
+        <span class={badge.term}>用語</span>
+      </div>
       <div class="grid md:grid-cols-2 gap-4">
         {[
           { prefix: 'feature/', desc: '新機能の追加', example: 'feature/user-login' },
@@ -179,8 +206,11 @@ import Layout from '../layouts/Layout.astro'
           { prefix: 'refactor/', desc: 'コードの整理・改善', example: 'refactor/auth-module' },
         ].map(({ prefix, desc, example }) => (
           <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            <code class="text-orange-400 font-mono text-sm">{prefix}</code>
-            <p class="text-gray-400 text-xs mt-1 mb-2">{desc}</p>
+            <div class="flex items-center gap-2 mb-1">
+              <code class="text-orange-400 font-mono text-sm">{prefix}</code>
+              <span class={badge.term}>用語</span>
+            </div>
+            <p class="text-gray-400 text-xs mb-2">{desc}</p>
             <code class="text-gray-500 font-mono text-xs">{example}</code>
           </div>
         ))}

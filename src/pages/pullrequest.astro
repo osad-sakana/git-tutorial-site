@@ -1,5 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro'
+
+const badge = {
+  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
+  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-500/10 text-orange-400 border-orange-500/30',
+  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-500/10 text-purple-400 border-purple-500/30',
+}
 ---
 
 <Layout title="プルリクエスト" description="GitHubのプルリクエストの作成・レビュー・マージの流れを学ぼう">
@@ -13,7 +19,10 @@ import Layout from '../layouts/Layout.astro'
       <span class="text-gray-300">プルリクエスト</span>
     </nav>
 
-    <h1 class="text-4xl font-extrabold text-white mb-4">プルリクエスト（PR）</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <h1 class="text-4xl font-extrabold text-white">プルリクエスト（PR）</h1>
+      <span class={badge.concept}>概念</span>
+    </div>
     <p class="text-gray-400 text-lg mb-12 leading-relaxed">
       プルリクエスト（PR）は「この変更を取り込んでほしい」という提案の仕組みです。
       コードレビューを通じて品質を高め、安全に main ブランチへマージします。
@@ -115,7 +124,10 @@ import Layout from '../layouts/Layout.astro'
 
     <!-- コードレビューのコメント -->
     <section class="mb-12">
-      <h2 class="text-2xl font-bold text-white mb-6">コードレビューでよく使うコメント</h2>
+      <div class="flex items-center gap-2 mb-6">
+        <h2 class="text-2xl font-bold text-white">コードレビューでよく使うコメント</h2>
+        <span class={badge.term}>用語</span>
+      </div>
       <div class="space-y-4">
         {[
           { prefix: 'LGTM', full: 'Looks Good To Me', color: 'text-green-400 bg-green-500/10 border-green-500/30', desc: '問題なし、マージして OK という意味' },
@@ -124,6 +136,7 @@ import Layout from '../layouts/Layout.astro'
           { prefix: 'Q:', full: 'question', color: 'text-yellow-400 bg-yellow-500/10 border-yellow-500/30', desc: '質問。修正を求めているわけではなく、理解のために聞いている' },
         ].map(({ prefix, full, color, desc }) => (
           <div class={`border rounded-xl p-4 flex gap-4 items-start ${color}`}>
+            <span class={badge.term}>用語</span>
             <code class="font-mono font-bold text-sm whitespace-nowrap">{prefix}</code>
             <div>
               <p class="text-gray-300 text-sm font-medium">{full}</p>
