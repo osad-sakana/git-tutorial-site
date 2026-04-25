@@ -34,48 +34,37 @@ const badge = {
         <h2 class="text-xl font-bold text-white">ブランチのイメージ</h2>
         <span class={badge.concept}>概念</span>
       </div>
-      <div class="overflow-x-auto">
-        <div class="min-w-[500px] font-mono text-sm">
-          <!-- main ライン -->
-          <div class="flex items-center gap-0 mb-2">
-            <span class="text-gray-500 w-24 text-xs">main</span>
-            <div class="flex items-center gap-0">
-              <div class="w-4 h-4 bg-orange-500 rounded-full border-2 border-orange-400"></div>
-              <div class="w-12 h-0.5 bg-orange-500"></div>
-              <div class="w-4 h-4 bg-orange-500 rounded-full border-2 border-orange-400"></div>
-              <div class="w-12 h-0.5 bg-orange-500"></div>
-              <div class="w-4 h-4 bg-orange-400 rounded-full border-2 border-orange-300 ring-2 ring-orange-400/30"></div>
-              <div class="w-12 h-0.5 bg-orange-500 border-dashed"></div>
-              <div class="w-12 h-0.5 bg-orange-500"></div>
-              <div class="w-4 h-4 bg-orange-500 rounded-full border-2 border-orange-400"></div>
-              <span class="ml-3 text-orange-400 text-xs">← マージで合流</span>
-            </div>
-          </div>
-          <!-- 分岐線 -->
-          <div class="flex items-center gap-0 mb-1 ml-24">
-            <div class="w-20 h-0 border-0"></div>
-            <div class="w-12 h-5 border-l-2 border-b-2 border-green-500 rounded-bl-lg -mb-5"></div>
-          </div>
-          <!-- feature ライン -->
-          <div class="flex items-center gap-0 mb-2">
-            <span class="text-gray-500 w-24 text-xs">feature</span>
-            <div class="w-16 h-0.5 bg-transparent"></div>
-            <div class="flex items-center gap-0">
-              <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-green-400"></div>
-              <div class="w-12 h-0.5 bg-green-500"></div>
-              <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-green-400"></div>
-              <div class="w-12 h-0.5 bg-green-500"></div>
-              <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-green-400"></div>
-            </div>
-          </div>
-          <div class="mt-4 flex gap-8 text-xs text-gray-500">
-            <span><span class="text-orange-400">●</span> main のコミット</span>
-            <span><span class="text-green-400">●</span> feature のコミット</span>
-            <span><span class="text-orange-300 ring-2 ring-orange-400/30 rounded-full px-1">●</span> ブランチ作成点</span>
-          </div>
-        </div>
+      <div class="overflow-x-auto rounded-xl bg-gray-950 border border-gray-800 p-4">
+        <pre class="mermaid">gitGraph
+   commit id: "初期コミット"
+   commit id: "README 追加"
+   branch feature/login
+   checkout feature/login
+   commit id: "ログイン画面を作成"
+   commit id: "バリデーション追加"
+   checkout main
+   commit id: "バグ修正"
+   merge feature/login id: "マージ"
+   commit id: "次の開発へ"</pre>
       </div>
     </section>
+
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'dark',
+        gitGraph: { mainBranchName: 'main', showCommitLabel: true },
+        themeVariables: {
+          git0: '#f97316',
+          git1: '#22c55e',
+          gitBranchLabel0: '#f97316',
+          gitBranchLabel1: '#22c55e',
+          commitLabelBackground: '#1f2937',
+          commitLabelColor: '#e5e7eb',
+        },
+      })
+    </script>
 
     <!-- ブランチの基本操作 -->
     <section class="mb-12">
