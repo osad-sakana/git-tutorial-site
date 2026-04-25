@@ -1,0 +1,284 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+const cases = [
+  {
+    id: '01',
+    category: 'バグ報告',
+    icon: '🐛',
+    color: 'red',
+    title: 'ログインボタンが押せない',
+    issueBody: `## バグの内容
+トップページのログインボタンをクリックしても何も起きない。
+
+## 再現手順
+1. トップページ（/）にアクセス
+2. 「ログイン」ボタンをクリック
+3. 何も起きない
+
+## 期待する動作
+/login にリダイレクトされる
+
+## 環境
+- ブラウザ: Chrome 124
+- OS: macOS 14`,
+    branch: 'fix/login-button-not-working',
+    commits: ['fix: ログインボタンの onClick ハンドラを修正', 'test: ログインボタンのクリックテストを追加'],
+    labels: ['bug', 'priority: high'],
+  },
+  {
+    id: '02',
+    category: '新機能',
+    icon: '✨',
+    color: 'green',
+    title: 'ダークモードを追加してほしい',
+    issueBody: `## 機能の概要
+システム設定に合わせて自動でダークモード／ライトモードを切り替えたい。
+
+## 背景・理由
+夜間に使うとき画面が眩しいという声が多い。
+
+## 受け入れ条件
+- [ ] OS のダークモード設定を自動検知する
+- [ ] 手動トグルボタンでも切り替えられる
+- [ ] 設定がブラウザに記憶される`,
+    branch: 'feature/dark-mode',
+    commits: [
+      'feat: CSS変数でカラーテーマを定義',
+      'feat: ダークモードのスタイルを追加',
+      'feat: テーマ切り替えトグルを実装',
+      'feat: localStorage でテーマ設定を保持',
+    ],
+    labels: ['enhancement', 'good first issue'],
+  },
+  {
+    id: '03',
+    category: 'ドキュメント',
+    icon: '📝',
+    color: 'blue',
+    title: 'セットアップ手順が古い',
+    issueBody: `## 問題点
+README の手順通りに進めても v3 以降では動かない。
+\`npm install\` が \`pnpm install\` に変わっているが記載が古いまま。
+
+## 修正が必要な箇所
+- README.md の「インストール」セクション
+- CONTRIBUTING.md の「開発環境構築」セクション`,
+    branch: 'docs/update-setup-guide',
+    commits: ['docs: README のインストール手順を pnpm 対応に更新', 'docs: CONTRIBUTING の開発環境構築手順を修正'],
+    labels: ['documentation'],
+  },
+  {
+    id: '04',
+    category: 'パフォーマンス',
+    icon: '⚡',
+    color: 'yellow',
+    title: '商品一覧ページの読み込みが遅い',
+    issueBody: `## 問題
+商品一覧ページの初期表示に 5 秒以上かかる。
+
+## 計測結果
+- API レスポンス: 200ms
+- 画像読み込み: 4800ms（未圧縮の画像を 80 枚一気に読み込んでいる）
+
+## 改善案
+- 画像を WebP に変換・圧縮
+- 遅延読み込み（lazy loading）を適用
+- ページネーション or 無限スクロール導入`,
+    branch: 'perf/product-list-images',
+    commits: [
+      'perf: 商品画像を WebP フォーマットに変換',
+      'perf: img タグに loading="lazy" を追加',
+      'feat: 商品一覧にページネーションを追加',
+    ],
+    labels: ['performance'],
+  },
+  {
+    id: '05',
+    category: 'リファクタリング',
+    icon: '🔧',
+    color: 'purple',
+    title: '認証ロジックが各ページに散在している',
+    issueBody: `## 現状の問題
+ログイン済みチェックのコードが dashboard.js・profile.js・settings.js
+それぞれに同じ内容でコピーされている。
+
+## 目標
+共通の \`useAuth\` フックに抽出して各ページから呼び出す形に整理する。
+
+## 影響範囲
+- src/pages/dashboard.js
+- src/pages/profile.js
+- src/pages/settings.js`,
+    branch: 'refactor/extract-auth-hook',
+    commits: [
+      'refactor: useAuth フックを src/hooks/ に作成',
+      'refactor: dashboard から認証ロジックを useAuth に移行',
+      'refactor: profile・settings も useAuth を使うよう修正',
+      'test: useAuth フックのユニットテストを追加',
+    ],
+    labels: ['refactor', 'tech-debt'],
+  },
+]
+
+const colorMap: Record<string, Record<string, string>> = {
+  red:    { badge: 'bg-red-500/10 text-red-400 border-red-500/30',    dot: 'bg-red-500',    border: 'border-red-500/20',    header: 'bg-red-950/30' },
+  green:  { badge: 'bg-green-500/10 text-green-400 border-green-500/30', dot: 'bg-green-500',  border: 'border-green-500/20',  header: 'bg-green-950/30' },
+  blue:   { badge: 'bg-blue-500/10 text-blue-400 border-blue-500/30',  dot: 'bg-blue-500',   border: 'border-blue-500/20',   header: 'bg-blue-950/30' },
+  yellow: { badge: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/30', dot: 'bg-yellow-500', border: 'border-yellow-500/20', header: 'bg-yellow-950/30' },
+  purple: { badge: 'bg-purple-500/10 text-purple-400 border-purple-500/30', dot: 'bg-purple-500', border: 'border-purple-500/20', header: 'bg-purple-950/30' },
+}
+---
+
+<Layout title="Issue 駆動開発" description="Issue駆動開発のよくある事例を学ぼう">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- パンくず -->
+    <nav class="text-sm text-gray-500 mb-8">
+      <a href="/" class="hover:text-white transition-colors">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/workflow" class="hover:text-white transition-colors">実践ワークフロー</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-300">Issue 駆動開発</span>
+    </nav>
+
+    <h1 class="text-4xl font-extrabold text-white mb-4">Issue 駆動開発</h1>
+    <p class="text-gray-400 text-lg mb-12 leading-relaxed">
+      Issue 駆動開発とは、<strong class="text-white">すべての作業を GitHub Issue から始める</strong>開発スタイルです。
+      「なぜこの変更をするのか」を Issue に記録してからブランチを切ることで、
+      変更の意図が明確になり、チーム内のコミュニケーションが円滑になります。
+    </p>
+
+    <!-- 基本の流れ -->
+    <section class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-14">
+      <h2 class="text-xl font-bold text-white mb-6">Issue 駆動開発の基本フロー</h2>
+      <div class="flex flex-col md:flex-row gap-3 items-stretch">
+        {[
+          { step: '1', label: 'Issue を作成', sub: 'やること・理由を書く', icon: '📋' },
+          { step: '2', label: 'ブランチを切る', sub: 'Issue 番号をブランチ名に含める', icon: '🌿' },
+          { step: '3', label: 'コミット', sub: 'メッセージに #Issue番号 を付ける', icon: '💾' },
+          { step: '4', label: 'PR を作成', sub: 'Closes #Issue番号 と書く', icon: '🔀' },
+          { step: '5', label: 'マージで自動クローズ', sub: 'Issue が自動で閉じられる', icon: '✅' },
+        ].map(({ step, label, sub, icon }) => (
+          <div class="flex-1 flex flex-col items-center text-center gap-2 bg-gray-800 rounded-xl p-4 border border-gray-700">
+            <span class="text-2xl">{icon}</span>
+            <span class="text-orange-400 text-xs font-bold font-mono">STEP {step}</span>
+            <span class="text-white text-sm font-semibold">{label}</span>
+            <span class="text-gray-500 text-xs leading-snug">{sub}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- Closes キーワード -->
+      <div class="mt-6 bg-gray-950 rounded-xl border border-gray-700 overflow-hidden">
+        <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono">
+          PR 本文の例 — Closes キーワードでマージ時に Issue を自動クローズ
+        </div>
+        <pre class="p-4 text-sm font-mono text-gray-300 leading-relaxed">## 変更内容
+ログインボタンの onClick に正しいハンドラを設定しました。
+
+Closes <span class="text-green-400">#42</span>   <span class="text-gray-500">← このキーワードで Issue #42 がマージ時に自動クローズ</span></pre>
+      </div>
+    </section>
+
+    <!-- よくある事例 -->
+    <section>
+      <h2 class="text-2xl font-bold text-white mb-2">よくある事例 5 選</h2>
+      <p class="text-gray-400 text-sm mb-10">実際の開発現場でよく立てられる Issue の種類と、対応するブランチ・コミット例を紹介します。</p>
+
+      <div class="space-y-10">
+        {cases.map((c) => {
+          const col = colorMap[c.color]
+          return (
+            <div class={`rounded-2xl border ${col.border} overflow-hidden`}>
+
+              <!-- ヘッダー -->
+              <div class={`${col.header} px-6 py-4 border-b ${col.border} flex items-center gap-3`}>
+                <span class="text-2xl">{c.icon}</span>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1 flex-wrap">
+                    <span class={`text-xs font-semibold px-2 py-0.5 rounded-full border ${col.badge}`}>{c.category}</span>
+                    <span class="text-gray-500 text-xs font-mono">Issue #{c.id}</span>
+                  </div>
+                  <h3 class="text-white font-bold text-lg leading-tight">{c.title}</h3>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-800">
+
+                <!-- Issue 本文 -->
+                <div class="p-5">
+                  <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Issue 本文</p>
+                  <pre class="text-xs text-gray-300 font-mono leading-relaxed whitespace-pre-wrap bg-gray-950 rounded-lg p-4 border border-gray-800">{c.issueBody}</pre>
+                  <div class="flex flex-wrap gap-2 mt-3">
+                    {c.labels.map((label) => (
+                      <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700 px-2 py-0.5 rounded-full font-mono">
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- ブランチ & コミット -->
+                <div class="p-5 flex flex-col gap-4">
+                  <div>
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">ブランチ名</p>
+                    <code class={`text-sm font-mono px-3 py-1.5 rounded-lg border block ${col.badge}`}>
+                      {c.branch}
+                    </code>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">コミット履歴</p>
+                    <div class="space-y-2">
+                      {c.commits.map((commit) => (
+                        <div class="flex gap-2 items-start">
+                          <span class={`w-2 h-2 rounded-full ${col.dot} mt-1.5 shrink-0`}></span>
+                          <code class="text-xs text-gray-300 font-mono leading-relaxed">{commit}</code>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div class="bg-gray-950 rounded-lg border border-gray-800 p-3">
+                    <p class="text-xs text-gray-500 font-mono mb-1">PR タイトル例</p>
+                    <p class="text-xs text-gray-300">{c.title}  <span class="text-green-400">(Closes #{c.id})</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </section>
+
+    <!-- Tips -->
+    <section class="mt-14 bg-gray-900 border border-gray-800 rounded-2xl p-8">
+      <h2 class="text-xl font-bold text-white mb-6">Issue を上手に使うコツ</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        {[
+          { icon: '🔢', title: 'ブランチ名に Issue 番号を入れる', desc: 'fix/42-login-button のように番号を含めると、ブランチと Issue の対応が一目でわかる。' },
+          { icon: '🏷️', title: 'ラベルで分類する', desc: 'bug / enhancement / documentation / good first issue などのラベルで Issue を整理すると検索・優先度付けが楽になる。' },
+          { icon: '👤', title: 'Assignee を設定する', desc: '誰が担当するかを Assignee に設定することで、作業の重複や放置を防ぐ。' },
+          { icon: '📌', title: '小さく分割する', desc: '「ユーザー管理機能を作る」より「ユーザー登録フォームを作る」のように 1 Issue = 1 タスクにする方が進捗が見えやすい。' },
+          { icon: '💬', title: 'Issue でコミュニケーションする', desc: '実装方針の議論や進捗報告は Issue のコメントに残すと、あとから経緯を追いやすい。' },
+          { icon: 'Closes', title: 'Closes キーワードを使う', desc: 'PR 本文に Closes #番号 と書くとマージ時に Issue が自動クローズされる。Fix / Resolve でも同様。' },
+        ].map(({ icon, title, desc }) => (
+          <div class="flex gap-3 bg-gray-800/50 rounded-xl p-4 border border-gray-700/50">
+            <span class="text-xl shrink-0">{icon}</span>
+            <div>
+              <p class="text-white text-sm font-semibold mb-1">{title}</p>
+              <p class="text-gray-400 text-xs leading-relaxed">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ナビゲーション -->
+    <div class="flex justify-between pt-10 border-t border-gray-800 mt-14">
+      <a href="/workflow" class="text-gray-400 hover:text-white transition-colors">← 実践ワークフロー</a>
+      <a href="/" class="bg-gray-800 hover:bg-white hover:text-gray-800 text-white font-semibold px-6 py-2 rounded-xl border border-gray-700 transition-colors">
+        ホームへ戻る
+      </a>
+    </div>
+  </div>
+</Layout>
