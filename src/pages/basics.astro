@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
 
+const base = import.meta.env.BASE_URL
+
 const badge = {
   term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-50 text-cyan-700 border-cyan-300',
   cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-50 text-orange-700 border-orange-300',
@@ -12,7 +14,7 @@ const badge = {
   <div class="max-w-4xl mx-auto px-4 py-12">
 
     <nav class="text-sm text-gray-400 mb-8">
-      <a href="/" class="hover:text-gray-900 transition-colors">ホーム</a>
+      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
       <span class="mx-2">/</span>
       <span class="text-gray-700">Git の基本</span>
     </nav>
@@ -218,8 +220,8 @@ const badge = {
     </section>
 
     <div class="flex justify-between pt-8 border-t border-gray-200">
-      <a href="/" class="text-gray-500 hover:text-gray-900 transition-colors">← ホームへ戻る</a>
-      <a href="/branch" class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
+      <a href={base} class="text-gray-500 hover:text-gray-900 transition-colors">← ホームへ戻る</a>
+      <a href={`${base}branch`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
         次：ブランチ →
       </a>
     </div>

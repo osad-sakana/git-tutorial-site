@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
 
+const base = import.meta.env.BASE_URL
+
 const badge = {
   term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-50 text-cyan-700 border-cyan-300',
   cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-50 text-orange-700 border-orange-300',
@@ -12,9 +14,9 @@ const badge = {
   <div class="max-w-4xl mx-auto px-4 py-12">
 
     <nav class="text-sm text-gray-400 mb-8">
-      <a href="/" class="hover:text-gray-900 transition-colors">ホーム</a>
+      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
       <span class="mx-2">/</span>
-      <a href="/github" class="hover:text-gray-900 transition-colors">GitHub の基本</a>
+      <a href={`${base}github`} class="hover:text-gray-900 transition-colors">GitHub の基本</a>
       <span class="mx-2">/</span>
       <span class="text-gray-700">プルリクエスト</span>
     </nav>
@@ -171,8 +173,8 @@ const badge = {
 
     <!-- ナビゲーション -->
     <div class="flex justify-between pt-8 border-t border-gray-200">
-      <a href="/github" class="text-gray-500 hover:text-gray-900 transition-colors">← GitHub の基本</a>
-      <a href="/workflow" class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
+      <a href={`${base}github`} class="text-gray-500 hover:text-gray-900 transition-colors">← GitHub の基本</a>
+      <a href={`${base}workflow`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
         次：実践ワークフロー →
       </a>
     </div>

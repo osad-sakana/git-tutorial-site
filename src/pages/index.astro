@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro'
 
+const base = import.meta.env.BASE_URL
+
 const topics = [
   {
-    href: '/basics',
+    href: `${base}basics`,
     icon: '📦',
     title: 'Git の基本',
     description: 'init・add・commit の使い方。ファイルの変更履歴を記録する第一歩を学ぼう。',
@@ -12,7 +14,7 @@ const topics = [
     text: 'text-orange-600',
   },
   {
-    href: '/branch',
+    href: `${base}branch`,
     icon: '🌿',
     title: 'ブランチ',
     description: '並行開発を可能にするブランチの作成・切り替え・マージを学ぼう。',
@@ -21,7 +23,7 @@ const topics = [
     text: 'text-green-600',
   },
   {
-    href: '/about-github',
+    href: `${base}about-github`,
     icon: '🐙',
     title: 'GitHub とは',
     description: 'GitHubとGitの違い・できること・アカウント作成・主要な用語を理解しよう。',
@@ -30,7 +32,7 @@ const topics = [
     text: 'text-purple-600',
   },
   {
-    href: '/github',
+    href: `${base}github`,
     icon: '📡',
     title: 'GitHub 基本操作',
     description: 'リモートリポジトリへの push・pull・clone を使ってチームで共有しよう。',
@@ -39,7 +41,7 @@ const topics = [
     text: 'text-indigo-600',
   },
   {
-    href: '/pullrequest',
+    href: `${base}pullrequest`,
     icon: '🔀',
     title: 'プルリクエスト',
     description: 'コードレビューの仕組み。変更をチームに提案してマージしてもらおう。',
@@ -48,7 +50,7 @@ const topics = [
     text: 'text-blue-600',
   },
   {
-    href: '/workflow',
+    href: `${base}workflow`,
     icon: '🔄',
     title: '実践ワークフロー',
     description: '実際の開発現場で使われる Git Flow を通して全体の流れをつかもう。',
@@ -57,7 +59,7 @@ const topics = [
     text: 'text-pink-600',
   },
   {
-    href: '/issue-driven',
+    href: `${base}issue-driven`,
     icon: '📋',
     title: 'Issue 駆動開発',
     description: 'Issue から作業を始める開発スタイル。よくある事例 5 選でまるごと理解しよう。',
@@ -97,11 +99,11 @@ const commands = [
         豊富なコマンド例と図解でわかりやすく解説します。
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="/basics"
+        <a href={`${base}basics`}
            class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-8 py-3 rounded-xl border border-orange-500 transition-colors">
           学習を始める →
         </a>
-        <a href="/workflow"
+        <a href={`${base}workflow`}
            class="bg-white hover:bg-gray-900 hover:text-white text-gray-900 font-semibold px-8 py-3 rounded-xl border border-gray-300 transition-colors">
           ワークフローを見る
         </a>
