@@ -8,15 +8,17 @@ interface Props {
 
 const { title, description = 'GitとGitHubの使い方を初心者向けにわかりやすく解説します' } = Astro.props
 
+const base = import.meta.env.BASE_URL
+
 const navLinks = [
-  { href: '/',             label: 'ホーム' },
-  { href: '/basics',       label: 'Git 基本' },
-  { href: '/branch',       label: 'ブランチ' },
-  { href: '/about-github', label: 'GitHub とは' },
-  { href: '/github',       label: 'GitHub 基本操作' },
-  { href: '/pullrequest',  label: 'プルリクエスト' },
-  { href: '/workflow',     label: 'ワークフロー' },
-  { href: '/issue-driven', label: 'Issue 駆動開発' },
+  { href: base,                      label: 'ホーム' },
+  { href: `${base}basics`,           label: 'Git 基本' },
+  { href: `${base}branch`,           label: 'ブランチ' },
+  { href: `${base}about-github`,     label: 'GitHub とは' },
+  { href: `${base}github`,           label: 'GitHub 基本操作' },
+  { href: `${base}pullrequest`,      label: 'プルリクエスト' },
+  { href: `${base}workflow`,         label: 'ワークフロー' },
+  { href: `${base}issue-driven`,     label: 'Issue 駆動開発' },
 ]
 ---
 
@@ -24,7 +26,7 @@ const navLinks = [
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title} | Git & GitHub 入門</title>
@@ -36,7 +38,7 @@ const navLinks = [
       <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
 
         <!-- ロゴ -->
-        <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity shrink-0">
+        <a href={base} class="flex items-center gap-3 hover:opacity-80 transition-opacity shrink-0">
           <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">
             Git
           </div>
