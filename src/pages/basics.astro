@@ -200,13 +200,55 @@ const badge = {
       </div>
     </section>
 
+    <!-- git log オプション -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class={badge.cmd}>コマンド</span>
+        <h2 class="text-2xl font-bold text-gray-900">git log — 履歴を読む</h2>
+      </div>
+      <p class="text-gray-700 mb-6 leading-relaxed">
+        <code class="text-orange-600 bg-orange-50 px-2 py-0.5 rounded text-sm border border-orange-200">git log</code> はそのまま実行すると情報が多すぎます。オプションを組み合わせて見やすくしましょう。
+      </p>
+      <div class="space-y-4">
+        {[
+          {
+            cmd: 'git log --oneline',
+            desc: '1コミット1行で表示。全体像を素早く把握するときに使う。',
+            output: 'a1b2c3d feat: ログインフォームを追加\ne4f5g6h fix: ボタンが押せないバグを修正\n7h8i9j0 feat: トップページを追加',
+          },
+          {
+            cmd: 'git log --oneline --graph --all',
+            desc: 'ブランチの分岐・マージをグラフで表示。どのブランチで何が起きたか一目でわかる。',
+            output: '* a1b2c3d (HEAD -> main) feat: マージ\n|\\  \n| * e4f5g6h (feature/login) feat: ログインを追加\n|/  \n* 7h8i9j0 feat: トップページを追加',
+          },
+          {
+            cmd: 'git show コミットID',
+            desc: '特定コミットの詳細（変更差分）を表示。コミットIDは --oneline で確認した7桁を使う。',
+            output: 'commit a1b2c3d\nAuthor: your-name <your@email.com>\n\n    feat: ログインフォームを追加\n\n+<form id="login">...</form>',
+          },
+        ].map(({ cmd, desc, output }) => (
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <div class="p-4 border-b border-gray-100">
+              <div class="flex items-center gap-2 mb-1">
+                <code class="text-orange-600 font-mono text-sm">{cmd}</code>
+                <span class={badge.cmd}>コマンド</span>
+              </div>
+              <p class="text-gray-600 text-sm">{desc}</p>
+            </div>
+            <div class="bg-gray-900 p-4">
+              <pre class="text-xs font-mono text-gray-300 leading-relaxed overflow-x-auto">{output}</pre>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <!-- その他の便利コマンド -->
     <section class="mb-12">
       <h2 class="text-2xl font-bold text-gray-900 mb-6">その他の便利コマンド</h2>
       <div class="space-y-3">
         {[
           { cmd: 'git status', desc: '現在の状態を確認。変更されたファイル・ステージング済みのファイルが一覧で見える。', danger: false },
-          { cmd: 'git log', desc: 'コミット履歴を表示。誰がいつどんな変更をしたか確認できる。', danger: false },
           { cmd: 'git diff', desc: 'ステージングしていない変更の差分を表示。何を変えたか確認できる。', danger: false },
           { cmd: 'git restore ファイル名', desc: 'ステージングしていない変更を取り消す（危険：元に戻せない）。', danger: true },
         ].map(({ cmd, desc, danger }) => (
@@ -221,8 +263,8 @@ const badge = {
 
     <div class="flex justify-between pt-8 border-t border-gray-200">
       <a href={base} class="text-gray-500 hover:text-gray-900 transition-colors">← ホームへ戻る</a>
-      <a href={`${base}branch`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
-        次：ブランチ →
+      <a href={`${base}undo`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
+        次：変更の取り消し →
       </a>
     </div>
   </div>

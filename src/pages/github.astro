@@ -70,6 +70,73 @@ const badge = {
       </div>
     </section>
 
+    <!-- SSH 鍵の設定 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-6">
+        <span class={badge.concept}>概念</span>
+        <h2 class="text-2xl font-bold text-gray-900">SSH 鍵で GitHub に接続する</h2>
+      </div>
+      <p class="text-gray-700 mb-6 leading-relaxed">
+        GitHub への接続には <strong>SSH</strong> と <strong>HTTPS</strong> の2種類があります。
+        SSH は一度設定すれば毎回パスワードを入力しなくてよく、現在の主流です。
+      </p>
+
+      <div class="space-y-4 mb-6">
+        {[
+          {
+            step: 1,
+            title: 'SSH 鍵を生成する',
+            code: `# メールアドレスは GitHub に登録したものを使う\n$ ssh-keygen -t ed25519 -C "your@email.com"\n\n# 保存先とパスフレーズを聞かれる（Enter で全てスキップ可）\nEnter file in which to save the key: （Enter）\nEnter passphrase: （Enter）`,
+          },
+          {
+            step: 2,
+            title: '公開鍵をコピーする',
+            code: `# 公開鍵を表示してコピー\n$ cat ~/.ssh/id_ed25519.pub\nssh-ed25519 AAAAC3NzaC1lZD... your@email.com`,
+          },
+          {
+            step: 3,
+            title: 'GitHub に公開鍵を登録する',
+            code: `# GitHub の画面で操作\n# Settings → SSH and GPG keys → New SSH key\n# Title に名前（例: My PC）、Key に公開鍵を貼り付けて「Add SSH key」`,
+          },
+          {
+            step: 4,
+            title: '接続テスト',
+            code: `$ ssh -T git@github.com\nHi ユーザー名! You've successfully authenticated.`,
+          },
+        ].map(({ step, title, code }) => (
+          <div class="flex gap-4 bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-purple-500 text-white text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-5 ml-4">
+              {step}
+            </div>
+            <div class="flex-1 py-4 pr-4">
+              <h3 class="font-semibold text-gray-900 mb-3 text-sm">{title}</h3>
+              <div class="bg-gray-900 rounded-lg overflow-hidden">
+                <pre class="p-4 text-xs font-mono leading-relaxed overflow-x-auto">{code.split('\n').map((line: string) => (
+                  <div>
+                    {line.startsWith('#')
+                      ? <span class="text-gray-500">{line}</span>
+                      : line.startsWith('$')
+                        ? <span><span class="text-green-400">$</span><span class="text-white">{line.slice(1)}</span></span>
+                        : <span class="text-gray-300">{line}</span>
+                    }
+                  </div>
+                ))}</pre>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+        <p class="text-gray-700 text-sm leading-relaxed">
+          SSH 設定後は、リポジトリの URL を
+          <code class="text-orange-600 bg-orange-50 px-1 rounded border border-orange-200 text-xs">https://github.com/...</code> ではなく
+          <code class="text-orange-600 bg-orange-50 px-1 rounded border border-orange-200 text-xs">git@github.com:ユーザー名/リポジトリ名.git</code>
+          の形式で使います。GitHub のリポジトリページで「SSH」タブを選ぶと SSH 用 URL を確認できます。
+        </p>
+      </div>
+    </section>
+
     <!-- GitHub リポジトリ作成 -->
     <section class="mb-12">
       <h2 class="text-2xl font-bold text-gray-900 mb-6">GitHub にリポジトリを作成する</h2>
