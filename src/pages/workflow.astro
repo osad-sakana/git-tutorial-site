@@ -1,13 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import Terminal from '../components/Terminal.astro'
+import { badge } from '../lib/badge'
 
 const base = import.meta.env.BASE_URL
-
-const badge = {
-  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-50 text-cyan-700 border-cyan-300',
-  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-50 text-orange-700 border-orange-300',
-  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-50 text-purple-700 border-purple-300',
-}
 ---
 
 <Layout title="実践ワークフロー" description="実際の開発現場で使われるGitのワークフローを学ぼう">
@@ -178,9 +174,7 @@ const badge = {
         <code class="text-orange-600 bg-orange-50 px-2 py-0.5 rounded text-sm border border-orange-200">.gitignore</code> ファイルにパターンを書くと、
         そのファイルは Git に追跡されません。パスワードや設定ファイル、自動生成されるファイルは必ず除外しましょう。
       </p>
-      <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden">
-        <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono">.gitignore</div>
-        <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># 環境変数ファイル（絶対に commit しない！）</span>
+      <Terminal filename=".gitignore"><span class="text-gray-500"># 環境変数ファイル（絶対に commit しない！）</span>
 <span class="text-red-400">.env</span>
 <span class="text-red-400">.env.local</span>
 
@@ -197,8 +191,7 @@ const badge = {
 
 <span class="text-gray-500"># IDE の設定ファイル</span>
 <span class="text-gray-400">.vscode/</span>
-<span class="text-gray-400">.idea/</span></pre>
-      </div>
+<span class="text-gray-400">.idea/</span></Terminal>
     </section>
 
     <!-- 学習まとめ -->

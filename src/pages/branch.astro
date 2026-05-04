@@ -1,13 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import Terminal from '../components/Terminal.astro'
+import { badge } from '../lib/badge'
 
 const base = import.meta.env.BASE_URL
-
-const badge = {
-  term:    'text-xs font-semibold px-2 py-0.5 rounded border bg-cyan-50 text-cyan-700 border-cyan-300',
-  cmd:     'text-xs font-semibold px-2 py-0.5 rounded border bg-orange-50 text-orange-700 border-orange-300',
-  concept: 'text-xs font-semibold px-2 py-0.5 rounded border bg-purple-50 text-purple-700 border-purple-300',
-}
 ---
 
 <Layout title="ブランチ" description="Gitのブランチの作成・切り替え・マージを学ぼう">
@@ -70,21 +66,19 @@ const badge = {
           <h3 class="text-lg font-semibold text-green-700">ブランチを作成する</h3>
           <span class={badge.cmd}>コマンド</span>
         </div>
-        <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden mb-4">
-          <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
-            <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
-            <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
-            <span class="ml-2">ターミナル</span>
-          </div>
-          <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># ブランチを作成して切り替え（これが一番よく使う）</span>
+        <Terminal class="mb-4"><span class="text-gray-500"># ブランチを作成して切り替え（これが一番よく使う）</span>
 <span class="text-green-400">$</span> <span class="text-white">git switch -c feature/login</span>
 <span class="text-gray-400">Switched to a new branch 'feature/login'</span>
 
 <span class="text-gray-500"># 現在のブランチを確認</span>
 <span class="text-green-400">$</span> <span class="text-white">git branch</span>
 <span class="text-gray-400">  main</span>
-<span class="text-green-400">* feature/login</span>   <span class="text-gray-500">← * が現在のブランチ</span></pre>
+<span class="text-green-400">* feature/login</span>   <span class="text-gray-500">← * が現在のブランチ</span></Terminal>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm text-gray-700">
+          <strong class="text-gray-800">古いコードとの対応：</strong>
+          ネット上の記事では <code class="text-orange-600 bg-orange-50 px-1 rounded text-xs border border-orange-200">git checkout -b ブランチ名</code>（作成＋切り替え）や
+          <code class="text-orange-600 bg-orange-50 px-1 rounded text-xs border border-orange-200">git checkout ブランチ名</code>（切り替えのみ）という書き方も見かけます。
+          Git 2.23 以降で追加された <code class="text-orange-600 bg-orange-50 px-1 rounded text-xs border border-orange-200">git switch</code> の方が意図が明確なため、現在はこちらが推奨されています。
         </div>
       </div>
 
@@ -94,21 +88,13 @@ const badge = {
           <h3 class="text-lg font-semibold text-blue-700">ブランチを切り替える</h3>
           <span class={badge.cmd}>コマンド</span>
         </div>
-        <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden mb-4">
-          <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
-            <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
-            <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
-            <span class="ml-2">ターミナル</span>
-          </div>
-          <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># main ブランチに切り替え</span>
+        <Terminal class="mb-4"><span class="text-gray-500"># main ブランチに切り替え</span>
 <span class="text-green-400">$</span> <span class="text-white">git switch main</span>
 <span class="text-gray-400">Switched to branch 'main'</span>
 
 <span class="text-gray-500"># feature/login に切り替え</span>
 <span class="text-green-400">$</span> <span class="text-white">git switch feature/login</span>
-<span class="text-gray-400">Switched to branch 'feature/login'</span></pre>
-        </div>
+<span class="text-gray-400">Switched to branch 'feature/login'</span></Terminal>
       </div>
 
       <!-- マージ -->
@@ -120,14 +106,7 @@ const badge = {
         <p class="text-gray-600 text-sm mb-4">
           feature ブランチの作業が完了したら、main にマージ（合流）します。
         </p>
-        <div class="bg-gray-900 rounded-xl border border-gray-700 overflow-hidden">
-          <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
-            <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
-            <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
-            <span class="ml-2">ターミナル</span>
-          </div>
-          <pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><span class="text-gray-500"># まず main に切り替える</span>
+        <Terminal><span class="text-gray-500"># まず main に切り替える</span>
 <span class="text-green-400">$</span> <span class="text-white">git switch main</span>
 
 <span class="text-gray-500"># feature/login を main にマージ</span>
@@ -138,8 +117,7 @@ const badge = {
 
 <span class="text-gray-500"># マージ後、不要になったブランチを削除</span>
 <span class="text-green-400">$</span> <span class="text-white">git branch -d feature/login</span>
-<span class="text-gray-400">Deleted branch feature/login</span></pre>
-        </div>
+<span class="text-gray-400">Deleted branch feature/login</span></Terminal>
       </div>
     </section>
 
