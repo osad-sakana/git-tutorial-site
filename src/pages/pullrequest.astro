@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
 import Terminal from '../components/Terminal.astro'
 import { badge } from '../lib/badge'
 
@@ -7,24 +10,13 @@ const base = import.meta.env.BASE_URL
 ---
 
 <Layout title="プルリクエスト" description="GitHubのプルリクエストの作成・レビュー・マージの流れを学ぼう">
+  <PageHeader slug="pullrequest">
+    プルリクエスト（PR）は「この変更を取り込んでほしい」という提案の仕組みです。
+      コードレビューを通じて品質を高め、安全に main ブランチへマージします。
+  </PageHeader>
+
   <div class="max-w-4xl mx-auto px-4 py-12">
 
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href={`${base}github`} class="hover:text-gray-900 transition-colors">GitHub の基本</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">プルリクエスト</span>
-    </nav>
-
-    <div class="flex items-center gap-3 mb-4">
-      <h1 class="text-4xl font-extrabold text-gray-900">プルリクエスト（PR）</h1>
-      <span class={badge.concept}>概念</span>
-    </div>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      プルリクエスト（PR）は「この変更を取り込んでほしい」という提案の仕組みです。
-      コードレビューを通じて品質を高め、安全に main ブランチへマージします。
-    </p>
 
     <!-- PR のフロー -->
     <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-12 shadow-sm">
@@ -151,12 +143,6 @@ const base = import.meta.env.BASE_URL
 <span class="text-gray-400">   a1b2c3d..e4f5g6h  feature/add-login -> feature/add-login</span></Terminal>
     </section>
 
-    <!-- ナビゲーション -->
-    <div class="flex justify-between pt-8 border-t border-gray-200">
-      <a href={`${base}github`} class="text-gray-500 hover:text-gray-900 transition-colors">← GitHub の基本</a>
-      <a href={`${base}workflow`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
-        次：実践ワークフロー →
-      </a>
-    </div>
+    <PageEnd slug="pullrequest" />
   </div>
 </Layout>

@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
 import Terminal from '../components/Terminal.astro'
 import { badge } from '../lib/badge'
 
@@ -7,24 +10,13 @@ const base = import.meta.env.BASE_URL
 ---
 
 <Layout title="ブランチ" description="Gitのブランチの作成・切り替え・マージを学ぼう">
+  <PageHeader slug="branch">
+    ブランチとは「作業の分岐点」です。本番コードを壊さずに新機能の開発やバグ修正を
+      別の流れで進め、完成したらメインに取り込めます。
+  </PageHeader>
+
   <div class="max-w-4xl mx-auto px-4 py-12">
 
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href={`${base}basics`} class="hover:text-gray-900 transition-colors">Git の基本</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">ブランチ</span>
-    </nav>
-
-    <div class="flex items-center gap-3 mb-4">
-      <h1 class="text-4xl font-extrabold text-gray-900">ブランチ</h1>
-      <span class={badge.concept}>概念</span>
-    </div>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      ブランチとは「作業の分岐点」です。本番コードを壊さずに新機能の開発やバグ修正を
-      別の流れで進め、完成したらメインに取り込めます。
-    </p>
 
     <!-- ブランチの概念図 -->
     <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-12 shadow-sm">
@@ -178,12 +170,6 @@ const base = import.meta.env.BASE_URL
       </div>
     </section>
 
-    <!-- ナビゲーション -->
-    <div class="flex justify-between pt-8 border-t border-gray-200">
-      <a href={`${base}undo`} class="text-gray-500 hover:text-gray-900 transition-colors">← 変更の取り消し</a>
-      <a href={`${base}about-github`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
-        次：GitHub とは →
-      </a>
-    </div>
+    <PageEnd slug="branch" />
   </div>
 </Layout>

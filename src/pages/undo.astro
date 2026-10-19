@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
 import Terminal from '../components/Terminal.astro'
 import { badge } from '../lib/badge'
 
@@ -7,23 +10,15 @@ const base = import.meta.env.BASE_URL
 ---
 
 <Layout title="変更の取り消し" description="git commit --amend と git reset の使い方。コミット後の修正方法を学ぼう">
-  <div class="max-w-4xl mx-auto px-4 py-12">
-
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href={`${base}basics`} class="hover:text-gray-900 transition-colors">Git の基本</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">変更の取り消し</span>
-    </nav>
-
-    <h1 class="text-4xl font-extrabold text-gray-900 mb-4">変更の取り消し</h1>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      コミットした後に間違いに気づいたり、作業をやり直したいことはよくあります。
+  <PageHeader slug="undo">
+    コミットした後に間違いに気づいたり、作業をやり直したいことはよくあります。
       <code class="text-orange-600 text-sm bg-orange-50 px-2 py-0.5 rounded border border-orange-200">git commit --amend</code>・
       <code class="text-orange-600 text-sm bg-orange-50 px-2 py-0.5 rounded border border-orange-200">git reset</code>
       を正しく使えるようになりましょう。
-    </p>
+  </PageHeader>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
 
     <!-- git commit --amend -->
     <section class="mb-12">
@@ -278,12 +273,6 @@ const base = import.meta.env.BASE_URL
       </div>
     </section>
 
-    <!-- ナビゲーション -->
-    <div class="flex justify-between pt-8 border-t border-gray-200">
-      <a href={`${base}basics`} class="text-gray-500 hover:text-gray-900 transition-colors">← Git の基本</a>
-      <a href={`${base}branch`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
-        次：ブランチ →
-      </a>
-    </div>
+    <PageEnd slug="undo" />
   </div>
 </Layout>

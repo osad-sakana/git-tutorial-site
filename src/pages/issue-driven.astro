@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
 import { badge } from '../lib/badge'
 
 const base = import.meta.env.BASE_URL
@@ -134,26 +137,14 @@ const colorMap: Record<string, Record<string, string>> = {
 ---
 
 <Layout title="Issue 駆動開発" description="Issue駆動開発のよくある事例を学ぼう">
-  <div class="max-w-4xl mx-auto px-4 py-12">
-
-    <!-- パンくず -->
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href={`${base}workflow`} class="hover:text-gray-900 transition-colors">実践ワークフロー</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">Issue 駆動開発</span>
-    </nav>
-
-    <div class="flex items-center gap-3 mb-4">
-      <h1 class="text-4xl font-extrabold text-gray-900">Issue 駆動開発</h1>
-      <span class={badge.concept}>概念</span>
-    </div>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      Issue 駆動開発とは、<strong class="text-gray-900">すべての作業を GitHub Issue から始める</strong>開発スタイルです。
+  <PageHeader slug="issue-driven">
+    Issue 駆動開発とは、<strong class="text-gray-900">すべての作業を GitHub Issue から始める</strong>開発スタイルです。
       「なぜこの変更をするのか」を Issue に記録してからブランチを切ることで、
       変更の意図が明確になり、チーム内のコミュニケーションが円滑になります。
-    </p>
+  </PageHeader>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
 
     <!-- 基本の流れ -->
     <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-14 shadow-sm">
@@ -282,12 +273,6 @@ Closes <span class="text-green-400">#42</span>   <span class="text-gray-500">←
       </div>
     </section>
 
-    <!-- ナビゲーション -->
-    <div class="flex justify-between pt-10 border-t border-gray-200 mt-14">
-      <a href={`${base}workflow`} class="text-gray-500 hover:text-gray-900 transition-colors">← 実践ワークフロー</a>
-      <a href={base} class="bg-gray-100 hover:bg-gray-900 hover:text-white text-gray-900 font-semibold px-6 py-2 rounded-xl border border-gray-300 transition-colors">
-        ホームへ戻る
-      </a>
-    </div>
+    <PageEnd slug="issue-driven" />
   </div>
 </Layout>

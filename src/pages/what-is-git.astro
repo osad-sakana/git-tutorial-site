@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
 import Terminal from '../components/Terminal.astro'
 import { badge } from '../lib/badge'
 
@@ -46,20 +49,13 @@ const glossary = [
 ---
 
 <Layout title="Gitとは？" description="Gitがそもそも何なのか、なぜ必要なのかを初心者向けにわかりやすく解説します">
+  <PageHeader slug="what-is-git">
+    「Git って何？」「なぜ使うの？」という疑問にゼロから答えます。<br />
+      プログラミングを始めると必ず出てくる Git の正体を、たとえ話を交えてわかりやすく解説します。
+  </PageHeader>
+
   <div class="max-w-4xl mx-auto px-4 py-12">
 
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">Gitとは？</span>
-    </nav>
-
-    <!-- ヒーロー -->
-    <h1 class="text-4xl font-extrabold text-gray-900 mb-4">そもそも Git とは？</h1>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      「Git って何？」「なぜ使うの？」という疑問にゼロから答えます。<br />
-      プログラミングを始めると必ず出てくる Git の正体を、たとえ話を交えてわかりやすく解説します。
-    </p>
 
     <!-- バージョン管理とは？ -->
     <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-12 shadow-sm">
@@ -286,11 +282,6 @@ const glossary = [
       </div>
     </section>
 
-    <div class="flex justify-between pt-8 border-t border-gray-200">
-      <a href={base} class="text-gray-500 hover:text-gray-900 transition-colors">← ホームへ戻る</a>
-      <a href={`${base}basics`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
-        次：Git の基本 →
-      </a>
-    </div>
+    <PageEnd slug="what-is-git" />
   </div>
 </Layout>

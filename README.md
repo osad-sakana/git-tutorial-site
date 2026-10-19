@@ -20,6 +20,7 @@
 
 - [Astro](https://astro.build/) — 静的サイトジェネレーター
 - [Tailwind CSS](https://tailwindcss.com/) — スタイリング
+- [Lucide](https://lucide.dev)（ISC）/ Noto Sans JP・JetBrains Mono（SIL OFL）— アイコンとフォント（自己ホスト）
 - GitHub Pages — ホスティング（GitHub Actions で自動デプロイ）
 
 ## プロジェクト構成
@@ -27,11 +28,17 @@
 ```
 src/
 ├── components/
-│   └── Terminal.astro   # コピーボタン付きターミナルブロック
+│   ├── Terminal.astro   # コピーボタン付きターミナルブロック
+│   ├── Icon.astro       # Lucide アイコン（インライン SVG）
+│   ├── Callout.astro    # ポイント / 注意 / 補足ボックス
+│   ├── PageHeader.astro # 章ヘッダー（章番号・ゴール）
+│   └── PageEnd.astro    # 章末のまとめ・前後の章リンク
 ├── layouts/
-│   └── Layout.astro     # 共通レイアウト（ナビ・OGP・フッター）
+│   └── Layout.astro     # 共通レイアウト（ナビ・進捗バー・OGP・フッター）
 ├── lib/
-│   └── badge.ts         # バッジスタイル共有定数
+│   ├── pages.ts         # 章の定義（ナビ・トップ・前後リンクの単一情報源）
+│   ├── badge.ts         # バッジスタイル共有定数
+│   └── text.ts          # `code` 記法 → HTML 変換
 ├── pages/
 │   ├── index.astro
 │   ├── what-is-git.astro
@@ -72,3 +79,8 @@ GitHub Actions を使って `main` ブランチへの push 時に自動ビルド
 ```sh
 SITE=https://<username>.github.io  BASE=/<repo-name>  pnpm build
 ```
+
+## 章を追加するには
+
+1. `src/pages/<slug>.astro` を作成し、`<PageHeader slug="<slug>">` と `<PageEnd slug="<slug>" />` を配置する
+2. `src/lib/pages.ts` の `chapters` に章を追加する（ナビ・トップ・前後リンク・フッターに自動反映）

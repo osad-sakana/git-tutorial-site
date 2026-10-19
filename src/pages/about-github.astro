@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
 import { badge } from '../lib/badge'
 
 const base = import.meta.env.BASE_URL
@@ -45,24 +48,14 @@ const features = [
 ---
 
 <Layout title="GitHub とは" description="GitHubとは何か、Gitとの違い、できることを初心者向けに解説">
-  <div class="max-w-4xl mx-auto px-4 py-12">
-
-    <!-- パンくず -->
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">GitHub とは</span>
-    </nav>
-
-    <div class="flex flex-wrap items-center gap-3 mb-4">
-      <h1 class="text-4xl font-extrabold text-gray-900">GitHub とは？</h1>
-      <span class={badge.concept}>概念</span>
-    </div>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      GitHub（ギットハブ）は、Git リポジトリをインターネット上で管理・共有できるプラットフォームです。
+  <PageHeader slug="about-github">
+    GitHub（ギットハブ）は、Git リポジトリをインターネット上で管理・共有できるプラットフォームです。
       コードの保存場所としてだけでなく、チームでの開発・レビュー・自動化まで、
       現代のソフトウェア開発に欠かせないツールです。
-    </p>
+  </PageHeader>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
 
     <!-- Git と GitHub の違い -->
     <section class="mb-12">
@@ -222,12 +215,6 @@ const features = [
       </p>
     </section>
 
-    <!-- ナビゲーション -->
-    <div class="flex flex-wrap justify-between gap-3 pt-8 border-t border-gray-200">
-      <a href={`${base}branch`} class="text-gray-500 hover:text-gray-900 transition-colors">← ブランチ</a>
-      <a href={`${base}github`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
-        次：GitHub 基本操作 →
-      </a>
-    </div>
+    <PageEnd slug="about-github" />
   </div>
 </Layout>

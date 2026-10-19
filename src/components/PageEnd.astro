@@ -1,0 +1,59 @@
+---
+import Icon from './Icon.astro'
+import { chapters, bySlug, indexOfChapter } from '../lib/pages'
+import { withCode } from '../lib/text'
+
+interface Props { slug: string }
+const { slug } = Astro.props
+const base = import.meta.env.BASE_URL
+const chapter = bySlug(slug)
+const i = indexOfChapter(slug)
+const prev = chapters[i - 1]
+const next = chapters[i + 1]
+---
+
+<!-- ここまでのまとめ -->
+<section class="rounded-2xl border border-gray-200 bg-white p-7 shadow-sm mb-10" style={`--accent:${chapter.accent}`}>
+  <h2 class="flex items-center gap-2 text-xl font-bold text-gray-900 mb-4">
+    <span class="w-8 h-8 rounded-lg flex items-center justify-center text-white" style="background:var(--accent)"><Icon name="list-checks" size={18} /></span>
+    この章のまとめ
+  </h2>
+  <ol class="space-y-3">
+    {chapter.takeaways.map((t, n) => (
+      <li class="flex items-start gap-3 text-gray-700 leading-relaxed">
+        <span class="mt-0.5 w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center shrink-0 font-mono" style="color:var(--accent);background:color-mix(in srgb, var(--accent) 12%, white)">{n + 1}</span>
+        <span set:html={withCode(t)} />
+      </li>
+    ))}
+  </ol>
+</section>
+
+<!-- 前後の章 -->
+<nav class="grid gap-4 sm:grid-cols-2" aria-label="前後の章">
+  {prev ? (
+    <a href={`${base}${prev.slug}`} class="group flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <Icon name="arrow-left" size={20} class="text-gray-400 group-hover:-translate-x-1 transition-transform" />
+      <span class="min-w-0">
+        <span class="block text-xs font-semibold text-gray-400 tracking-wider">前の章</span>
+        <span class="block font-bold text-gray-900 truncate">{prev.short}</span>
+      </span>
+    </a>
+  ) : <span></span>}
+  {next ? (
+    <a href={`${base}${next.slug}`} class="group flex items-center justify-end gap-4 rounded-2xl p-5 text-white shadow-md sm:text-right" style={`background:linear-gradient(135deg, ${next.accent}, color-mix(in srgb, ${next.accent} 60%, #000))`}>
+      <span class="min-w-0">
+        <span class="block text-xs font-semibold text-white/70 tracking-wider">次の章</span>
+        <span class="block font-bold truncate">{next.title}</span>
+      </span>
+      <Icon name="arrow-right" size={20} class="group-hover:translate-x-1 transition-transform" />
+    </a>
+  ) : (
+    <a href={base} class="group flex items-center justify-end gap-4 rounded-2xl p-5 text-white shadow-md bg-gradient-to-br from-emerald-500 to-emerald-700">
+      <span class="min-w-0 text-right">
+        <span class="block text-xs font-semibold text-white/70 tracking-wider">全章修了</span>
+        <span class="block font-bold">ホームへ戻る</span>
+      </span>
+      <Icon name="flag" size={20} />
+    </a>
+  )}
+</nav>

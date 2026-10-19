@@ -1,1 +1,152 @@
 @import "tailwindcss";
+@import "@fontsource-variable/noto-sans-jp";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* ---------- デザイントークン ---------- */
+@theme {
+  --font-sans: "Noto Sans JP Variable", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Git のロゴ色に寄せたブランドカラー（既存の orange-* クラスがそのまま追従する） */
+  --color-orange-50: #fff5f1;
+  --color-orange-100: #ffe6dd;
+  --color-orange-200: #ffcab9;
+  --color-orange-300: #ffa68b;
+  --color-orange-400: #ff7c58;
+  --color-orange-500: #f05133;
+  --color-orange-600: #d63a1d;
+  --color-orange-700: #b02c15;
+  --color-orange-800: #8f2716;
+  --color-orange-900: #752618;
+
+  --color-ink: #0f172a;
+  --color-paper: #faf8f5;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -4px rgb(15 23 42 / 0.08);
+  --shadow-md: 0 2px 4px rgb(15 23 42 / 0.04), 0 12px 32px -8px rgb(15 23 42 / 0.14);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    80%, 100% { transform: scale(2.2); opacity: 0; }
+  }
+}
+
+/* ---------- ベース ---------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(circle at 12% -10%, rgb(240 81 51 / 0.07), transparent 40%),
+    radial-gradient(circle at 100% 20%, rgb(99 102 241 / 0.06), transparent 35%),
+    radial-gradient(rgb(15 23 42 / 0.045) 1px, transparent 1px);
+  background-size: auto, auto, 22px 22px;
+  background-attachment: fixed;
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+}
+
+::selection { background: var(--color-orange-200); color: var(--color-ink); }
+
+:focus-visible {
+  outline: 2px solid var(--color-orange-500);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+main h1, main h2, main h3 { letter-spacing: -0.01em; line-height: 1.35; }
+main h2 { scroll-margin-top: 5rem; }
+
+/* 章ページの本文カード類：ホバーで少し浮かせる */
+main a.bg-white,
+main .card-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+main a.bg-white:hover,
+main .card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---------- スクロール連動アニメーション ---------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- ターミナル ---------- */
+.terminal-block {
+  background: linear-gradient(180deg, #0f172a 0%, #0b1120 100%);
+  border-color: rgb(51 65 85 / 0.8);
+  box-shadow: 0 20px 40px -20px rgb(15 23 42 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
+.terminal-block pre { font-family: var(--font-mono); font-size: 0.8125rem; }
+.terminal-block pre code { font-family: inherit; }
+
+/* ---------- 見出しのアクセント ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.gradient-text {
+  background-image: linear-gradient(100deg, #f05133 0%, #ec4899 55%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- ヒーローの SVG アニメーション ---------- */
+.draw-line {
+  stroke-dasharray: var(--len, 400);
+  stroke-dashoffset: var(--len, 400);
+  animation: draw 1.4s ease-out forwards;
+  animation-delay: var(--d, 0s);
+}
+.pop-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+
+/* ---------- アクセシビリティ ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .js .reveal { opacity: 1; transform: none; }
+  .draw-line { stroke-dashoffset: 0; }
+  .pop-node { opacity: 1; }
+}
