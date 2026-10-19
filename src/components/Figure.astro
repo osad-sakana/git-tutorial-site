@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  src: ImageMetadata
+  /** 画面の内容と注目点。装飾目的の写真のみ空文字にする */
+  alt: string
+  caption?: string
+  /** 写真のクレジット表記 */
+  credit?: string
+  /** スクリーンショットにブラウザ風の上部バーを付ける */
+  browser?: boolean
+  /** バーに表示する URL やタイトル */
+  url?: string
+  class?: string
+}
+const { src, alt, caption, credit, browser = false, url, class: className } = Astro.props
+---
+
+<figure class:list={['my-6', className]}>
+  <div class="rounded-xl border border-gray-200 shadow-sm overflow-hidden bg-white">
+    {browser && (
+      <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 flex items-center gap-2 text-xs text-gray-500 font-mono">
+        <span class="w-3 h-3 rounded-full bg-red-400/70"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-400/70"></span>
+        <span class="w-3 h-3 rounded-full bg-green-400/70"></span>
+        {url && <span class="ml-2 truncate">{url}</span>}
+      </div>
+    )}
+    <Image src={src} alt={alt} width={src.width} height={src.height} loading="lazy" class="w-full h-auto block" />
+  </div>
+  {(caption || credit) && (
+    <figcaption class="mt-2 text-sm text-gray-500 text-center">
+      {caption}
+      {credit && <span class="block text-xs text-gray-400">{credit}</span>}
+    </figcaption>
+  )}
+</figure>
