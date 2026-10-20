@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css'
+import Icon from '../components/Icon.astro'
+import { chapters } from '../lib/pages'
 
 interface Props {
   title: string
@@ -9,30 +11,13 @@ interface Props {
 const { title, description = 'GitとGitHubの使い方を初心者向けにわかりやすく解説します' } = Astro.props
 
 const base = import.meta.env.BASE_URL
-const currentPath = Astro.url.pathname
+const trim = (p: string) => (p.endsWith('/') && p.length > 1 ? p.slice(0, -1) : p)
+const currentPath = trim(Astro.url.pathname)
+const isCurrent = (slug: string) => currentPath === trim(`${base}${slug}`)
 
-const navLinks = [
-  { href: base,                      label: 'ホーム' },
-  { href: `${base}what-is-git`,      label: 'Gitとは？' },
-  { href: `${base}basics`,           label: 'Git 基本' },
-  { href: `${base}undo`,             label: '取り消し' },
-  { href: `${base}branch`,           label: 'ブランチ' },
-  { href: `${base}about-github`,     label: 'GitHub とは' },
-  { href: `${base}github`,           label: 'GitHub 基本' },
-  { href: `${base}pullrequest`,      label: 'プルリクエスト' },
-  { href: `${base}workflow`,         label: 'ワークフロー' },
-  { href: `${base}issue-driven`,     label: 'Issue 駆動' },
-]
+const accent = chapters.find((c) => isCurrent(c.slug))?.accent ?? 'var(--color-orange-500)'
 
-function isActive(href: string): boolean {
-  const normalHref    = href.endsWith('/') && href.length > 1 ? href.slice(0, -1) : href
-  const normalCurrent = currentPath.endsWith('/') && currentPath.length > 1
-    ? currentPath.slice(0, -1)
-    : currentPath
-  return normalCurrent === normalHref
-}
-
-const ogTitle = `${title} | Git & GitHub 入門`
+const ogTitle = title === 'ホーム' ? 'Git & GitHub 入門' : `${title} | Git & GitHub 入門`
 ---
 
 <!DOCTYPE html>
@@ -42,6 +27,7 @@ const ogTitle = `${title} | Git & GitHub 入門`
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#faf8f5" />
     <title>{ogTitle}</title>
 
     <!-- OGP -->
@@ -53,109 +39,189 @@ const ogTitle = `${title} | Git & GitHub 入門`
     <meta name="twitter:card"       content="summary" />
     <meta name="twitter:title"      content={ogTitle} />
     <meta name="twitter:description" content={description} />
+
+    <!-- JS 有効時のみアニメーション用クラスを付与（無効環境でも本文が隠れないようにする） -->
+    <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
-  <body class="bg-slate-50 text-gray-900 min-h-screen font-sans">
+  <body class="text-gray-800 min-h-screen font-sans">
+
+    <!-- スクロール進捗 -->
+    <div class="fixed top-0 inset-x-0 h-0.5 z-[60] pointer-events-none">
+      <div id="progress" class="h-full w-0 bg-gradient-to-r from-orange-500 via-pink-500 to-violet-500"></div>
+    </div>
 
     <!-- ヘッダー -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
-
-        <!-- ロゴ -->
-        <a href={base} class="flex items-center gap-2 hover:opacity-80 transition-opacity shrink-0">
-          <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">
-            Git
-          </div>
-          <span class="text-base font-bold text-gray-900 hidden sm:block">Git & GitHub 入門</span>
+    <header class="sticky top-0 z-50 bg-white/75 backdrop-blur-xl border-b border-gray-200/70">
+      <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-3">
+        <a href={base} class="flex items-center gap-2.5 group shrink-0">
+          <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-400 to-orange-600 text-white flex items-center justify-center shadow-sm group-hover:rotate-[-8deg] transition-transform">
+            <Icon name="git-branch" size={18} stroke={2.4} />
+          </span>
+          <span class="font-bold text-gray-900 tracking-tight">Git &amp; GitHub <span class="text-gray-400 font-medium">入門</span></span>
         </a>
 
-        <!-- デスクトップナビ -->
-        <nav class="hidden md:flex items-center gap-0.5 flex-1 overflow-x-auto">
-          {navLinks.map(({ href, label }) => (
-            <a
-              href={href}
-              class={isActive(href)
-                ? 'bg-orange-50 text-orange-600 font-semibold px-2.5 py-1.5 rounded-lg text-xs whitespace-nowrap'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 px-2.5 py-1.5 rounded-lg text-xs whitespace-nowrap transition-colors'}
-            >{label}</a>
-          ))}
-        </nav>
-
-        <!-- ハンバーガーボタン（モバイルのみ） -->
         <button
-          id="hamburger-btn"
-          class="md:hidden ml-auto flex flex-col justify-center items-center w-10 h-10 gap-1.5 rounded-lg hover:bg-gray-100 transition-colors shrink-0"
-          aria-label="メニューを開く"
+          id="menu-btn"
+          class="flex items-center gap-2 pl-3.5 pr-3 h-9 rounded-full border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:border-orange-300 hover:text-orange-600 transition-colors"
           aria-expanded="false"
+          aria-controls="menu-panel"
         >
-          <span class="hamburger-line block w-5 h-0.5 bg-gray-600 transition-all duration-300"></span>
-          <span class="hamburger-line block w-5 h-0.5 bg-gray-600 transition-all duration-300"></span>
-          <span class="hamburger-line block w-5 h-0.5 bg-gray-600 transition-all duration-300"></span>
+          <span>章一覧</span>
+          <span class="relative w-4 h-4">
+            <Icon name="menu" size={16} class="absolute inset-0 transition-all duration-200 menu-open" />
+            <Icon name="x" size={16} class="absolute inset-0 transition-all duration-200 menu-close opacity-0 rotate-[-45deg]" />
+          </span>
         </button>
       </div>
 
-      <!-- モバイルメニュー -->
-      <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
-        <nav class="max-w-6xl mx-auto px-4 py-3 flex flex-col">
-          {navLinks.map(({ href, label }) => (
+      <!-- 章一覧パネル -->
+      <div id="menu-panel" class="hidden border-t border-gray-200/70 bg-white/95 backdrop-blur-xl max-h-[calc(100vh-3.5rem)] overflow-y-auto">
+        <nav class="max-w-6xl mx-auto px-4 py-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3" aria-label="章一覧">
+          {chapters.map((c, i) => (
             <a
-              href={href}
-              class={isActive(href)
-                ? 'bg-orange-50 text-orange-600 font-semibold px-3 py-2.5 rounded-lg text-sm'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors px-3 py-2.5 rounded-lg text-sm'}
-            >{label}</a>
+              href={`${base}${c.slug}`}
+              data-slug={c.slug}
+              aria-current={isCurrent(c.slug) ? 'page' : undefined}
+              class={`menu-item flex items-center gap-3 rounded-xl border px-3 py-2.5 transition-colors ${
+                isCurrent(c.slug)
+                  ? 'border-orange-300 bg-orange-50'
+                  : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
+              }`}
+            >
+              <span class="w-9 h-9 rounded-lg flex items-center justify-center text-white shrink-0" style={`background:${c.accent}`}>
+                <Icon name={c.icon} size={18} />
+              </span>
+              <span class="min-w-0">
+                <span class="block text-[11px] font-bold tracking-widest text-gray-400">CHAPTER {String(i + 1).padStart(2, '0')}</span>
+                <span class="block text-sm font-semibold text-gray-900 truncate">{c.short}</span>
+              </span>
+              <span class="visited-mark ml-auto hidden text-green-600" title="読了">
+                <Icon name="check" size={16} stroke={3} />
+              </span>
+            </a>
           ))}
         </nav>
       </div>
     </header>
 
-    <!-- メインコンテンツ -->
-    <main>
+    <main style={`--accent:${accent}`}>
       <slot />
     </main>
 
     <!-- フッター -->
-    <footer class="bg-white border-t border-gray-200 mt-20 py-10">
-      <div class="max-w-6xl mx-auto px-4 text-center text-gray-400 text-sm">
-        <p>Git & GitHub 入門ガイド — 初心者のためのバージョン管理学習サイト</p>
+    <footer class="mt-24 bg-ink text-gray-400">
+      <div class="max-w-6xl mx-auto px-4 py-14 grid gap-10 md:grid-cols-[1.2fr_2fr]">
+        <div>
+          <a href={base} class="flex items-center gap-2.5 text-white font-bold">
+            <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+              <Icon name="git-branch" size={18} stroke={2.4} />
+            </span>
+            Git &amp; GitHub 入門
+          </a>
+          <p class="mt-4 text-sm leading-relaxed">初心者のためのバージョン管理学習サイト。<br />基礎から実践ワークフローまで、手を動かしながら学べます。</p>
+        </div>
+        <nav aria-label="フッターナビ" class="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-2 text-sm">
+          {chapters.map((c) => (
+            <a href={`${base}${c.slug}`} class="hover:text-white transition-colors">{c.short}</a>
+          ))}
+        </nav>
+      </div>
+      <div class="border-t border-white/10">
+        <p class="max-w-6xl mx-auto px-4 py-5 text-xs text-gray-500">
+          Icons: <a class="underline hover:text-gray-300" href="https://lucide.dev">Lucide</a> (ISC) ・
+          Fonts: Noto Sans JP / JetBrains Mono (SIL OFL) ・ Illustrations: 本サイトのオリジナル SVG
+        </p>
       </div>
     </footer>
 
-    <script>
-      const btn = document.getElementById('hamburger-btn')
-      const menu = document.getElementById('mobile-menu')
-      const lines = btn?.querySelectorAll('.hamburger-line')
+    <!-- トップへ戻る -->
+    <button
+      id="to-top"
+      class="fixed bottom-5 right-5 z-40 w-11 h-11 rounded-full bg-ink text-white shadow-lg flex items-center justify-center opacity-0 translate-y-3 pointer-events-none transition-all duration-300 hover:bg-orange-600"
+      aria-label="ページの先頭へ戻る"
+    >
+      <Icon name="arrow-up" size={18} stroke={2.4} />
+    </button>
 
-      btn?.addEventListener('click', () => {
-        const isOpen = !menu?.classList.contains('hidden')
-        if (isOpen) {
-          menu?.classList.add('hidden')
-          btn.setAttribute('aria-expanded', 'false')
-          if (lines) {
-            ;(lines[0] as HTMLElement).style.transform = ''
-            ;(lines[1] as HTMLElement).style.opacity = '1'
-            ;(lines[2] as HTMLElement).style.transform = ''
-          }
-        } else {
-          menu?.classList.remove('hidden')
-          btn.setAttribute('aria-expanded', 'true')
-          if (lines) {
-            ;(lines[0] as HTMLElement).style.transform = 'translateY(8px) rotate(45deg)'
-            ;(lines[1] as HTMLElement).style.opacity = '0'
-            ;(lines[2] as HTMLElement).style.transform = 'translateY(-8px) rotate(-45deg)'
-          }
+    <script>
+      const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null
+
+      // --- 章一覧メニュー ---
+      const btn = $('menu-btn')
+      const panel = $('menu-panel')
+      const setMenu = (open: boolean) => {
+        panel?.classList.toggle('hidden', !open)
+        btn?.setAttribute('aria-expanded', String(open))
+        btn?.querySelector('.menu-open')?.classList.toggle('opacity-0', open)
+        btn?.querySelector('.menu-open')?.classList.toggle('rotate-45', open)
+        btn?.querySelector('.menu-close')?.classList.toggle('opacity-0', !open)
+        btn?.querySelector('.menu-close')?.classList.toggle('rotate-[-45deg]', !open)
+      }
+      btn?.addEventListener('click', () => setMenu(panel?.classList.contains('hidden') ?? false))
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false) })
+      document.addEventListener('click', (e) => {
+        if (!(e.target as HTMLElement).closest('header')) setMenu(false)
+      })
+
+      // --- 既読管理（localStorage が使えない環境では何もしない） ---
+      const KEY = 'git-tutorial:visited'
+      const read = (): string[] => {
+        try { return JSON.parse(localStorage.getItem(KEY) ?? '[]') } catch { return [] }
+      }
+      const markVisited = () => {
+        const current = document.querySelector<HTMLElement>('.menu-item[aria-current="page"]')?.dataset.slug
+        if (!current) return
+        const list = read()
+        if (list.includes(current)) return
+        try { localStorage.setItem(KEY, JSON.stringify([...list, current])) } catch { /* noop */ }
+      }
+      markVisited()
+      const visited = read()
+      document.querySelectorAll<HTMLElement>('[data-slug]').forEach((el) => {
+        if (visited.includes(el.dataset.slug ?? '')) {
+          el.querySelector('.visited-mark')?.classList.remove('hidden')
+          el.dataset.visited = 'true'
         }
       })
 
-      document.querySelectorAll('#mobile-menu a').forEach((link) => {
-        link.addEventListener('click', () => {
-          menu?.classList.add('hidden')
-          btn?.setAttribute('aria-expanded', 'false')
-          if (lines) {
-            ;(lines[0] as HTMLElement).style.transform = ''
-            ;(lines[1] as HTMLElement).style.opacity = '1'
-            ;(lines[2] as HTMLElement).style.transform = ''
+      // --- スクロール進捗 / トップへ戻る ---
+      const bar = $('progress')
+      const top = $('to-top')
+      const onScroll = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight
+        const y = window.scrollY
+        if (bar) bar.style.width = `${max > 0 ? Math.min(100, (y / max) * 100) : 0}%`
+        const show = y > 600
+        top?.classList.toggle('opacity-0', !show)
+        top?.classList.toggle('translate-y-3', !show)
+        top?.classList.toggle('pointer-events-none', !show)
+      }
+      window.addEventListener('scroll', onScroll, { passive: true })
+      onScroll()
+      top?.addEventListener('click', () => window.scrollTo({ top: 0 }))
+
+      // --- スクロール連動の出現アニメーション ---
+      const targets = document.querySelectorAll<HTMLElement>(
+        'main section, main [data-reveal], main .grid > *, main .terminal-block',
+      )
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible')
+              io.unobserve(entry.target)
+            }
           }
-        })
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.06 },
+      )
+      targets.forEach((el, i) => {
+        if (el.closest('[data-no-reveal]')) return
+        el.classList.add('reveal')
+        // 同じ親の兄弟要素は少しずつ遅らせて順に現れさせる
+        const siblingIndex = Array.from(el.parentElement?.children ?? []).indexOf(el)
+        el.style.setProperty('--reveal-delay', `${Math.min(siblingIndex, 6) * 70}ms`)
+        io.observe(el)
       })
     </script>
   </body>

@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro'
+import { bySlug, indexOfChapter, chapters } from '../lib/pages'
+import { withCode } from '../lib/text'
+
+interface Props {
+  slug: string
+  /** 章タイトルを上書きしたいとき */
+  title?: string
+}
+const { slug, title } = Astro.props
+const base = import.meta.env.BASE_URL
+const chapter = bySlug(slug)
+const no = indexOfChapter(slug) + 1
+---
+
+<header class="relative overflow-hidden border-b border-gray-200/70" style={`--accent:${chapter.accent}`}>
+  <!-- 背景のグロー -->
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(60% 90% at 90% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%)"></div>
+  <!-- 背景の大きな章番号 -->
+  <span class="absolute -right-4 -bottom-10 text-[14rem] leading-none font-black select-none pointer-events-none font-mono" style="color:color-mix(in srgb, var(--accent) 7%, transparent)" aria-hidden="true">{String(no).padStart(2, '0')}</span>
+
+  <div class="relative max-w-4xl mx-auto px-4 pt-10 pb-12">
+    <nav class="text-sm text-gray-500 mb-8 flex items-center gap-2" aria-label="パンくず">
+      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
+      <span aria-hidden="true">/</span>
+      <span class="text-gray-800">{chapter.short}</span>
+    </nav>
+
+    <div class="flex items-start gap-5">
+      <div class="relative hidden sm:block shrink-0">
+        <span class="absolute inset-0 rounded-2xl animate-pulse-ring" style="background:color-mix(in srgb, var(--accent) 35%, transparent)"></span>
+        <span class="relative w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg animate-float" style="background:linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 65%, #000))">
+          <Icon name={chapter.icon} size={30} stroke={1.8} />
+        </span>
+      </div>
+      <div class="min-w-0">
+        <p class="eyebrow mb-3" style="color:var(--accent)">
+          <span>Chapter {String(no).padStart(2, '0')} / {String(chapters.length).padStart(2, '0')}</span>
+          <span class="w-1 h-1 rounded-full bg-current opacity-50"></span>
+          <span class="inline-flex items-center gap-1 normal-case tracking-normal font-semibold"><Icon name="history" size={13} />約 {chapter.minutes} 分</span>
+        </p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">{title ?? chapter.title}</h1>
+        <div class="text-gray-600 text-lg leading-relaxed"><slot /></div>
+      </div>
+    </div>
+
+    <!-- この章のゴール -->
+    <div class="mt-8 rounded-2xl bg-white/80 backdrop-blur border border-gray-200 p-5 shadow-sm">
+      <p class="flex items-center gap-2 text-sm font-bold text-gray-900 mb-3">
+        <Icon name="target" size={16} class="text-[color:var(--accent)]" />この章のゴール
+      </p>
+      <ul class="grid gap-2 text-sm text-gray-700">
+        {chapter.goals.map((g) => (
+          <li class="flex items-start gap-2.5">
+            <span class="mt-0.5 w-4 h-4 rounded-full flex items-center justify-center text-white shrink-0" style="background:var(--accent)"><Icon name="check" size={11} stroke={3.5} /></span>
+            <span set:html={withCode(g)} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</header>

@@ -8,8 +8,8 @@ const { title = 'ターミナル', filename, class: className } = Astro.props
 const isFile = !!filename
 ---
 
-<div class:list={['bg-gray-900 rounded-xl border border-gray-700 overflow-hidden terminal-block', className]}>
-  <div class="bg-gray-800 px-4 py-2 border-b border-gray-700 text-xs text-gray-400 font-mono flex items-center gap-2">
+<div class:list={['rounded-xl border overflow-hidden terminal-block', className]}>
+  <div class="bg-white/5 px-4 py-2 border-b border-white/10 text-xs text-gray-400 font-mono flex items-center gap-2">
     {!isFile && (
       <>
         <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
@@ -20,7 +20,7 @@ const isFile = !!filename
     )}
     {isFile && <span class="flex-1">{filename}</span>}
     <button
-      class="copy-btn hover:text-gray-200 transition-colors px-2 py-0.5 rounded hover:bg-gray-700 text-xs shrink-0"
+      class="copy-btn hover:text-white transition-colors px-2.5 py-1 rounded-md hover:bg-white/10 text-xs shrink-0"
       aria-label="コードをコピー"
     >コピー</button>
   </div>
@@ -28,13 +28,21 @@ const isFile = !!filename
 </div>
 
 <script>
+  // 「$ コマンド」の行があればコマンドだけを、なければ全文をコピーする（貼り付けてそのまま実行できるように）
+  const extract = (text: string): string => {
+    const cmds = text
+      .split('\n')
+      .filter((line) => /^\$ /.test(line.trim()))
+      .map((line) => line.trim().replace(/^\$ /, ''))
+    return (cmds.length ? cmds.join('\n') : text).trim()
+  }
+
   document.querySelectorAll('.terminal-block').forEach((block) => {
     const btn = block.querySelector('.copy-btn') as HTMLButtonElement | null
     const pre = block.querySelector('pre') as HTMLPreElement | null
     btn?.addEventListener('click', async () => {
-      const text = pre?.textContent ?? ''
       try {
-        await navigator.clipboard.writeText(text.trim())
+        await navigator.clipboard.writeText(extract(pre?.textContent ?? ''))
         if (btn) {
           btn.textContent = '✓ コピー済み'
           setTimeout(() => { btn.textContent = 'コピー' }, 2000)

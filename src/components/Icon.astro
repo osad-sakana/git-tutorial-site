@@ -1,0 +1,26 @@
+---
+// Lucide（ISC ライセンス）のアイコンをインライン SVG として埋め込む
+interface Props {
+  name: string
+  size?: number
+  class?: string
+  stroke?: number
+}
+const { name, size = 20, class: className, stroke = 2 } = Astro.props
+
+const modules = import.meta.glob('/node_modules/lucide-static/icons/*.svg', {
+  query: '?raw',
+  import: 'default',
+})
+const loader = modules[`/node_modules/lucide-static/icons/${name}.svg`]
+if (!loader) throw new Error(`Icon not found: ${name}`)
+const raw = (await loader()) as string
+const svg = raw
+  .replace(/<!--[\s\S]*?-->/, '')
+  .replace(/\s(width|height)="24"/g, '')
+  .replace(/\sclass="[^"]*"/, '')
+  .replace('<svg', `<svg width="${size}" height="${size}" aria-hidden="true" focusable="false"`)
+  .replace(/stroke-width="2"/, `stroke-width="${stroke}"`)
+---
+
+<span class:list={['icon inline-flex shrink-0', className]} set:html={svg} />

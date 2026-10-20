@@ -1,37 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
 import Terminal from '../components/Terminal.astro'
+import Figure from '../components/Figure.astro'
+import newRepo from '../assets/images/github/github-new-repository.webp'
 import { badge } from '../lib/badge'
 
 const base = import.meta.env.BASE_URL
 ---
 
 <Layout title="GitHub の基本" description="GitHubのリモートリポジトリ、push・pull・cloneの使い方を学ぼう">
-  <div class="max-w-4xl mx-auto px-4 py-12">
-
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href={`${base}about-github`} class="hover:text-gray-900 transition-colors">GitHub とは</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">GitHub 基本操作</span>
-    </nav>
-
-    <h1 class="text-4xl font-extrabold text-gray-900 mb-4">GitHub の基本</h1>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      GitHub はコードをクラウドで共有するサービスです。
+  <PageHeader slug="github">
+    GitHub はコードをクラウドで共有するサービスです。
       <code class="text-orange-600 text-sm bg-orange-50 px-2 py-0.5 rounded border border-orange-200">push</code>・
       <code class="text-orange-600 text-sm bg-orange-50 px-2 py-0.5 rounded border border-orange-200">pull</code>・
       <code class="text-orange-600 text-sm bg-orange-50 px-2 py-0.5 rounded border border-orange-200">clone</code>
       を使ってチームで安全にコードを共有します。
-    </p>
+  </PageHeader>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
 
     <!-- ローカル vs リモート -->
     <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-12 shadow-sm">
       <h2 class="text-xl font-bold text-gray-900 mb-6">ローカルリポジトリ vs リモートリポジトリ</h2>
       <div class="flex flex-col md:flex-row gap-6 items-center">
-        <div class="flex-1 bg-slate-50 rounded-xl p-6 border border-gray-200">
-          <div class="text-3xl mb-3">💻</div>
+        <div class="w-full md:w-auto md:flex-1 bg-slate-50 rounded-xl p-6 border border-gray-200">
+          <div class="text-3xl mb-3"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></div>
           <div class="flex items-center gap-2 mb-2">
             <h3 class="font-bold text-gray-900">ローカルリポジトリ</h3>
             <span class={badge.term}>用語</span>
@@ -41,19 +38,21 @@ const base = import.meta.env.BASE_URL
             <code class="text-orange-600 text-xs bg-orange-50 px-1 rounded border border-orange-200">git init</code> で作った場所。
           </p>
         </div>
-        <div class="flex flex-col items-center gap-2 text-sm text-gray-500">
-          <div class="flex items-center gap-1 text-green-600">
+        <!-- ローカル → リモートが push、リモート → ローカルが pull。横並びでは →/←、縦並び（スマホ）では ↓/↑ -->
+        <div class="flex flex-row md:flex-col items-center gap-4 md:gap-3 text-sm font-semibold">
+          <div class="flex items-center gap-1.5 text-green-600">
             <span>push</span>
-            <span class="text-xl">↑</span>
+            <span class="text-xl leading-none md:hidden" aria-hidden="true">↓</span>
+            <span class="text-xl leading-none hidden md:inline" aria-hidden="true">→</span>
           </div>
-          <div class="text-xl">⟷</div>
-          <div class="flex items-center gap-1 text-blue-600">
-            <span class="text-xl">↓</span>
+          <div class="flex items-center gap-1.5 text-blue-600">
+            <span class="text-xl leading-none md:hidden" aria-hidden="true">↑</span>
+            <span class="text-xl leading-none hidden md:inline" aria-hidden="true">←</span>
             <span>pull</span>
           </div>
         </div>
-        <div class="flex-1 bg-slate-50 rounded-xl p-6 border border-purple-200">
-          <div class="text-3xl mb-3">🐙</div>
+        <div class="w-full md:w-auto md:flex-1 bg-slate-50 rounded-xl p-6 border border-purple-200">
+          <div class="text-3xl mb-3"><i class="fa-brands fa-github" aria-hidden="true"></i></div>
           <div class="flex items-center gap-2 mb-2">
             <h3 class="font-bold text-gray-900">リモートリポジトリ（GitHub）</h3>
             <span class={badge.term}>用語</span>
@@ -154,6 +153,12 @@ const base = import.meta.env.BASE_URL
           </div>
         ))}
       </div>
+      <Figure
+        src={newRepo}
+        alt="GitHub の「Create a new repository」画面。Owner とリポジトリ名の入力欄、Description、公開範囲（Public）の選択、右下に緑色の Create repository ボタンがある"
+        caption="リポジトリ作成画面（2026年10月時点）。名前を入れて右下の「Create repository」を押す"
+        class="max-w-xl mx-auto"
+      />
     </section>
 
     <!-- リモートリポジトリを接続 -->
@@ -253,12 +258,6 @@ const base = import.meta.env.BASE_URL
       </div>
     </section>
 
-    <!-- ナビゲーション -->
-    <div class="flex justify-between pt-8 border-t border-gray-200">
-      <a href={`${base}about-github`} class="text-gray-500 hover:text-gray-900 transition-colors">← GitHub とは</a>
-      <a href={`${base}pullrequest`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
-        次：プルリクエスト →
-      </a>
-    </div>
+    <PageEnd slug="github" />
   </div>
 </Layout>

@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
+import Figure from '../components/Figure.astro'
+import closedByPr from '../assets/images/issue-driven/issue-driven-closed-by-pr.webp'
 import { badge } from '../lib/badge'
 
 const base = import.meta.env.BASE_URL
@@ -8,7 +13,7 @@ const cases = [
   {
     id: '01',
     category: 'バグ報告',
-    icon: '🐛',
+    icon: 'fa-solid fa-bug',
     color: 'red',
     title: 'ログインボタンが押せない',
     issueBody: `## バグの内容
@@ -32,7 +37,7 @@ const cases = [
   {
     id: '02',
     category: '新機能',
-    icon: '✨',
+    icon: 'fa-solid fa-wand-magic-sparkles',
     color: 'green',
     title: 'ダークモードを追加してほしい',
     issueBody: `## 機能の概要
@@ -57,7 +62,7 @@ const cases = [
   {
     id: '03',
     category: 'ドキュメント',
-    icon: '📝',
+    icon: 'fa-solid fa-pen-to-square',
     color: 'blue',
     title: 'セットアップ手順が古い',
     issueBody: `## 問題点
@@ -74,7 +79,7 @@ README の手順通りに進めても v3 以降では動かない。
   {
     id: '04',
     category: 'パフォーマンス',
-    icon: '⚡',
+    icon: 'fa-solid fa-bolt',
     color: 'yellow',
     title: '商品一覧ページの読み込みが遅い',
     issueBody: `## 問題
@@ -99,7 +104,7 @@ README の手順通りに進めても v3 以降では動かない。
   {
     id: '05',
     category: 'リファクタリング',
-    icon: '🔧',
+    icon: 'fa-solid fa-wrench',
     color: 'purple',
     title: '認証ロジックが各ページに散在している',
     issueBody: `## 現状の問題
@@ -134,40 +139,28 @@ const colorMap: Record<string, Record<string, string>> = {
 ---
 
 <Layout title="Issue 駆動開発" description="Issue駆動開発のよくある事例を学ぼう">
-  <div class="max-w-4xl mx-auto px-4 py-12">
-
-    <!-- パンくず -->
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href={`${base}workflow`} class="hover:text-gray-900 transition-colors">実践ワークフロー</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">Issue 駆動開発</span>
-    </nav>
-
-    <div class="flex items-center gap-3 mb-4">
-      <h1 class="text-4xl font-extrabold text-gray-900">Issue 駆動開発</h1>
-      <span class={badge.concept}>概念</span>
-    </div>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      Issue 駆動開発とは、<strong class="text-gray-900">すべての作業を GitHub Issue から始める</strong>開発スタイルです。
+  <PageHeader slug="issue-driven">
+    Issue 駆動開発とは、<strong class="text-gray-900">すべての作業を GitHub Issue から始める</strong>開発スタイルです。
       「なぜこの変更をするのか」を Issue に記録してからブランチを切ることで、
       変更の意図が明確になり、チーム内のコミュニケーションが円滑になります。
-    </p>
+  </PageHeader>
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
 
     <!-- 基本の流れ -->
     <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-14 shadow-sm">
       <h2 class="text-xl font-bold text-gray-900 mb-6">Issue 駆動開発の基本フロー</h2>
       <div class="flex flex-col md:flex-row gap-3 items-stretch">
         {[
-          { step: '1', label: 'Issue を作成', sub: 'やること・理由を書く', icon: '📋' },
-          { step: '2', label: 'ブランチを切る', sub: 'Issue 番号をブランチ名に含める', icon: '🌿' },
-          { step: '3', label: 'コミット', sub: 'メッセージに #Issue番号 を付ける', icon: '💾' },
-          { step: '4', label: 'PR を作成', sub: 'Closes #Issue番号 と書く', icon: '🔀' },
-          { step: '5', label: 'マージで自動クローズ', sub: 'Issue が自動で閉じられる', icon: '✅' },
+          { step: '1', label: 'Issue を作成', sub: 'やること・理由を書く', icon: 'fa-solid fa-clipboard-list' },
+          { step: '2', label: 'ブランチを切る', sub: 'Issue 番号をブランチ名に含める', icon: 'fa-solid fa-code-branch' },
+          { step: '3', label: 'コミット', sub: 'メッセージに #Issue番号 を付ける', icon: 'fa-solid fa-floppy-disk' },
+          { step: '4', label: 'PR を作成', sub: 'Closes #Issue番号 と書く', icon: 'fa-solid fa-code-pull-request' },
+          { step: '5', label: 'マージで自動クローズ', sub: 'Issue が自動で閉じられる', icon: 'fa-solid fa-circle-check' },
         ].map(({ step, label, sub, icon }) => (
           <div class="flex-1 flex flex-col items-center text-center gap-2 bg-gray-50 rounded-xl p-4 border border-gray-200">
-            <span class="text-2xl">{icon}</span>
+            <span class="text-2xl"><i class={icon} aria-hidden="true"></i></span>
             <span class="text-orange-600 text-xs font-bold font-mono">STEP {step}</span>
             <span class="text-gray-900 text-sm font-semibold">{label}</span>
             <span class="text-gray-500 text-xs leading-snug">{sub}</span>
@@ -185,6 +178,14 @@ const colorMap: Record<string, Record<string, string>> = {
 
 Closes <span class="text-green-400">#42</span>   <span class="text-gray-500">← このキーワードで Issue #42 がマージ時に自動クローズ</span></pre>
       </div>
+
+      <Figure
+        src={closedByPr}
+        alt="クローズ済みの Issue 画面。タイトル横に紫色の Closed バッジと PR #2 へのリンクがあり、履歴に「#2 でクローズされた」と表示されている"
+        caption="PR をマージすると、紐付いた Issue が自動で Closed になる（2026年10月時点）"
+        browser
+        url="github.com/ユーザー名/リポジトリ名/issues/1"
+      />
     </section>
 
     <!-- よくある事例 -->
@@ -200,7 +201,7 @@ Closes <span class="text-green-400">#42</span>   <span class="text-gray-500">←
 
               <!-- ヘッダー -->
               <div class={`${col.header} px-6 py-4 border-b ${col.border} flex items-center gap-3`}>
-                <span class="text-2xl">{c.icon}</span>
+                <span class="text-2xl"><i class={c.icon} aria-hidden="true"></i></span>
                 <div class="flex-1 min-w-0">
                   <div class="flex items-center gap-2 mb-1 flex-wrap">
                     <span class={`text-xs font-semibold px-2 py-0.5 rounded-full border ${col.badge}`}>{c.category}</span>
@@ -261,15 +262,15 @@ Closes <span class="text-green-400">#42</span>   <span class="text-gray-500">←
       <h2 class="text-xl font-bold text-gray-900 mb-6">Issue を上手に使うコツ</h2>
       <div class="grid md:grid-cols-2 gap-4">
         {[
-          { icon: '🔢', type: 'concept', label: '概念', title: 'ブランチ名に Issue 番号を入れる', desc: 'fix/42-login-button のように番号を含めると、ブランチと Issue の対応が一目でわかる。' },
-          { icon: '🏷️', type: 'term',    label: '用語', title: 'ラベルで分類する', desc: 'bug / enhancement / documentation / good first issue などのラベルで Issue を整理すると検索・優先度付けが楽になる。' },
-          { icon: '👤', type: 'term',    label: '用語', title: 'Assignee を設定する', desc: '誰が担当するかを Assignee に設定することで、作業の重複や放置を防ぐ。' },
-          { icon: '📌', type: 'concept', label: '概念', title: '小さく分割する', desc: '「ユーザー管理機能を作る」より「ユーザー登録フォームを作る」のように 1 Issue = 1 タスクにする方が進捗が見えやすい。' },
-          { icon: '💬', type: 'concept', label: '概念', title: 'Issue でコミュニケーションする', desc: '実装方針の議論や進捗報告は Issue のコメントに残すと、あとから経緯を追いやすい。' },
-          { icon: '🔑', type: 'term',    label: '用語', title: 'Closes キーワードを使う', desc: 'PR 本文に Closes #番号 と書くとマージ時に Issue が自動クローズされる。Fix / Resolve でも同様。' },
+          { icon: 'fa-solid fa-hashtag', type: 'concept', label: '概念', title: 'ブランチ名に Issue 番号を入れる', desc: 'fix/42-login-button のように番号を含めると、ブランチと Issue の対応が一目でわかる。' },
+          { icon: 'fa-solid fa-tag', type: 'term',    label: '用語', title: 'ラベルで分類する', desc: 'bug / enhancement / documentation / good first issue などのラベルで Issue を整理すると検索・優先度付けが楽になる。' },
+          { icon: 'fa-solid fa-user', type: 'term',    label: '用語', title: 'Assignee を設定する', desc: '誰が担当するかを Assignee に設定することで、作業の重複や放置を防ぐ。' },
+          { icon: 'fa-solid fa-thumbtack', type: 'concept', label: '概念', title: '小さく分割する', desc: '「ユーザー管理機能を作る」より「ユーザー登録フォームを作る」のように 1 Issue = 1 タスクにする方が進捗が見えやすい。' },
+          { icon: 'fa-solid fa-comment', type: 'concept', label: '概念', title: 'Issue でコミュニケーションする', desc: '実装方針の議論や進捗報告は Issue のコメントに残すと、あとから経緯を追いやすい。' },
+          { icon: 'fa-solid fa-key', type: 'term',    label: '用語', title: 'Closes キーワードを使う', desc: 'PR 本文に Closes #番号 と書くとマージ時に Issue が自動クローズされる。Fix / Resolve でも同様。' },
         ].map(({ icon, type, label, title, desc }) => (
           <div class="flex gap-3 bg-gray-50 rounded-xl p-4 border border-gray-200">
-            <span class="text-xl shrink-0">{icon}</span>
+            <span class="text-xl shrink-0"><i class={icon} aria-hidden="true"></i></span>
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2 mb-1">
                 <p class="text-gray-900 text-sm font-semibold">{title}</p>
@@ -282,12 +283,6 @@ Closes <span class="text-green-400">#42</span>   <span class="text-gray-500">←
       </div>
     </section>
 
-    <!-- ナビゲーション -->
-    <div class="flex justify-between pt-10 border-t border-gray-200 mt-14">
-      <a href={`${base}workflow`} class="text-gray-500 hover:text-gray-900 transition-colors">← 実践ワークフロー</a>
-      <a href={base} class="bg-gray-100 hover:bg-gray-900 hover:text-white text-gray-900 font-semibold px-6 py-2 rounded-xl border border-gray-300 transition-colors">
-        ホームへ戻る
-      </a>
-    </div>
+    <PageEnd slug="issue-driven" />
   </div>
 </Layout>

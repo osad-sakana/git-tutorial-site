@@ -1,213 +1,214 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import Icon from '../components/Icon.astro'
+import { chapters } from '../lib/pages'
 
 const base = import.meta.env.BASE_URL
-
-const topics = [
-  {
-    href: `${base}what-is-git`,
-    icon: '🔍',
-    title: 'Gitとは？',
-    description: 'バージョン管理の概念から Git の正体まで。学習の第一歩はここから。',
-    color: 'from-yellow-50 to-yellow-100',
-    border: 'border-yellow-200',
-    text: 'text-yellow-600',
-  },
-  {
-    href: `${base}basics`,
-    icon: '📦',
-    title: 'Git の基本',
-    description: 'init・add・commit の使い方。ファイルの変更履歴を記録する第一歩を学ぼう。',
-    color: 'from-orange-50 to-orange-100',
-    border: 'border-orange-200',
-    text: 'text-orange-600',
-  },
-  {
-    href: `${base}undo`,
-    icon: '↩️',
-    title: '変更の取り消し',
-    description: 'コミットの修正・やり直しに使う amend と reset を正しく使えるようになろう。',
-    color: 'from-red-50 to-red-100',
-    border: 'border-red-200',
-    text: 'text-red-600',
-  },
-  {
-    href: `${base}branch`,
-    icon: '🌿',
-    title: 'ブランチ',
-    description: '並行開発を可能にするブランチの作成・切り替え・マージを学ぼう。',
-    color: 'from-green-50 to-green-100',
-    border: 'border-green-200',
-    text: 'text-green-600',
-  },
-  {
-    href: `${base}about-github`,
-    icon: '🐙',
-    title: 'GitHub とは',
-    description: 'GitHubとGitの違い・できること・アカウント作成・主要な用語を理解しよう。',
-    color: 'from-purple-50 to-purple-100',
-    border: 'border-purple-200',
-    text: 'text-purple-600',
-  },
-  {
-    href: `${base}github`,
-    icon: '📡',
-    title: 'GitHub 基本操作',
-    description: 'リモートリポジトリへの push・pull・clone を使ってチームで共有しよう。',
-    color: 'from-indigo-50 to-indigo-100',
-    border: 'border-indigo-200',
-    text: 'text-indigo-600',
-  },
-  {
-    href: `${base}pullrequest`,
-    icon: '🔀',
-    title: 'プルリクエスト',
-    description: 'コードレビューの仕組み。変更をチームに提案してマージしてもらおう。',
-    color: 'from-blue-50 to-blue-100',
-    border: 'border-blue-200',
-    text: 'text-blue-600',
-  },
-  {
-    href: `${base}workflow`,
-    icon: '🔄',
-    title: '実践ワークフロー',
-    description: '実際の開発現場で使われる Git Flow を通して全体の流れをつかもう。',
-    color: 'from-pink-50 to-pink-100',
-    border: 'border-pink-200',
-    text: 'text-pink-600',
-  },
-  {
-    href: `${base}issue-driven`,
-    icon: '📋',
-    title: 'Issue 駆動開発',
-    description: 'Issue から作業を始める開発スタイル。よくある事例 5 選でまるごと理解しよう。',
-    color: 'from-teal-50 to-teal-100',
-    border: 'border-teal-200',
-    text: 'text-teal-600',
-  },
-]
 
 const commands = [
   { cmd: 'git init', desc: 'リポジトリを作成' },
   { cmd: 'git add .', desc: '変更をステージング' },
   { cmd: 'git commit -m "msg"', desc: '変更を記録' },
-  { cmd: 'git push origin main', desc: 'GitHubに送る' },
+  { cmd: 'git push origin main', desc: 'GitHub に送る' },
   { cmd: 'git pull', desc: '最新を取得' },
-  { cmd: 'git branch', desc: 'ブランチ一覧' },
+  { cmd: 'git switch -c feature', desc: 'ブランチを作って移動' },
+]
+
+const stats = [
+  { value: String(chapters.length), label: '章' },
+  { value: String(chapters.reduce((n, c) => n + c.minutes, 0)), label: '分で一周' },
+  { value: '0', label: '前提知識' },
+]
+
+const before = [
+  'report_final.docx / report_final2.docx / report_最終版.docx …',
+  '「誰かが上書きした！」「どれが最新？」',
+  '壊れたら戻せない',
+]
+const after = [
+  'すべての変更に日時・作者・理由が記録される',
+  'いつでも以前の状態に戻せる',
+  '複数人が同時に別々の機能を開発できる',
 ]
 ---
 
 <Layout title="ホーム">
   <!-- ヒーロー -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-slate-100 py-24 px-4 border-b border-gray-200">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(249,115,22,0.08),_transparent_60%)]"></div>
-    <div class="max-w-4xl mx-auto text-center relative">
-      <div class="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-full px-4 py-2 text-orange-600 text-sm font-medium mb-8">
-        <span>🚀</span>
-        <span>初心者向け Git & GitHub 完全ガイド</span>
+  <section class="relative overflow-hidden" data-no-reveal>
+    <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(60%_80%_at_85%_10%,rgb(240_81_51/0.14),transparent_70%),radial-gradient(40%_60%_at_5%_90%,rgb(99_102_241/0.12),transparent_70%)]"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-[1.05fr_1fr] gap-14 items-center">
+      <div>
+        <p class="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white/80 backdrop-blur px-4 py-1.5 text-sm font-semibold text-orange-600 shadow-sm mb-7">
+          <Icon name="sparkles" size={15} />初心者向け Git &amp; GitHub 完全ガイド
+        </p>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-[1.2] mb-6">
+          Git と GitHub を<br />
+          <span class="gradient-text">ゼロから学ぼう</span>
+        </h1>
+        <p class="text-lg text-gray-600 leading-relaxed max-w-xl mb-9">
+          バージョン管理の基礎から、チームで使う実践ワークフローまで。
+          図解とコマンド例を見ながら、一歩ずつ確実に身につけられます。
+        </p>
+        <div class="flex flex-wrap gap-3 mb-12">
+          <a href={`${base}what-is-git`} class="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 px-7 py-3.5 font-bold text-white shadow-[0_10px_24px_-8px_rgb(240_81_51/0.7)] hover:shadow-[0_14px_30px_-8px_rgb(240_81_51/0.8)] hover:brightness-110 transition-all">
+            学習を始める
+            <Icon name="arrow-right" size={18} class="group-hover:translate-x-1 transition-transform" />
+          </a>
+          <a href={`${base}workflow`} class="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white/80 px-7 py-3.5 font-semibold text-gray-800 hover:border-gray-400 hover:bg-white transition-colors">
+            <Icon name="workflow" size={18} />ワークフローを見る
+          </a>
+        </div>
+        <dl class="flex gap-8">
+          {stats.map(({ value, label }) => (
+            <div>
+              <dt class="sr-only">{label}</dt>
+              <dd class="text-3xl font-extrabold text-gray-900 font-mono leading-none">{value}<span class="text-sm font-semibold text-gray-500 ml-1 font-sans">{label}</span></dd>
+            </div>
+          ))}
+        </dl>
       </div>
-      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
-        Git と GitHub を<br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-pink-500">
-          ゼロから学ぼう
-        </span>
-      </h1>
-      <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-        バージョン管理の基礎から、チームでの実践的なワークフローまで。<br />
-        豊富なコマンド例と図解でわかりやすく解説します。
-      </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href={`${base}what-is-git`}
-           class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-8 py-3 rounded-xl border border-orange-500 transition-colors">
-          学習を始める →
-        </a>
-        <a href={`${base}workflow`}
-           class="bg-white hover:bg-gray-900 hover:text-white text-gray-900 font-semibold px-8 py-3 rounded-xl border border-gray-300 transition-colors">
-          ワークフローを見る
-        </a>
+
+      <!-- コミットグラフのイラスト -->
+      <div class="relative" aria-hidden="true">
+        <div class="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-orange-200/50 via-pink-200/40 to-violet-200/50 blur-2xl"></div>
+        <div class="relative rounded-2xl overflow-hidden border border-slate-700/70 bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_30px_60px_-20px_rgb(15_23_42/0.6)] animate-float">
+          <div class="flex items-center gap-2 px-4 py-2.5 border-b border-white/10 bg-white/5">
+            <span class="w-3 h-3 rounded-full bg-red-500/70"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/70"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/70"></span>
+            <span class="ml-2 text-xs text-slate-400 font-mono">git log --graph</span>
+          </div>
+
+          <svg viewBox="0 0 480 250" class="w-full block" role="img">
+            <defs>
+              <linearGradient id="g-main" gradientUnits="userSpaceOnUse" x1="30" x2="450" y1="0" y2="0"><stop offset="0" stop-color="#fb923c" /><stop offset="1" stop-color="#f05133" /></linearGradient>
+              <linearGradient id="g-feat" gradientUnits="userSpaceOnUse" x1="120" x2="370" y1="0" y2="0"><stop offset="0" stop-color="#a78bfa" /><stop offset="1" stop-color="#ec4899" /></linearGradient>
+            </defs>
+
+            <!-- main -->
+            <path d="M30 70 H450" stroke="url(#g-main)" stroke-width="4" stroke-linecap="round" fill="none" class="draw-line" style="--len:420;--d:.1s" />
+            <!-- feature (分岐 → マージ) -->
+            <path d="M120 70 C150 70 150 170 190 170 H300 C340 170 340 70 370 70" stroke="url(#g-feat)" stroke-width="4" stroke-linecap="round" fill="none" class="draw-line" style="--len:420;--d:.9s" />
+
+            {[30, 120, 260, 370, 450].map((x, i) => (
+              <circle cx={x} cy="70" r="9" fill="#0f172a" stroke="#fb7a4f" stroke-width="4" class="pop-node" style={`--d:${0.2 + i * 0.25}s`} />
+            ))}
+            {[190, 300].map((x, i) => (
+              <circle cx={x} cy="170" r="9" fill="#0f172a" stroke="#c084fc" stroke-width="4" class="pop-node" style={`--d:${1.4 + i * 0.3}s`} />
+            ))}
+
+            <!-- HEAD ラベル -->
+            <g class="pop-node" style="--d:2.1s">
+              <rect x="408" y="22" width="64" height="24" rx="12" fill="#f05133" />
+              <text x="440" y="38.5" fill="#fff" font-size="12" font-weight="700" text-anchor="middle" font-family="JetBrains Mono Variable, monospace">main</text>
+            </g>
+            <g class="pop-node" style="--d:1.9s">
+              <rect x="195" y="190" width="90" height="24" rx="12" fill="#a855f7" />
+              <text x="240" y="206.5" fill="#fff" font-size="12" font-weight="700" text-anchor="middle" font-family="JetBrains Mono Variable, monospace">feature</text>
+            </g>
+            <g class="pop-node" style="--d:1.7s">
+              <text x="370" y="104" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="JetBrains Mono Variable, monospace">merge</text>
+            </g>
+          </svg>
+
+          <div class="px-5 pb-5 pt-1 font-mono text-[13px] leading-7 text-slate-300">
+            <p><span class="text-green-400">$</span> git switch -c feature</p>
+            <p><span class="text-green-400">$</span> git commit -m "機能を追加"</p>
+            <p><span class="text-green-400">$</span> git merge feature<span class="inline-block w-2 h-4 bg-orange-400 align-middle ml-1 animate-pulse"></span></p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- よく使うコマンド一覧 -->
-  <section class="max-w-6xl mx-auto px-4 py-16">
-    <h2 class="text-center text-sm font-semibold text-gray-400 uppercase tracking-widest mb-8">
-      よく使う Git コマンド
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+  <!-- よく使うコマンド -->
+  <section class="max-w-6xl mx-auto px-4 pb-20">
+    <p class="eyebrow text-gray-400 justify-center w-full mb-6">よく使う Git コマンド</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {commands.map(({ cmd, desc }) => (
-        <div class="bg-white border border-gray-200 rounded-xl p-4 text-center shadow-sm">
-          <code class="block text-orange-600 text-xs font-mono mb-2 break-all">{cmd}</code>
+        <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+          <code class="block text-orange-600 text-sm font-mono font-semibold mb-1.5 break-words">{cmd}</code>
           <p class="text-gray-500 text-xs">{desc}</p>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- トピック一覧 -->
-  <section class="max-w-6xl mx-auto px-4 pb-16">
-    <h2 class="text-2xl font-bold text-gray-900 mb-3">学習コンテンツ</h2>
-    <p class="text-gray-500 mb-10">順番に読み進めることで、Git と GitHub の全体像が身に付きます。</p>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {topics.map(({ href, icon, title, description, color, border, text }) => (
-        <a href={href}
-           class={`group block bg-gradient-to-br ${color} border ${border} rounded-2xl p-6 hover:scale-[1.02] transition-transform shadow-sm`}>
-          <div class="text-3xl mb-4">{icon}</div>
-          <h3 class={`text-lg font-bold text-gray-900 mb-2 group-hover:${text} transition-colors`}>
-            {title}
-          </h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{description}</p>
-          <div class={`mt-4 ${text} text-sm font-medium`}>
-            読む →
-          </div>
-        </a>
-      ))}
+  <!-- 学習ロードマップ -->
+  <section class="max-w-6xl mx-auto px-4 pb-20">
+    <div class="max-w-2xl mb-12">
+      <p class="eyebrow text-orange-600 mb-3"><Icon name="flag" size={14} />Roadmap</p>
+      <h2 class="text-3xl font-extrabold text-gray-900 mb-3">9 つの章で、全体像をつかむ</h2>
+      <p class="text-gray-600">順番に読み進めると、ローカルでの記録からチーム開発までが一本の線でつながります。読んだ章にはチェックが付きます。</p>
     </div>
+
+    <ol class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {chapters.map((c, i) => (
+        <li>
+          <a
+            href={`${base}${c.slug}`}
+            data-slug={c.slug}
+            class="chapter-card group relative flex flex-col h-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+            style={`--accent:${c.accent}`}
+          >
+            <span class="absolute -right-2 -top-4 text-8xl font-black font-mono select-none transition-transform duration-500 group-hover:scale-110" style="color:color-mix(in srgb, var(--accent) 9%, transparent)">{String(i + 1).padStart(2, '0')}</span>
+            <span class="relative w-12 h-12 rounded-xl flex items-center justify-center text-white mb-5 shadow-md group-hover:rotate-[-6deg] transition-transform" style="background:linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #000))">
+              <Icon name={c.icon} size={24} stroke={1.9} />
+            </span>
+            <h3 class="relative text-lg font-bold text-gray-900 mb-2">{c.title}</h3>
+            <p class="relative text-sm text-gray-600 leading-relaxed flex-1">{c.summary}</p>
+            <span class="relative mt-5 flex items-center justify-between text-sm font-semibold" style="color:var(--accent)">
+              <span class="inline-flex items-center gap-1.5 text-gray-400 font-medium"><Icon name="history" size={14} />約 {c.minutes} 分</span>
+              <span class="inline-flex items-center gap-1">
+                <span class="visited-mark hidden text-green-600 mr-2"><Icon name="check" size={14} stroke={3} class="align-[-2px] mr-0.5" />読了</span>
+                読む <Icon name="arrow-right" size={16} class="group-hover:translate-x-1 transition-transform" />
+              </span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
   </section>
 
-  <!-- Gitとは？ -->
-  <section class="bg-white border-y border-gray-200 py-16 px-4">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-2xl font-bold text-gray-900 mb-6">そもそも Git とは？</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            <strong class="text-gray-900">Git（ギット）</strong>はファイルの変更履歴を管理するツールです。
-            「どのファイルを・いつ・どのように変えたか」を記録し、過去のバージョンに戻したり、
-            複数人で同じコードを安全に編集できます。
+  <!-- Git とは？ -->
+  <section class="bg-ink text-white py-20 px-4 overflow-hidden relative -mb-24">
+    <div class="absolute inset-0 opacity-60 pointer-events-none bg-[radial-gradient(50%_70%_at_90%_0%,rgb(240_81_51/0.25),transparent_70%),radial-gradient(40%_60%_at_0%_100%,rgb(99_102_241/0.25),transparent_70%)]"></div>
+    <div class="relative max-w-5xl mx-auto">
+      <p class="eyebrow text-orange-400 mb-3"><Icon name="lightbulb" size={14} />Why Git?</p>
+      <h2 class="text-3xl font-extrabold mb-5">そもそも、なぜ Git を使うのか</h2>
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div class="text-slate-300 leading-relaxed space-y-4">
+          <p>
+            <strong class="text-white">Git（ギット）</strong>はファイルの変更履歴を管理するツールです。
+            「どのファイルを・いつ・どのように変えたか」を記録し、過去の状態に戻したり、
+            複数人が同じコードを安全に編集したりできます。
           </p>
-          <p class="text-gray-700 leading-relaxed">
-            <strong class="text-gray-900">GitHub</strong>はその履歴をインターネット上で共有できるサービスです。
-            チームメンバーと同じプロジェクトで作業したり、オープンソースのコードを公開・貢献できます。
+          <p>
+            <strong class="text-white">GitHub</strong> は、その履歴をインターネット上で共有できるサービスです。
+            チームで同じプロジェクトを進めたり、オープンソースへ貢献したりする場になっています。
           </p>
+          <a href={`${base}what-is-git`} class="inline-flex items-center gap-2 text-orange-400 font-semibold hover:text-orange-300 transition-colors">
+            詳しく読む <Icon name="arrow-right" size={16} />
+          </a>
         </div>
-        <div class="bg-slate-50 rounded-xl p-6 border border-gray-200">
-          <h3 class="text-sm font-semibold text-gray-500 mb-4">Git なしの開発 vs Git あり</h3>
-          <div class="space-y-3 text-sm">
-            <div class="flex items-start gap-3">
-              <span class="text-red-500 mt-0.5">✗</span>
-              <span class="text-gray-600">report_final.docx, report_final2.docx, report_最終版.docx...</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-red-500 mt-0.5">✗</span>
-              <span class="text-gray-600">「誰かが上書きした！」「どのバージョンが最新？」</span>
-            </div>
-            <div class="border-t border-gray-200 pt-3"></div>
-            <div class="flex items-start gap-3">
-              <span class="text-green-500 mt-0.5">✓</span>
-              <span class="text-gray-700">すべての変更に日時・作者・理由が記録される</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-green-500 mt-0.5">✓</span>
-              <span class="text-gray-700">いつでも以前の状態に戻せる</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-green-500 mt-0.5">✓</span>
-              <span class="text-gray-700">複数人が同時に別々の機能を開発できる</span>
-            </div>
+
+        <div class="grid gap-4">
+          <div class="rounded-xl border border-red-400/30 bg-red-500/10 p-5">
+            <p class="text-sm font-bold text-red-300 mb-3 flex items-center gap-2"><Icon name="x" size={16} stroke={3} />Git を使わないと</p>
+            <ul class="space-y-2 text-sm text-slate-300">
+              {before.map((t) => <li class="flex gap-2"><span class="text-red-400">✗</span>{t}</li>)}
+            </ul>
+          </div>
+          <div class="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-5">
+            <p class="text-sm font-bold text-emerald-300 mb-3 flex items-center gap-2"><Icon name="check" size={16} stroke={3} />Git を使うと</p>
+            <ul class="space-y-2 text-sm text-slate-200">
+              {after.map((t) => <li class="flex gap-2"><span class="text-emerald-400">✓</span>{t}</li>)}
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </section>
+
 </Layout>

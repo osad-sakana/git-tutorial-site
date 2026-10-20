@@ -13,6 +13,8 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`
 export default defineConfig({
   site,
   base,
+  // ページ側から Terminal の slot に渡した <pre> 内の改行が圧縮で潰れるのを防ぐ
+  compressHTML: false,
   vite: {
     plugins: [tailwindcss()]
   }

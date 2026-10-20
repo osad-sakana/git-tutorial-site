@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import PageHeader from '../components/PageHeader.astro'
+import PageEnd from '../components/PageEnd.astro'
+import Callout from '../components/Callout.astro'
 import Terminal from '../components/Terminal.astro'
 import { badge } from '../lib/badge'
 
@@ -7,24 +10,13 @@ const base = import.meta.env.BASE_URL
 ---
 
 <Layout title="プルリクエスト" description="GitHubのプルリクエストの作成・レビュー・マージの流れを学ぼう">
+  <PageHeader slug="pullrequest">
+    プルリクエスト（PR）は「この変更を取り込んでほしい」という提案の仕組みです。
+      コードレビューを通じて品質を高め、安全に main ブランチへマージします。
+  </PageHeader>
+
   <div class="max-w-4xl mx-auto px-4 py-12">
 
-    <nav class="text-sm text-gray-400 mb-8">
-      <a href={base} class="hover:text-gray-900 transition-colors">ホーム</a>
-      <span class="mx-2">/</span>
-      <a href={`${base}github`} class="hover:text-gray-900 transition-colors">GitHub の基本</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-700">プルリクエスト</span>
-    </nav>
-
-    <div class="flex items-center gap-3 mb-4">
-      <h1 class="text-4xl font-extrabold text-gray-900">プルリクエスト（PR）</h1>
-      <span class={badge.concept}>概念</span>
-    </div>
-    <p class="text-gray-600 text-lg mb-12 leading-relaxed">
-      プルリクエスト（PR）は「この変更を取り込んでほしい」という提案の仕組みです。
-      コードレビューを通じて品質を高め、安全に main ブランチへマージします。
-    </p>
 
     <!-- PR のフロー -->
     <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-12 shadow-sm">
@@ -33,16 +25,16 @@ const base = import.meta.env.BASE_URL
         <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
         <div class="space-y-8">
           {[
-            { icon: '🌿', title: 'feature ブランチを作成', desc: 'main から新しいブランチを切って作業開始。ブランチ名は機能の内容がわかるように命名する。', color: 'bg-green-500' },
-            { icon: '💻', title: '変更を加えてコミット', desc: '機能を実装し、git add → git commit で変更を記録。こまめにコミットするのが良い習慣。', color: 'bg-blue-500' },
-            { icon: '📤', title: 'GitHub に push', desc: 'git push -u origin feature/xxx でブランチを GitHub に送る。', color: 'bg-purple-500' },
-            { icon: '🔀', title: 'プルリクエストを作成', desc: 'GitHub の画面で PR を作成。タイトル・説明・レビュアーを設定する。', color: 'bg-orange-500' },
-            { icon: '👀', title: 'コードレビュー', desc: 'レビュアーがコードを確認してコメントを付ける。修正依頼があれば対応してさらにコミット・push。', color: 'bg-yellow-500' },
-            { icon: '✅', title: 'マージ', desc: 'レビューが通ったら「Merge pull request」をクリック。feature ブランチが main に取り込まれる。', color: 'bg-green-500' },
+            { icon: 'fa-solid fa-code-branch', title: 'feature ブランチを作成', desc: 'main から新しいブランチを切って作業開始。ブランチ名は機能の内容がわかるように命名する。', color: 'bg-green-500' },
+            { icon: 'fa-solid fa-laptop-code', title: '変更を加えてコミット', desc: '機能を実装し、git add → git commit で変更を記録。こまめにコミットするのが良い習慣。', color: 'bg-blue-500' },
+            { icon: 'fa-solid fa-cloud-arrow-up', title: 'GitHub に push', desc: 'git push -u origin feature/xxx でブランチを GitHub に送る。', color: 'bg-purple-500' },
+            { icon: 'fa-solid fa-code-pull-request', title: 'プルリクエストを作成', desc: 'GitHub の画面で PR を作成。タイトル・説明・レビュアーを設定する。', color: 'bg-orange-500' },
+            { icon: 'fa-solid fa-eye', title: 'コードレビュー', desc: 'レビュアーがコードを確認してコメントを付ける。修正依頼があれば対応してさらにコミット・push。', color: 'bg-yellow-500' },
+            { icon: 'fa-solid fa-circle-check', title: 'マージ', desc: 'レビューが通ったら「Merge pull request」をクリック。feature ブランチが main に取り込まれる。', color: 'bg-green-500' },
           ].map(({ icon, title, desc, color }, i) => (
             <div class="flex gap-6 relative">
-              <div class={`w-8 h-8 ${color} rounded-full flex items-center justify-center text-sm shrink-0 relative z-10`}>
-                {icon}
+              <div class={`w-8 h-8 ${color} rounded-full flex items-center justify-center text-sm text-white shrink-0 relative z-10`}>
+                <i class={icon} aria-hidden="true"></i>
               </div>
               <div class="pb-2">
                 <h3 class="font-semibold text-gray-900 mb-1">{title}</h3>
@@ -151,12 +143,6 @@ const base = import.meta.env.BASE_URL
 <span class="text-gray-400">   a1b2c3d..e4f5g6h  feature/add-login -> feature/add-login</span></Terminal>
     </section>
 
-    <!-- ナビゲーション -->
-    <div class="flex justify-between pt-8 border-t border-gray-200">
-      <a href={`${base}github`} class="text-gray-500 hover:text-gray-900 transition-colors">← GitHub の基本</a>
-      <a href={`${base}workflow`} class="bg-orange-500 hover:bg-white hover:text-orange-500 text-white font-semibold px-6 py-2 rounded-xl border border-orange-500 transition-colors">
-        次：実践ワークフロー →
-      </a>
-    </div>
+    <PageEnd slug="pullrequest" />
   </div>
 </Layout>
