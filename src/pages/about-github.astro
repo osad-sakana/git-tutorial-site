@@ -4,6 +4,7 @@ import PageHeader from '../components/PageHeader.astro'
 import PageEnd from '../components/PageEnd.astro'
 import Callout from '../components/Callout.astro'
 import Figure from '../components/Figure.astro'
+import signup from '../assets/images/about-github/about-github-signup.webp'
 import repoTop from '../assets/images/about-github/about-github-repo-top.webp'
 import { badge } from '../lib/badge'
 
@@ -11,37 +12,37 @@ const base = import.meta.env.BASE_URL
 
 const features = [
   {
-    icon: '🗂️',
+    icon: 'fa-solid fa-folder-tree',
     title: 'リポジトリのホスティング',
     desc: 'ローカルの Git リポジトリをインターネット上で公開・共有できる。Public（誰でも閲覧可）と Private（招待者のみ）を選べる。',
     type: 'term',
   },
   {
-    icon: '📋',
+    icon: 'fa-solid fa-clipboard-list',
     title: 'Issues（イシュー）',
     desc: 'バグ報告・機能要望・タスク管理をチームで行う仕組み。コメント・ラベル・担当者を設定できる。',
     type: 'term',
   },
   {
-    icon: '🔀',
+    icon: 'fa-solid fa-code-pull-request',
     title: 'Pull Request（プルリクエスト）',
     desc: 'コードの変更をレビューしてもらってからマージする仕組み。チームのコード品質を保つ中心的な機能。',
     type: 'term',
   },
   {
-    icon: '⚙️',
+    icon: 'fa-solid fa-gear',
     title: 'GitHub Actions',
     desc: 'テスト・ビルド・デプロイなどを自動化できる CI/CD パイプライン。コードを push するたびに自動実行できる。',
     type: 'term',
   },
   {
-    icon: '🌐',
+    icon: 'fa-solid fa-globe',
     title: 'GitHub Pages',
     desc: 'リポジトリから静的サイトを無料でホスティングできるサービス。ポートフォリオや学習用サイトに最適。',
     type: 'term',
   },
   {
-    icon: '🔍',
+    icon: 'fa-solid fa-magnifying-glass',
     title: 'コードの検索・閲覧',
     desc: '世界中のオープンソースコードを検索・閲覧できる。参考にしたいコードや有名ライブラリのソースをすぐ確認できる。',
     type: 'concept',
@@ -68,7 +69,7 @@ const features = [
       <div class="grid sm:grid-cols-2 gap-6">
         <div class="bg-white border border-orange-200 rounded-2xl p-6 shadow-sm">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center text-xl">🛠️</div>
+            <div class="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></div>
             <div>
               <h3 class="font-bold text-gray-900 text-lg">Git</h3>
               <span class={badge.term}>用語</span>
@@ -86,7 +87,7 @@ const features = [
         </div>
         <div class="bg-white border border-purple-200 rounded-2xl p-6 shadow-sm">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-xl">🐙</div>
+            <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-xl"><i class="fa-brands fa-github" aria-hidden="true"></i></div>
             <div>
               <h3 class="font-bold text-gray-900 text-lg">GitHub</h3>
               <span class={badge.term}>用語</span>
@@ -128,7 +129,7 @@ const features = [
         {features.map(({ icon, title, desc, type }) => (
           <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
             <div class="flex items-start gap-3">
-              <span class="text-2xl shrink-0">{icon}</span>
+              <span class="text-2xl shrink-0"><i class={icon} aria-hidden="true"></i></span>
               <div class="flex-1 min-w-0">
                 <div class="flex flex-wrap items-center gap-2 mb-2">
                   <h3 class="font-semibold text-gray-900 text-sm">{title}</h3>
@@ -169,6 +170,12 @@ const features = [
           </div>
         ))}
       </div>
+      <Figure
+        src={signup}
+        alt="GitHub のサインアップ画面。メールアドレス・パスワード・ユーザー名・国／地域の入力欄と、緑色の Create account ボタンがある"
+        caption="サインアップ画面（2026年10月時点）。上から順に入力していく"
+        class="max-w-sm mx-auto"
+      />
     </section>
 
     <!-- GitHub の画面の見方 -->

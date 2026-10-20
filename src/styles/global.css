@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "@fontsource-variable/noto-sans-jp";
 @import "@fontsource-variable/jetbrains-mono";
+@import "@fortawesome/fontawesome-free/css/fontawesome.css";
+@import "@fortawesome/fontawesome-free/css/solid.css";
+@import "@fortawesome/fontawesome-free/css/brands.css";
 
 /* ---------- デザイントークン ---------- */
 @theme {
@@ -71,15 +74,21 @@ body {
 main h1, main h2, main h3 { letter-spacing: -0.01em; line-height: 1.35; }
 main h2 { scroll-margin-top: 5rem; }
 
-/* 章ページの本文カード類：ホバーで少し浮かせる */
-main a.bg-white,
-main .card-lift {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+/* リンクになっているカードのみ：ホバーで背景がうっすら暖色に染まる（位置・縁・影は変えない） */
+main a.bg-white {
+  transition: background-color 0.3s ease;
 }
-main a.bg-white:hover,
-main .card-lift:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+main a.bg-white:hover {
+  background-color: var(--color-orange-50);
+}
+
+/* Font Awesome のアイコンは、その章のアクセント色で表示する（色付きの丸・見出しの中では親の色に従う） */
+main i.fa-solid,
+main i.fa-brands {
+  color: var(--accent);
+}
+main :is(.text-white, h3, [class*="text-red"], [class*="text-green"], [class*="text-blue"]) i {
+  color: inherit;
 }
 
 /* ---------- スクロール連動アニメーション ---------- */

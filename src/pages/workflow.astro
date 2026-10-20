@@ -24,37 +24,37 @@ const base = import.meta.env.BASE_URL
       <div class="space-y-4">
         {[
           {
-            step: 1, icon: '🌿', color: 'bg-green-500', borderColor: 'border-green-200',
+            step: 1, icon: 'fa-solid fa-code-branch', color: 'bg-green-500', borderColor: 'border-green-200',
             title: 'main から feature ブランチを作成',
             cmds: ['git switch main', 'git pull', 'git switch -c feature/新機能名'],
             note: '作業前に必ず git pull して最新状態にすること！',
           },
           {
-            step: 2, icon: '💻', color: 'bg-blue-500', borderColor: 'border-blue-200',
+            step: 2, icon: 'fa-solid fa-laptop-code', color: 'bg-blue-500', borderColor: 'border-blue-200',
             title: 'コードを書いてコミット',
             cmds: ['# ...コードを編集...', 'git add .', 'git commit -m "feat: 〇〇を実装"'],
             note: '1つの機能単位でコミットを分けると履歴が読みやすい',
           },
           {
-            step: 3, icon: '📤', color: 'bg-purple-500', borderColor: 'border-purple-200',
+            step: 3, icon: 'fa-solid fa-cloud-arrow-up', color: 'bg-purple-500', borderColor: 'border-purple-200',
             title: 'GitHub に push',
             cmds: ['git push -u origin feature/新機能名'],
             note: '-u は初回のみ。2回目以降は git push だけで OK',
           },
           {
-            step: 4, icon: '🔀', color: 'bg-orange-500', borderColor: 'border-orange-200',
+            step: 4, icon: 'fa-solid fa-code-pull-request', color: 'bg-orange-500', borderColor: 'border-orange-200',
             title: 'プルリクエストを作成',
             cmds: ['# GitHub の画面で PR を作成', '# または:', 'gh pr create --title "タイトル"'],
             note: '何をなぜ変えたかを丁寧に説明する',
           },
           {
-            step: 5, icon: '👀', color: 'bg-yellow-500', borderColor: 'border-yellow-200',
+            step: 5, icon: 'fa-solid fa-eye', color: 'bg-yellow-500', borderColor: 'border-yellow-200',
             title: 'コードレビュー・修正',
             cmds: ['# レビューコメントへの対応', 'git add .', 'git commit -m "fix: レビュー対応"', 'git push'],
             note: 'push すると PR が自動更新される',
           },
           {
-            step: 6, icon: '✅', color: 'bg-green-500', borderColor: 'border-green-200',
+            step: 6, icon: 'fa-solid fa-circle-check', color: 'bg-green-500', borderColor: 'border-green-200',
             title: 'main にマージ・ブランチ削除',
             cmds: ['# GitHub の「Merge pull request」をクリック', '# ローカルの後片付け', 'git switch main', 'git pull', 'git branch -d feature/新機能名'],
             note: 'main を最新にして次の作業準備完了！',
@@ -65,7 +65,7 @@ const base = import.meta.env.BASE_URL
               <div class={`w-8 h-8 ${color} rounded-full flex items-center justify-center text-sm text-white font-bold shrink-0`}>
                 {step}
               </div>
-              <div class="text-xl">{icon}</div>
+              <div class="text-xl"><i class={icon} aria-hidden="true"></i></div>
               <h3 class="font-semibold text-gray-900">{title}</h3>
             </div>
             <div class="bg-gray-900 p-4">
@@ -79,7 +79,7 @@ const base = import.meta.env.BASE_URL
               ))}</pre>
             </div>
             <div class="px-5 py-3 bg-gray-50 border-t border-gray-100">
-              <p class="text-gray-600 text-xs">💡 {note}</p>
+              <p class="text-gray-600 text-xs"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> {note}</p>
             </div>
           </div>
         ))}
@@ -93,7 +93,7 @@ const base = import.meta.env.BASE_URL
         {[
           {
             title: '基本操作',
-            icon: '📦',
+            icon: 'fa-solid fa-box-archive',
             items: [
               ['git init', 'リポジトリを初期化'],
               ['git status', '状態を確認'],
@@ -105,7 +105,7 @@ const base = import.meta.env.BASE_URL
           },
           {
             title: 'ブランチ操作',
-            icon: '🌿',
+            icon: 'fa-solid fa-code-branch',
             items: [
               ['git branch', 'ブランチ一覧'],
               ['git switch -c ブランチ名', 'ブランチを作成して移動'],
@@ -117,7 +117,7 @@ const base = import.meta.env.BASE_URL
           },
           {
             title: 'リモート操作',
-            icon: '🐙',
+            icon: 'fa-brands fa-github',
             items: [
               ['git clone URL', 'クローン'],
               ['git remote add origin URL', 'リモートを追加'],
@@ -129,7 +129,7 @@ const base = import.meta.env.BASE_URL
           },
           {
             title: '取り消し操作',
-            icon: '↩️',
+            icon: 'fa-solid fa-rotate-left',
             items: [
               ['git restore ファイル名', '変更を取り消し（危険）'],
               ['git restore --staged ファイル名', 'ステージングを取り消し'],
@@ -142,7 +142,7 @@ const base = import.meta.env.BASE_URL
         ].map(({ title, icon, items }) => (
           <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             <div class="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center gap-2">
-              <span>{icon}</span>
+              <span><i class={icon} aria-hidden="true"></i></span>
               <h3 class="font-semibold text-gray-900 text-sm">{title}</h3>
               <span class={badge.cmd}>コマンド</span>
             </div>
@@ -194,13 +194,13 @@ const base = import.meta.env.BASE_URL
       <h2 class="text-2xl font-bold text-gray-900 mb-6">学習のまとめ</h2>
       <div class="grid md:grid-cols-2 gap-4">
         {[
-          { href: `${base}basics`, icon: '📦', title: 'Git の基本', desc: 'init / add / commit' },
-          { href: `${base}branch`, icon: '🌿', title: 'ブランチ', desc: 'switch / merge / conflict' },
-          { href: `${base}github`, icon: '🐙', title: 'GitHub', desc: 'push / pull / clone' },
-          { href: `${base}pullrequest`, icon: '🔀', title: 'プルリクエスト', desc: 'PR / review / merge' },
+          { href: `${base}basics`, icon: 'fa-solid fa-box-archive', title: 'Git の基本', desc: 'init / add / commit' },
+          { href: `${base}branch`, icon: 'fa-solid fa-code-branch', title: 'ブランチ', desc: 'switch / merge / conflict' },
+          { href: `${base}github`, icon: 'fa-brands fa-github', title: 'GitHub', desc: 'push / pull / clone' },
+          { href: `${base}pullrequest`, icon: 'fa-solid fa-code-pull-request', title: 'プルリクエスト', desc: 'PR / review / merge' },
         ].map(({ href, icon, title, desc }) => (
           <a href={href} class="flex items-center gap-4 bg-white rounded-xl p-4 hover:bg-gray-50 transition-colors border border-gray-200 shadow-sm">
-            <span class="text-2xl">{icon}</span>
+            <span class="text-2xl"><i class={icon} aria-hidden="true"></i></span>
             <div>
               <p class="font-semibold text-gray-900 text-sm">{title}</p>
               <p class="text-gray-500 text-xs">{desc}</p>

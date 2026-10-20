@@ -4,6 +4,8 @@ import PageHeader from '../components/PageHeader.astro'
 import PageEnd from '../components/PageEnd.astro'
 import Callout from '../components/Callout.astro'
 import Terminal from '../components/Terminal.astro'
+import Figure from '../components/Figure.astro'
+import newRepo from '../assets/images/github/github-new-repository.webp'
 import { badge } from '../lib/badge'
 
 const base = import.meta.env.BASE_URL
@@ -25,8 +27,8 @@ const base = import.meta.env.BASE_URL
     <section class="bg-white border border-gray-200 rounded-2xl p-8 mb-12 shadow-sm">
       <h2 class="text-xl font-bold text-gray-900 mb-6">ローカルリポジトリ vs リモートリポジトリ</h2>
       <div class="flex flex-col md:flex-row gap-6 items-center">
-        <div class="flex-1 bg-slate-50 rounded-xl p-6 border border-gray-200">
-          <div class="text-3xl mb-3">💻</div>
+        <div class="w-full md:w-auto md:flex-1 bg-slate-50 rounded-xl p-6 border border-gray-200">
+          <div class="text-3xl mb-3"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></div>
           <div class="flex items-center gap-2 mb-2">
             <h3 class="font-bold text-gray-900">ローカルリポジトリ</h3>
             <span class={badge.term}>用語</span>
@@ -36,19 +38,21 @@ const base = import.meta.env.BASE_URL
             <code class="text-orange-600 text-xs bg-orange-50 px-1 rounded border border-orange-200">git init</code> で作った場所。
           </p>
         </div>
-        <div class="flex flex-col items-center gap-2 text-sm text-gray-500">
-          <div class="flex items-center gap-1 text-green-600">
+        <!-- ローカル → リモートが push、リモート → ローカルが pull。横並びでは →/←、縦並び（スマホ）では ↓/↑ -->
+        <div class="flex flex-row md:flex-col items-center gap-4 md:gap-3 text-sm font-semibold">
+          <div class="flex items-center gap-1.5 text-green-600">
             <span>push</span>
-            <span class="text-xl">↑</span>
+            <span class="text-xl leading-none md:hidden" aria-hidden="true">↓</span>
+            <span class="text-xl leading-none hidden md:inline" aria-hidden="true">→</span>
           </div>
-          <div class="text-xl">⟷</div>
-          <div class="flex items-center gap-1 text-blue-600">
-            <span class="text-xl">↓</span>
+          <div class="flex items-center gap-1.5 text-blue-600">
+            <span class="text-xl leading-none md:hidden" aria-hidden="true">↑</span>
+            <span class="text-xl leading-none hidden md:inline" aria-hidden="true">←</span>
             <span>pull</span>
           </div>
         </div>
-        <div class="flex-1 bg-slate-50 rounded-xl p-6 border border-purple-200">
-          <div class="text-3xl mb-3">🐙</div>
+        <div class="w-full md:w-auto md:flex-1 bg-slate-50 rounded-xl p-6 border border-purple-200">
+          <div class="text-3xl mb-3"><i class="fa-brands fa-github" aria-hidden="true"></i></div>
           <div class="flex items-center gap-2 mb-2">
             <h3 class="font-bold text-gray-900">リモートリポジトリ（GitHub）</h3>
             <span class={badge.term}>用語</span>
@@ -149,6 +153,12 @@ const base = import.meta.env.BASE_URL
           </div>
         ))}
       </div>
+      <Figure
+        src={newRepo}
+        alt="GitHub の「Create a new repository」画面。Owner とリポジトリ名の入力欄、Description、公開範囲（Public）の選択、右下に緑色の Create repository ボタンがある"
+        caption="リポジトリ作成画面（2026年10月時点）。名前を入れて右下の「Create repository」を押す"
+        class="max-w-xl mx-auto"
+      />
     </section>
 
     <!-- リモートリポジトリを接続 -->

@@ -51,7 +51,7 @@ const after = [
           図解とコマンド例を見ながら、一歩ずつ確実に身につけられます。
         </p>
         <div class="flex flex-wrap gap-3 mb-12">
-          <a href={`${base}what-is-git`} class="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 px-7 py-3.5 font-bold text-white shadow-[0_10px_24px_-8px_rgb(240_81_51/0.7)] hover:shadow-[0_14px_30px_-8px_rgb(240_81_51/0.8)] hover:-translate-y-0.5 transition-all">
+          <a href={`${base}what-is-git`} class="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 px-7 py-3.5 font-bold text-white shadow-[0_10px_24px_-8px_rgb(240_81_51/0.7)] hover:shadow-[0_14px_30px_-8px_rgb(240_81_51/0.8)] hover:brightness-110 transition-all">
             学習を始める
             <Icon name="arrow-right" size={18} class="group-hover:translate-x-1 transition-transform" />
           </a>
@@ -127,7 +127,7 @@ const after = [
     <p class="eyebrow text-gray-400 justify-center w-full mb-6">よく使う Git コマンド</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {commands.map(({ cmd, desc }) => (
-        <div class="card-lift bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+        <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
           <code class="block text-orange-600 text-sm font-mono font-semibold mb-1.5 break-words">{cmd}</code>
           <p class="text-gray-500 text-xs">{desc}</p>
         </div>
